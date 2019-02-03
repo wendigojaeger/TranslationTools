@@ -1,0 +1,35 @@
+﻿using Newtonsoft.Json;
+using System.IO;
+
+namespace WendigoJaeger.TranslationTool.Graphics
+{
+    class GraphicsReader2bppVirtualBoy : IGraphicsReader
+    {
+        [JsonIgnore]
+        public int BytesPerTile => 16;
+
+        [JsonIgnore]
+        public string Name => LibResource.gfx2bppVirtualBoy;
+
+        public Tile Read(Stream stream)
+        {
+            Tile result = Tile.Create();
+
+            byte[] data = new byte[BytesPerTile];
+            stream.Read(data, 0, data.Length);
+
+            for (int i = 0; i < 8; ++i)
+            {
+                int pixelData = (data[2 * i] << 8) | data[2 * i + 1];
+
+                for (int column = 0; column < 8; ++column)
+                {
+                    int bitshift = (16 - ((column + 1) * 2));
+                    result.Data[(i * 8) + column] = (byte)((pixelData & (0x3 << bitshift)) >> bitshift);
+                }
+            }
+
+            return result;
+        }
+    }
+}

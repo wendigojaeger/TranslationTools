@@ -1,0 +1,678 @@
+using WendigoJaeger.TranslationTool.Commands;
+using WendigoJaeger.TranslationTool.Controls;
+using WendigoJaeger.TranslationTool.Data;
+using WendigoJaeger.TranslationTool.Editors;
+using WendigoJaeger.TranslationTool.Extensions;
+using WendigoJaeger.TranslationTool.Extractors;
+using WendigoJaeger.TranslationTool.Outputs.SNES;
+using WendigoJaeger.TranslationTool.Systems;
+using WendigoJaeger.TranslationTool.Undo;
+using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
+namespace WendigoJaeger.TranslationTool
+{
+    public class ProjectTreeSubEntry
+    {
+        public string Name { get; set; }
+        public ImageSource Icon { get; set; }
+        public IEnumerable<UndoObject> List { get; set; }
+    }
+
+    public class ProjectSettingsItemSource : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ProjectSettings projectSettings = value as ProjectSettings;
+            if (projectSettings != null)
+            {
+                return generateItemsSource(projectSettings);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+
+        private IEnumerable<ProjectTreeSubEntry> generateItemsSource(ProjectSettings projectSettings)
+        {
+            yield return new ProjectTreeSubEntry() {
+                Name = Resource.projectHeaderScripts,
+                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.Scripts
+            };
+
+            yield return new ProjectTreeSubEntry() {
+                Name = Resource.projectHeaderGraphics,
+                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.Graphics
+            };
+        }
+    }
+
+    public class ScriptFileProgressAggregator : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ScriptFile scriptFile = value as ScriptFile;
+            if (scriptFile != null)
+            {
+                List<TranslationEntry> result = new List<TranslationEntry>();
+
+                var projectSettings = ((MainWindow)Application.Current.MainWindow).ProjectSettings;
+                if (projectSettings != null)
+                {
+                    foreach(var lang in projectSettings.Project.Lang.Keys)
+                    {
+                        TranslationEntry progress = new TranslationEntry();
+                        progress.State = ScriptEntryState.ToTranslate;
+                        progress.Lang = lang;
+
+                        int[] stateCount = new int[Enum.GetNames(typeof(ScriptEntryState)).Length];
+
+                        foreach (var scriptEntry in scriptFile.Entries)
+                        {
+                            var translation = scriptEntry.GetTranslation(lang);
+                            if (translation != null)
+                            {
+                                stateCount[(int)translation.State] += 1;
+                            }
+                        }
+
+                        if (stateCount[(int)ScriptEntryState.Final] == scriptFile.Entries.Count)
+                        {
+                            progress.State = ScriptEntryState.Final;
+                        }
+                        else
+                        {
+                            if (stateCount[(int)ScriptEntryState.ToTranslate] == 0 && stateCount[(int)ScriptEntryState.InProgress] == 0)
+                            {
+                                progress.State = ScriptEntryState.Review;
+                            }
+                            else if (stateCount[(int)ScriptEntryState.ToTranslate] == scriptFile.Entries.Count)
+                            {
+                                progress.State = ScriptEntryState.ToTranslate;
+                            }
+                            else
+                            {
+                                progress.State = ScriptEntryState.InProgress;
+                            }
+                        }
+
+                        result.Add(progress);
+                    }
+                }
+
+                return result;
+            }
+
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public partial class MainWindow : Window, IUndoAware, INotifyPropertyChanged
+    {
+        private ProjectSettings _projectSettings;
+        private UndoStack _undoStack = new UndoStack();
+        private Type[] _cachedEditorTypes = null;
+        private IEditor _currentEditor = null;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        internal ProjectSettings ProjectSettings
+        {
+            get
+            {
+                return _projectSettings;
+            }
+            set
+            {
+                _projectSettings = value;
+
+                _undoStack.Clear();
+
+                if (_projectSettings != null)
+                {
+                    _projectSettings.UndoPropertyChanged -= onUndoPropertyChanged;
+                    _projectSettings.UndoPropertyChanged += onUndoPropertyChanged;
+
+                    treeViewProject.ItemsSource = new ProjectSettings[] { _projectSettings };
+
+                    comboLanguages.ItemsSource = ProjectSettings.Project.Lang;
+
+                    if (ProjectSettings.Project.Lang.Count > 0)
+                    {
+                        comboLanguages.SelectedIndex = 0;
+                    }
+
+                    onUndoStackChanged(null, null);
+                }
+            }
+        }
+
+        public string CustomWindowTitle
+        {
+            get
+            {
+                if (ProjectSettings != null)
+                {
+                    string dirtyStar = _undoStack.IsDirty ? "*" : string.Empty;
+                    return $"{Resource.mainWindowTitle} - {dirtyStar}{_projectSettings.Project.Name}";
+                }
+                else
+                {
+                    return Resource.mainWindowTitle;
+                }
+            }
+        }
+
+        public bool DisableUndoNotify { get; set; }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_cachedEditorTypes == null)
+            {
+                var editorQuery = from a in AppDomain.CurrentDomain.GetAssemblies()
+                                  from t in a.GetTypes()
+                                  from attribute in t.GetCustomAttributes(typeof(EditorForAttribute), false)
+                                  select t;
+
+                _cachedEditorTypes = editorQuery.ToArray();
+            }
+
+            _undoStack.UndoHistory.CollectionChanged += onUndoStackChanged;
+
+            setBinding(this, TitleProperty, this, nameof(CustomWindowTitle));
+
+            string[] commandLineArgs = Environment.GetCommandLineArgs();
+            if (commandLineArgs.Length >= 2)
+            {
+                openProject(Path.GetFullPath(commandLineArgs[1]));
+            }
+        }
+
+        private void openProject(string path)
+        {
+            ProjectSettings openSettings = ProjectSettings.Load(path);
+            if (openSettings != null)
+            {
+                ProjectSettings = openSettings;
+                ProjectSettings.Path = path;
+            }
+        }
+
+        private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = Resource.filterProjectFile;
+
+            var result = saveDialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                ProjectSettings newProjectSettings = new ProjectSettings();
+
+                newProjectSettings.Project.Name = "Mega Man X2";
+                newProjectSettings.Project.InputFile = "mmx2_original.sfc";
+                newProjectSettings.Project.System = new SNESLoRomSlowRom();
+                newProjectSettings.Project.Lang.Add("fr-FR", new LocalizedProjectSettings() { OutputFile = "mmx2_fr.sfc" });
+                newProjectSettings.Project.Lang.Add("fr-CA", new LocalizedProjectSettings() { OutputFile = "mmx2_qc.sfc" });
+                newProjectSettings.Project.OutputGenerator = new SNESBassOutput();
+
+                string directory = Path.GetDirectoryName(saveDialog.FileName);
+
+                ScriptSettings dialogSettings = new ScriptSettings
+                {
+                    Name = "MainDialog",
+                    SourceRAMAddress = 0x27D800,
+                    DestinationRAMAddress = 0x27D800,
+                    DestinationEndRAMAddress = 0x27FFFF,
+                    Entries = 59,
+                    Terminator = 0x82,
+                    NewLine = 0x80,
+                    SourceTableFile = "script_en.tbl",
+                    TextExtractor = new LittleEndianPointer16TextExtractor()
+                };
+                dialogSettings.Script.Path = Path.Combine(directory, "mmx2_main_dialog.wts");
+                dialogSettings["fr-FR"] = "script_fr.tbl";
+                dialogSettings["fr-CA"] = "script_fr.tbl";
+
+                newProjectSettings.Scripts.Add(dialogSettings);
+
+                GraphicsSettings mainFont = new GraphicsSettings
+                {
+                    RAMAddress = 0x2BC300,
+                    Name = "MainFont"
+                };
+                mainFont["fr-FR"] = "mainfont_fr.gfx";
+                mainFont["fr-CA"] = "mainfont_fr.gfx";
+
+                newProjectSettings.Graphics.Add(mainFont);
+
+                newProjectSettings.Save(saveDialog.FileName);
+
+                ProjectSettings = newProjectSettings;
+                ProjectSettings.Path = saveDialog.FileName;
+            }
+        }
+
+        private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog
+            {
+                Filter = Resource.filterProjectFile
+            };
+
+            var result = openDialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                openProject(openDialog.FileName);
+            }
+        }
+
+        private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void About_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            MessageBox.Show(Resource.mainWindowTitle, Resource.mnuAbout);
+        }
+
+        private void Redo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = _undoStack.CanRedo && ProjectSettings != null;
+        }
+
+        private void Redo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _undoStack.Redo();
+        }
+
+        private void Undo_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = _undoStack.CanUndo && ProjectSettings != null;
+        }
+
+        private void Undo_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            _undoStack.Undo();
+        }
+
+        private void Save_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = _undoStack.CanUndo && ProjectSettings != null;
+        }
+
+        private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ProjectSettings.Save(ProjectSettings.Path);
+            _undoStack.SetLastSaveCommand();
+            onUndoStackChanged(null, null);
+        }
+
+        private void SaveAs_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog
+            {
+                Filter = Resource.filterProjectFile
+            };
+
+            var result = saveDialog.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                ProjectSettings.Save(saveDialog.FileName);
+                ProjectSettings.Path = saveDialog.FileName;
+
+                _undoStack.SetLastSaveCommand();
+
+                onUndoStackChanged(null, null);
+            }
+        }
+
+        private void BuildAndRun_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void BuildAndRun_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Builder builder = new Builder();
+
+            textBoxOutput.Text = string.Empty;
+
+            builder.Reporter.OnLineOutput += onReporterOutput;
+
+            var selectedItem = (KeyValuePair<string, LocalizedProjectSettings>)comboLanguages.SelectedItem;
+
+            builder.Build(selectedItem.Key, ProjectSettings);
+
+            if (!builder.Reporter.HasErrors)
+            {
+                builder.Reporter.Info(Resource.runMessage, ProjectSettings.Project.System.DisplayName(), "bsnes-plus");
+
+                // TODO: Configure this
+                Process emulator = new Process();
+                emulator.StartInfo.FileName = @"C:\Programmation\Traduction\CommonTools\bsnes-plus\bsnes.exe";
+                emulator.StartInfo.WorkingDirectory = Path.GetDirectoryName(ProjectSettings.Path);
+                emulator.StartInfo.Arguments = ProjectSettings.Project.Lang[selectedItem.Key].OutputFile;
+                emulator.Start();
+            }
+        }
+
+        private void AddScript_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddScript_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void AddLanguage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddLanguage_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ProjectSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void ProjectSettings_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void ScriptExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptSettings;
+        }
+
+        private void ScriptExtract_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedScriptSettings = treeViewProject.SelectedItem as ScriptSettings;
+
+            if (selectedScriptSettings != null)
+            {
+                if (selectedScriptSettings.TextExtractor != null)
+                {
+                    selectedScriptSettings.TextExtractor.Extract(ProjectSettings.Project, selectedScriptSettings);
+                }
+            }
+        }
+
+        private void ScriptPrevious_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = false;
+
+            var selectedScriptEntry = treeViewProject.SelectedItem as ScriptEntry;
+            if (selectedScriptEntry != null)
+            {
+                TreeViewItem item = treeViewProject.ItemContainerGenerator.ContainerFromItemRecursive(selectedScriptEntry);
+
+                if (item != null)
+                {
+                    var parent = getTreeViewItemParent(item);
+                    if (parent != null)
+                    {
+                        var currentIndex = ((ScriptSettings)parent.DataContext).Script.Instance.Entries.IndexOf(selectedScriptEntry);
+
+                        e.CanExecute = currentIndex > 0;
+                    }
+                }
+            }
+        }
+
+        private void ScriptPrevious_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedScriptEntry = treeViewProject.SelectedItem as ScriptEntry;
+            if (selectedScriptEntry != null)
+            {
+                TreeViewItem item = treeViewProject.ItemContainerGenerator.ContainerFromItemRecursive(selectedScriptEntry);
+
+                if (item != null)
+                {
+                    var parent = getTreeViewItemParent(item);
+                    if (parent != null)
+                    {
+                        var currentIndex = ((ScriptSettings)parent.DataContext).Script.Instance.Entries.IndexOf(selectedScriptEntry);
+
+                        var newIndex = Math.Max(currentIndex - 1, 0);
+
+                        var nextTreeItem = parent.ItemContainerGenerator.ContainerFromIndex(newIndex) as TreeViewItem;
+                        if (nextTreeItem != null)
+                        {
+                            nextTreeItem.IsSelected = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ScriptNext_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = false;
+
+            var selectedScriptEntry = treeViewProject.SelectedItem as ScriptEntry;
+            if (selectedScriptEntry != null)
+            {
+                TreeViewItem item = treeViewProject.ItemContainerGenerator.ContainerFromItemRecursive(selectedScriptEntry);
+
+                if (item != null)
+                {
+                    var parent = getTreeViewItemParent(item);
+                    if (parent != null)
+                    {
+                        var currentIndex = ((ScriptSettings)parent.DataContext).Script.Instance.Entries.IndexOf(selectedScriptEntry);
+
+                        e.CanExecute = currentIndex < (parent.Items.Count - 1);
+                    }
+                }
+            }
+        }
+
+        private void ScriptNext_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedScriptEntry = treeViewProject.SelectedItem as ScriptEntry;
+            if (selectedScriptEntry != null)
+            {
+                TreeViewItem item = treeViewProject.ItemContainerGenerator.ContainerFromItemRecursive(selectedScriptEntry);
+
+                if (item != null)
+                {
+                    var parent = getTreeViewItemParent(item);
+                    if (parent != null)
+                    {
+                        var currentIndex = ((ScriptSettings)parent.DataContext).Script.Instance.Entries.IndexOf(selectedScriptEntry);
+
+                        var newIndex = Math.Min(currentIndex + 1, parent.Items.Count - 1);
+
+                        var nextTreeItem = parent.ItemContainerGenerator.ContainerFromIndex(newIndex) as TreeViewItem;
+                        if (nextTreeItem != null)
+                        {
+                            nextTreeItem.IsSelected = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ScriptSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptSettings;
+        }
+
+        private void ScriptSettings_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void treeViewProject_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var item = e.NewValue as UndoObject;
+            if (item != null)
+            {
+                showEditor(item);
+            }
+        }
+
+        private void showEditor(UndoObject item)
+        {
+            if (item == null)
+            {
+                return;
+            }
+
+            var editorQuery = from t in _cachedEditorTypes
+                                   from attribute in t.GetCustomAttributes(typeof(EditorForAttribute), false) as EditorForAttribute[]
+                                   where attribute.EditedType.IsAssignableFrom(item.GetType())
+                                   orderby item.GetType() == attribute.EditedType ? 0 : 1
+                                   select t;
+
+            var editorType = editorQuery.FirstOrDefault();
+            if (editorType != null)
+            {
+                IEditor editorInstance = (IEditor)Activator.CreateInstance(editorType);
+
+                if (editorInstance != null)
+                {
+                    editorInstance.ProjectSettings = ProjectSettings;
+                    editorInstance.EditedItem = item;
+                    editorInstance.UpdateStatusBar = onUpdateStatusBar;
+                    editorInstance.Init();
+
+                    editorContent.Content = editorInstance;
+                    _currentEditor = editorInstance;
+                }
+            }
+        }
+
+        private void onUndoPropertyChanged(object sender, UndoPropertyChangedEventArgs e)
+        {
+            if (!DisableUndoNotify)
+            {
+                _undoStack.Execute(new PropertyValueChangedCommand(this, sender, e.PropertyName, e.OldValue, e.NewValue));
+            }
+        }
+
+        private void onUndoStackChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            notifyPropertyChanged(nameof(CustomWindowTitle));
+        }
+
+        private void notifyPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void setBinding(FrameworkElement target, DependencyProperty property, object source, string path)
+        {
+            Binding binding = new Binding
+            {
+                Source = source,
+                Path = new PropertyPath(path),
+                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            };
+
+            target.SetBinding(property, binding);
+        }
+
+        private TreeViewItem getTreeViewItemParent(TreeViewItem item)
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(item);
+            while (!(parent is TreeViewItem) || parent is TreeView)
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent as TreeViewItem;
+        }
+        
+        private void TreeViewProject_KeyUp(object sender, KeyEventArgs e)
+        {
+            var treeViewItem = e.OriginalSource as TreeViewItem;
+            if (treeViewItem != null)
+            {
+                var editableTextBlock = FindVisualChild<EditableTextBlock>(treeViewItem);
+                if (editableTextBlock != null)
+                {
+                    editableTextBlock.OnKeyUp(sender, e);
+                }
+            }
+        }
+
+        private void onReporterOutput(string line)
+        {
+            Dispatcher.InvokeAsync(() => textBoxOutput.Text += line);
+        }
+
+        private void onUpdateStatusBar(string value)
+        {
+            textBlockStatusBar.Text = value;
+        }
+
+        public static T FindVisualChild<T>(DependencyObject obj) where T : DependencyObject
+        {
+            if (obj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+                {
+                    var child = VisualTreeHelper.GetChild(obj, i);
+                    if (child is T)
+                    {
+                        return (T)child;
+                    }
+
+                    T childItem = FindVisualChild<T>(child);
+                    if (childItem != null)
+                    {
+                        return childItem;
+                    }
+                }
+            }
+
+            return null;
+        }
+    }
+}

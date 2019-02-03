@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11BD0994-AF05-495A-98FE-4B3514F6FEAD}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WendigoJaeger.TranslationTool</RootNamespace>
+    <AssemblyName>WendigoJaegerTranslationTool</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WriteableBitmapEx.Wpf, Version=1.5.0.0, Culture=neutral, PublicKeyToken=50375ca6144f1c69, processorArchitecture=MSIL">
+      <HintPath>..\packages\WriteableBitmapEx.1.5.1.0\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands\PropertyValueChangedCommand.cs" />
+    <Compile Include="Controls\CountryStatusListControl.xaml.cs">
+      <DependentUpon>CountryStatusListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditableTextBlock.cs" />
+    <Compile Include="Controls\EnumBindingSourceExtension.cs" />
+    <Compile Include="Controls\GraphicsPreviewControl.xaml.cs">
+      <DependentUpon>GraphicsPreviewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RelativePathPickerControl.xaml.cs">
+      <DependentUpon>RelativePathPickerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\CultureInfoConverters.cs" />
+    <Compile Include="Converters\ScriptEntryStateConverter.cs" />
+    <Compile Include="Editors\BaseEditor.cs" />
+    <Compile Include="Editors\GraphicsEditor.xaml.cs">
+      <DependentUpon>GraphicsEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\ScriptEntryEditor.xaml.cs">
+      <DependentUpon>ScriptEntryEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\ScriptSettingsEditor.xaml.cs">
+      <DependentUpon>ScriptSettingsEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\ISystemExtension.cs" />
+    <Compile Include="Extensions\ItemContainerGeneratorExtension.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resource.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.fr.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resource.ja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.ja.resx</DependentUpon>
+    </Compile>
+    <Page Include="Controls\CountryStatusListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GraphicsPreviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RelativePathPickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\GraphicsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\ScriptEntryEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\ScriptSettingsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CustomCommands.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.ja.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.ja.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LibWendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool.csproj">
+      <Project>{45462ce3-92e2-417d-a578-098b2a456322}</Project>
+      <Name>LibWendigoJaegerTranslationTool</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\GraphicsIcon.png" />
+    <Resource Include="Images\ScriptSettingsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Flags\ad.png" />
+    <Resource Include="Images\Flags\ae.png" />
+    <Resource Include="Images\Flags\af.png" />
+    <Resource Include="Images\Flags\ag.png" />
+    <Resource Include="Images\Flags\ai.png" />
+    <Resource Include="Images\Flags\al.png" />
+    <Resource Include="Images\Flags\am.png" />
+    <Resource Include="Images\Flags\an.png" />
+    <Resource Include="Images\Flags\ao.png" />
+    <Resource Include="Images\Flags\ar.png" />
+    <Resource Include="Images\Flags\as.png" />
+    <Resource Include="Images\Flags\at.png" />
+    <Resource Include="Images\Flags\au.png" />
+    <Resource Include="Images\Flags\aw.png" />
+    <Resource Include="Images\Flags\ax.png" />
+    <Resource Include="Images\Flags\az.png" />
+    <Resource Include="Images\Flags\ba.png" />
+    <Resource Include="Images\Flags\bb.png" />
+    <Resource Include="Images\Flags\bd.png" />
+    <Resource Include="Images\Flags\be.png" />
+    <Resource Include="Images\Flags\bf.png" />
+    <Resource Include="Images\Flags\bg.png" />
+    <Resource Include="Images\Flags\bh.png" />
+    <Resource Include="Images\Flags\bi.png" />
+    <Resource Include="Images\Flags\bj.png" />
+    <Resource Include="Images\Flags\bm.png" />
+    <Resource Include="Images\Flags\bn.png" />
+    <Resource Include="Images\Flags\bo.png" />
+    <Resource Include="Images\Flags\br.png" />
+    <Resource Include="Images\Flags\bs.png" />
+    <Resource Include="Images\Flags\bt.png" />
+    <Resource Include="Images\Flags\bv.png" />
+    <Resource Include="Images\Flags\bw.png" />
+    <Resource Include="Images\Flags\by.png" />
+    <Resource Include="Images\Flags\bz.png" />
+    <Resource Include="Images\Flags\ca.png" />
+    <Resource Include="Images\Flags\cc.png" />
+    <Resource Include="Images\Flags\cd.png" />
+    <Resource Include="Images\Flags\cf.png" />
+    <Resource Include="Images\Flags\cg.png" />
+    <Resource Include="Images\Flags\ch.png" />
+    <Resource Include="Images\Flags\ci.png" />
+    <Resource Include="Images\Flags\ck.png" />
+    <Resource Include="Images\Flags\cl.png" />
+    <Resource Include="Images\Flags\cm.png" />
+    <Resource Include="Images\Flags\cn.png" />
+    <Resource Include="Images\Flags\co.png" />
+    <Resource Include="Images\Flags\cr.png" />
+    <Resource Include="Images\Flags\cs.png" />
+    <Resource Include="Images\Flags\cu.png" />
+    <Resource Include="Images\Flags\cv.png" />
+    <Resource Include="Images\Flags\cx.png" />
+    <Resource Include="Images\Flags\cy.png" />
+    <Resource Include="Images\Flags\cz.png" />
+    <Resource Include="Images\Flags\de.png" />
+    <Resource Include="Images\Flags\dj.png" />
+    <Resource Include="Images\Flags\dk.png" />
+    <Resource Include="Images\Flags\dm.png" />
+    <Resource Include="Images\Flags\do.png" />
+    <Resource Include="Images\Flags\dz.png" />
+    <Resource Include="Images\Flags\ec.png" />
+    <Resource Include="Images\Flags\ee.png" />
+    <Resource Include="Images\Flags\eg.png" />
+    <Resource Include="Images\Flags\eh.png" />
+    <Resource Include="Images\Flags\er.png" />
+    <Resource Include="Images\Flags\es.png" />
+    <Resource Include="Images\Flags\et.png" />
+    <Resource Include="Images\Flags\fam.png" />
+    <Resource Include="Images\Flags\fi.png" />
+    <Resource Include="Images\Flags\fj.png" />
+    <Resource Include="Images\Flags\fk.png" />
+    <Resource Include="Images\Flags\fm.png" />
+    <Resource Include="Images\Flags\fo.png" />
+    <Resource Include="Images\Flags\fr.png" />
+    <Resource Include="Images\Flags\ga.png" />
+    <Resource Include="Images\Flags\gb.png" />
+    <Resource Include="Images\Flags\gd.png" />
+    <Resource Include="Images\Flags\ge.png" />
+    <Resource Include="Images\Flags\gf.png" />
+    <Resource Include="Images\Flags\gh.png" />
+    <Resource Include="Images\Flags\gi.png" />
+    <Resource Include="Images\Flags\gl.png" />
+    <Resource Include="Images\Flags\gm.png" />
+    <Resource Include="Images\Flags\gn.png" />
+    <Resource Include="Images\Flags\gp.png" />
+    <Resource Include="Images\Flags\gq.png" />
+    <Resource Include="Images\Flags\gr.png" />
+    <Resource Include="Images\Flags\gs.png" />
+    <Resource Include="Images\Flags\gt.png" />
+    <Resource Include="Images\Flags\gu.png" />
+    <Resource Include="Images\Flags\gw.png" />
+    <Resource Include="Images\Flags\gy.png" />
+    <Resource Include="Images\Flags\hk.png" />
+    <Resource Include="Images\Flags\hm.png" />
+    <Resource Include="Images\Flags\hn.png" />
+    <Resource Include="Images\Flags\hr.png" />
+    <Resource Include="Images\Flags\ht.png" />
+    <Resource Include="Images\Flags\hu.png" />
+    <Resource Include="Images\Flags\id.png" />
+    <Resource Include="Images\Flags\ie.png" />
+    <Resource Include="Images\Flags\il.png" />
+    <Resource Include="Images\Flags\in.png" />
+    <Resource Include="Images\Flags\io.png" />
+    <Resource Include="Images\Flags\iq.png" />
+    <Resource Include="Images\Flags\ir.png" />
+    <Resource Include="Images\Flags\is.png" />
+    <Resource Include="Images\Flags\it.png" />
+    <Resource Include="Images\Flags\jm.png" />
+    <Resource Include="Images\Flags\jo.png" />
+    <Resource Include="Images\Flags\jp.png" />
+    <Resource Include="Images\Flags\ke.png" />
+    <Resource Include="Images\Flags\kg.png" />
+    <Resource Include="Images\Flags\kh.png" />
+    <Resource Include="Images\Flags\ki.png" />
+    <Resource Include="Images\Flags\km.png" />
+    <Resource Include="Images\Flags\kn.png" />
+    <Resource Include="Images\Flags\kp.png" />
+    <Resource Include="Images\Flags\kr.png" />
+    <Resource Include="Images\Flags\kw.png" />
+    <Resource Include="Images\Flags\ky.png" />
+    <Resource Include="Images\Flags\kz.png" />
+    <Resource Include="Images\Flags\la.png" />
+    <Resource Include="Images\Flags\lb.png" />
+    <Resource Include="Images\Flags\lc.png" />
+    <Resource Include="Images\Flags\li.png" />
+    <Resource Include="Images\Flags\lk.png" />
+    <Resource Include="Images\Flags\lr.png" />
+    <Resource Include="Images\Flags\ls.png" />
+    <Resource Include="Images\Flags\lt.png" />
+    <Resource Include="Images\Flags\lu.png" />
+    <Resource Include="Images\Flags\lv.png" />
+    <Resource Include="Images\Flags\ly.png" />
+    <Resource Include="Images\Flags\ma.png" />
+    <Resource Include="Images\Flags\mc.png" />
+    <Resource Include="Images\Flags\md.png" />
+    <Resource Include="Images\Flags\me.png" />
+    <Resource Include="Images\Flags\mg.png" />
+    <Resource Include="Images\Flags\mh.png" />
+    <Resource Include="Images\Flags\mk.png" />
+    <Resource Include="Images\Flags\ml.png" />
+    <Resource Include="Images\Flags\mm.png" />
+    <Resource Include="Images\Flags\mn.png" />
+    <Resource Include="Images\Flags\mo.png" />
+    <Resource Include="Images\Flags\mp.png" />
+    <Resource Include="Images\Flags\mq.png" />
+    <Resource Include="Images\Flags\mr.png" />
+    <Resource Include="Images\Flags\ms.png" />
+    <Resource Include="Images\Flags\mt.png" />
+    <Resource Include="Images\Flags\mu.png" />
+    <Resource Include="Images\Flags\mv.png" />
+    <Resource Include="Images\Flags\mw.png" />
+    <Resource Include="Images\Flags\mx.png" />
+    <Resource Include="Images\Flags\my.png" />
+    <Resource Include="Images\Flags\mz.png" />
+    <Resource Include="Images\Flags\na.png" />
+    <Resource Include="Images\Flags\nc.png" />
+    <Resource Include="Images\Flags\ne.png" />
+    <Resource Include="Images\Flags\nf.png" />
+    <Resource Include="Images\Flags\ng.png" />
+    <Resource Include="Images\Flags\ni.png" />
+    <Resource Include="Images\Flags\nl.png" />
+    <Resource Include="Images\Flags\no.png" />
+    <Resource Include="Images\Flags\np.png" />
+    <Resource Include="Images\Flags\nr.png" />
+    <Resource Include="Images\Flags\nu.png" />
+    <Resource Include="Images\Flags\nz.png" />
+    <Resource Include="Images\Flags\om.png" />
+    <Resource Include="Images\Flags\pa.png" />
+    <Resource Include="Images\Flags\pe.png" />
+    <Resource Include="Images\Flags\pf.png" />
+    <Resource Include="Images\Flags\pg.png" />
+    <Resource Include="Images\Flags\ph.png" />
+    <Resource Include="Images\Flags\pk.png" />
+    <Resource Include="Images\Flags\pl.png" />
+    <Resource Include="Images\Flags\pm.png" />
+    <Resource Include="Images\Flags\pn.png" />
+    <Resource Include="Images\Flags\pr.png" />
+    <Resource Include="Images\Flags\ps.png" />
+    <Resource Include="Images\Flags\pt.png" />
+    <Resource Include="Images\Flags\pw.png" />
+    <Resource Include="Images\Flags\py.png" />
+    <Resource Include="Images\Flags\qa.png" />
+    <Resource Include="Images\Flags\re.png" />
+    <Resource Include="Images\Flags\ro.png" />
+    <Resource Include="Images\Flags\rs.png" />
+    <Resource Include="Images\Flags\ru.png" />
+    <Resource Include="Images\Flags\rw.png" />
+    <Resource Include="Images\Flags\sa.png" />
+    <Resource Include="Images\Flags\sb.png" />
+    <Resource Include="Images\Flags\sc.png" />
+    <Resource Include="Images\Flags\sd.png" />
+    <Resource Include="Images\Flags\se.png" />
+    <Resource Include="Images\Flags\sg.png" />
+    <Resource Include="Images\Flags\sh.png" />
+    <Resource Include="Images\Flags\si.png" />
+    <Resource Include="Images\Flags\sj.png" />
+    <Resource Include="Images\Flags\sk.png" />
+    <Resource Include="Images\Flags\sl.png" />
+    <Resource Include="Images\Flags\sm.png" />
+    <Resource Include="Images\Flags\sn.png" />
+    <Resource Include="Images\Flags\so.png" />
+    <Resource Include="Images\Flags\sr.png" />
+    <Resource Include="Images\Flags\st.png" />
+    <Resource Include="Images\Flags\sv.png" />
+    <Resource Include="Images\Flags\sy.png" />
+    <Resource Include="Images\Flags\sz.png" />
+    <Resource Include="Images\Flags\tc.png" />
+    <Resource Include="Images\Flags\td.png" />
+    <Resource Include="Images\Flags\tf.png" />
+    <Resource Include="Images\Flags\tg.png" />
+    <Resource Include="Images\Flags\th.png" />
+    <Resource Include="Images\Flags\tj.png" />
+    <Resource Include="Images\Flags\tk.png" />
+    <Resource Include="Images\Flags\tl.png" />
+    <Resource Include="Images\Flags\tm.png" />
+    <Resource Include="Images\Flags\tn.png" />
+    <Resource Include="Images\Flags\to.png" />
+    <Resource Include="Images\Flags\tr.png" />
+    <Resource Include="Images\Flags\tt.png" />
+    <Resource Include="Images\Flags\tv.png" />
+    <Resource Include="Images\Flags\tw.png" />
+    <Resource Include="Images\Flags\tz.png" />
+    <Resource Include="Images\Flags\ua.png" />
+    <Resource Include="Images\Flags\ug.png" />
+    <Resource Include="Images\Flags\um.png" />
+    <Resource Include="Images\Flags\us.png" />
+    <Resource Include="Images\Flags\uy.png" />
+    <Resource Include="Images\Flags\uz.png" />
+    <Resource Include="Images\Flags\va.png" />
+    <Resource Include="Images\Flags\vc.png" />
+    <Resource Include="Images\Flags\ve.png" />
+    <Resource Include="Images\Flags\vg.png" />
+    <Resource Include="Images\Flags\vi.png" />
+    <Resource Include="Images\Flags\vn.png" />
+    <Resource Include="Images\Flags\vu.png" />
+    <Resource Include="Images\Flags\wales.png" />
+    <Resource Include="Images\Flags\wf.png" />
+    <Resource Include="Images\Flags\ws.png" />
+    <Resource Include="Images\Flags\ye.png" />
+    <Resource Include="Images\Flags\yt.png" />
+    <Resource Include="Images\Flags\za.png" />
+    <Resource Include="Images\Flags\zm.png" />
+    <Resource Include="Images\Flags\zw.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ProjectIcon.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

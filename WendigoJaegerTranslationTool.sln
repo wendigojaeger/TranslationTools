@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WendigoJaegerTranslationTool", "WendigoJaegerTranslationTool\WendigoJaegerTranslationTool.csproj", "{11BD0994-AF05-495A-98FE-4B3514F6FEAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibWendigoJaegerTranslationTool", "LibWendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool.csproj", "{45462CE3-92E2-417D-A578-098B2A456322}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11BD0994-AF05-495A-98FE-4B3514F6FEAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BD0994-AF05-495A-98FE-4B3514F6FEAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BD0994-AF05-495A-98FE-4B3514F6FEAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BD0994-AF05-495A-98FE-4B3514F6FEAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45462CE3-92E2-417D-A578-098B2A456322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45462CE3-92E2-417D-A578-098B2A456322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45462CE3-92E2-417D-A578-098B2A456322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45462CE3-92E2-417D-A578-098B2A456322}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
