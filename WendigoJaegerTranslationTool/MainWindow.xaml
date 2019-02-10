@@ -18,15 +18,16 @@
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.About" Executed="About_Executed" />
-        <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
-        <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddAssemblyFile" CanExecute="AddAssemblyFile_CanExecute" Executed="AddAssemblyFile_Executed" />
         <CommandBinding Command="local:CustomCommands.AddLanguage" CanExecute="AddLanguage_CanExecute" Executed="AddLanguage_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
+        <CommandBinding Command="local:CustomCommands.BuildAndRun" CanExecute="BuildAndRun_CanExecute" Executed="BuildAndRun_Executed" />
+        <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ProjectSettings" CanExecute="ProjectSettings_CanExecute" Executed="ProjectSettings_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptExtract" CanExecute="ScriptExtract_CanExecute" Executed="ScriptExtract_Executed" />
-        <CommandBinding Command="local:CustomCommands.ScriptPrevious" CanExecute="ScriptPrevious_CanExecute" Executed="ScriptPrevious_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptNext" CanExecute="ScriptNext_CanExecute" Executed="ScriptNext_Executed" />
+        <CommandBinding Command="local:CustomCommands.ScriptPrevious" CanExecute="ScriptPrevious_CanExecute" Executed="ScriptPrevious_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptSettings" CanExecute="ScriptSettings_CanExecute" Executed="ScriptSettings_Executed" />
-        <CommandBinding Command="local:CustomCommands.BuildAndRun" CanExecute="BuildAndRun_CanExecute" Executed="BuildAndRun_Executed" />
         <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
         <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
         <CommandBinding Command="ApplicationCommands.Save" CanExecute="Save_CanExecute" Executed="Save_Executed" />
@@ -63,6 +64,7 @@
             <MenuItem Header="{x:Static i18n:Resource.mnuProject}">
                 <MenuItem Command="local:CustomCommands.AddScript" />
                 <MenuItem Command="local:CustomCommands.AddLanguage" />
+                <MenuItem Command="local:CustomCommands.AddAssemblyFile" />
                 <Separator />
                 <MenuItem Command="local:CustomCommands.ProjectSettings" />
             </MenuItem>
@@ -128,6 +130,9 @@
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type data:GraphicsSettings}">
                         <controls:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" />
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type data:AssemblyFileSettings}">
+                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>
             </TreeView>

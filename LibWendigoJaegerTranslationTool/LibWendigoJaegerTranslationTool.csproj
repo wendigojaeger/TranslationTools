@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Builder.cs" />
+    <Compile Include="Data\AssemblyFileSettings.cs" />
     <Compile Include="Data\LocalizedFilePathEntry.cs" />
     <Compile Include="Graphics\GraphicsReader2bppNeoGeoPocketColor.cs" />
     <Compile Include="Graphics\GraphicsReader2bppVirtualBoy.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Graphics\GraphicsReader2bppNES.cs" />
     <Compile Include="Graphics\GraphicsReader2bppNintendo.cs" />
     <Compile Include="Graphics\Tile.cs" />
+    <Compile Include="Outputs\OutputAssemblyFile.cs" />
     <Compile Include="Outputs\OutputInfo.cs" />
     <Compile Include="Outputs\OutputGenerator.cs" />
     <Compile Include="Outputs\OutputScriptBank.cs" />

@@ -59,6 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ArrayItemAddedCommand.cs" />
+    <Compile Include="Commands\ArrayItemRemovedCommand.cs" />
     <Compile Include="Commands\PropertyValueChangedCommand.cs" />
     <Compile Include="Controls\CountryStatusListControl.xaml.cs">
       <DependentUpon>CountryStatusListControl.xaml</DependentUpon>
@@ -73,6 +75,13 @@
     </Compile>
     <Compile Include="Converters\CultureInfoConverters.cs" />
     <Compile Include="Converters\ScriptEntryStateConverter.cs" />
+    <Compile Include="Creators\ObjectCreator.cs" />
+    <Compile Include="Creators\CreateAssemblyFileSettingsWindow.xaml.cs">
+      <DependentUpon>CreateAssemblyFileSettingsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\AssemblyFileSettingsEditor.xaml.cs">
+      <DependentUpon>AssemblyFileSettingsEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\BaseEditor.cs" />
     <Compile Include="Editors\GraphicsEditor.xaml.cs">
       <DependentUpon>GraphicsEditor.xaml</DependentUpon>
@@ -109,6 +118,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\RelativePathPickerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Creators\CreateAssemblyFileSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\AssemblyFileSettingsEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -436,6 +453,10 @@
   <ItemGroup>
     <Resource Include="Images\ProjectIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AssemblyFileIcon.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -56,6 +56,7 @@ namespace WendigoJaeger.TranslationTool.Data
         private Project _project;
         private UndoObservableCollection<ScriptSettings> _scripts;
         private UndoObservableCollection<GraphicsSettings> _graphics;
+        private UndoObservableCollection<AssemblyFileSettings> _assemblyFileSettings;
 
         public Project Project
         {
@@ -64,6 +65,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_project == null)
                 {
                     _project = new Project();
+                    _project.UndoArrayChanged += arrayProxy;
                     _project.UndoPropertyChanged += undoProxy;
                     _project.PropertyChanged += propertyChangedProxy;
                 }
@@ -76,10 +78,13 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_project != null)
                 {
-                    _project.UndoPropertyChanged -= undoProxy;
-                    _project.PropertyChanged -= propertyChangedProxy;
+                    _project.UndoArrayChanged -= arrayProxy;
+                    _project.UndoArrayChanged += arrayProxy;
 
+                    _project.UndoPropertyChanged -= undoProxy;
                     _project.UndoPropertyChanged += undoProxy;
+
+                    _project.PropertyChanged -= propertyChangedProxy;
                     _project.PropertyChanged += propertyChangedProxy;
                 }
             }
@@ -92,6 +97,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_scripts == null)
                 {
                     _scripts = new UndoObservableCollection<ScriptSettings>();
+                    _scripts.UndoArrayChanged += arrayProxy;
                     _scripts.UndoPropertyChanged += undoProxy;
                 }
 
@@ -103,6 +109,9 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_scripts != null)
                 {
+                    _scripts.UndoArrayChanged -= arrayProxy;
+                    _scripts.UndoArrayChanged += arrayProxy;
+
                     _scripts.UndoPropertyChanged -= undoProxy;
                     _scripts.UndoPropertyChanged += undoProxy;
                 }
@@ -116,6 +125,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_graphics == null)
                 {
                     _graphics = new UndoObservableCollection<GraphicsSettings>();
+                    _graphics.UndoArrayChanged += arrayProxy;
                     _graphics.UndoPropertyChanged += undoProxy;
                 }
 
@@ -127,8 +137,39 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_graphics != null)
                 {
+                    _graphics.UndoArrayChanged -= arrayProxy;
+                    _graphics.UndoArrayChanged += arrayProxy;
+
                     _graphics.UndoPropertyChanged -= undoProxy;
                     _graphics.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public UndoObservableCollection<AssemblyFileSettings> AssemblyFileSettings
+        {
+            get
+            {
+                if (_assemblyFileSettings == null)
+                {
+                    _assemblyFileSettings = new UndoObservableCollection<AssemblyFileSettings>();
+                    _assemblyFileSettings.UndoArrayChanged += arrayProxy;
+                    _assemblyFileSettings.UndoPropertyChanged += undoProxy;
+                }
+
+                return _assemblyFileSettings;
+            }
+            set
+            {
+                _assemblyFileSettings = value;
+
+                if (_assemblyFileSettings != null)
+                {
+                    _assemblyFileSettings.UndoArrayChanged -= arrayProxy;
+                    _assemblyFileSettings.UndoArrayChanged += arrayProxy;
+
+                    _assemblyFileSettings.UndoPropertyChanged -= undoProxy;
+                    _assemblyFileSettings.UndoPropertyChanged += undoProxy;
                 }
             }
         }

@@ -25,6 +25,14 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             }
         }
 
+        public IEnumerable<OutputAssemblyFile> AssemblyFiles
+        {
+            get
+            {
+                return OutputInfo.AssemblyFiles;
+            }
+        }
+
         public string IncludeFileName(OutputScriptBank script)
         {
             return Path.ChangeExtension(script.FileName, ".inc");

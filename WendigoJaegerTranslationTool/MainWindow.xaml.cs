@@ -23,6 +23,8 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WendigoJaeger.TranslationTool.Creators;
+using System.Collections;
 
 namespace WendigoJaeger.TranslationTool
 {
@@ -65,6 +67,12 @@ namespace WendigoJaeger.TranslationTool
                 Name = Resource.projectHeaderGraphics,
                 Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Graphics
+            };
+
+            yield return new ProjectTreeSubEntry() {
+                Name = Resource.projectHeaderCustomAssemblyFIle,
+                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.AssemblyFileSettings
             };
         }
     }
@@ -157,6 +165,9 @@ namespace WendigoJaeger.TranslationTool
 
                 if (_projectSettings != null)
                 {
+                    _projectSettings.UndoArrayChanged -= onUndoArrayChanged;
+                    _projectSettings.UndoArrayChanged += onUndoArrayChanged;
+
                     _projectSettings.UndoPropertyChanged -= onUndoPropertyChanged;
                     _projectSettings.UndoPropertyChanged += onUndoPropertyChanged;
 
@@ -394,14 +405,18 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
-        private void AddScript_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void AddAssemblyFile_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null;
         }
 
-        private void AddScript_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void AddAssemblyFile_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+            var newFileSettings = ObjectCreator.Create<AssemblyFileSettings>(ProjectSettings);
+            if (newFileSettings != null)
+            {
+                ProjectSettings.AssemblyFileSettings.Add(newFileSettings);
+            }
         }
 
         private void AddLanguage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -410,6 +425,16 @@ namespace WendigoJaeger.TranslationTool
         }
 
         private void AddLanguage_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        private void AddScript_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddScript_Executed(object sender, ExecutedRoutedEventArgs e)
         {
 
         }
@@ -545,7 +570,7 @@ namespace WendigoJaeger.TranslationTool
 
         private void ScriptSettings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
+           
         }
 
         private void treeViewProject_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -584,6 +609,28 @@ namespace WendigoJaeger.TranslationTool
 
                     editorContent.Content = editorInstance;
                     _currentEditor = editorInstance;
+                }
+            }
+        }
+
+        private void onUndoArrayChanged(object sender, UndoArrayChangedEventArgs e)
+        {
+            if (!DisableUndoNotify)
+            {
+                var array = sender as IList;
+                if (array != null)
+                {
+                    switch(e.Operation)
+                    {
+                        case UndoArrayChangedEventArgs.OperationType.Add:
+                            _undoStack.Execute(new ArrayItemAddedCommand(this, array, e.Objects));
+                            break;
+                        case UndoArrayChangedEventArgs.OperationType.Remove:
+                            _undoStack.Execute(new ArrayItemRemovedCommand(this, array, e.Objects));
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }

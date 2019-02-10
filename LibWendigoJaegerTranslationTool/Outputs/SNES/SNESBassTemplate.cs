@@ -99,6 +99,27 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             
             #line default
             #line hidden
+            this.Write("\r\n");
+            
+            #line 29 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
+ foreach(var assemblyFile in AssemblyFiles) { 
+            
+            #line default
+            #line hidden
+            this.Write("include \"");
+            
+            #line 30 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(assemblyFile.Path));
+            
+            #line default
+            #line hidden
+            this.Write("\"\r\n");
+            
+            #line 31 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
     }

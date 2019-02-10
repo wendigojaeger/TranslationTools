@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace WendigoJaeger.TranslationTool
 {
-    public class ExternalFile<T> : IUndoPropertyChanged where T : UndoObject, new()
+    public class ExternalFile<T> : IUndoPropertyChanged, IUndoArrayChanged where T : UndoObject, new()
     {
         private T _instance;
 
@@ -30,6 +30,7 @@ namespace WendigoJaeger.TranslationTool
                         _instance = new T();
                     }
 
+                    _instance.UndoArrayChanged += arrayProxy;
                     _instance.UndoPropertyChanged += undoProxy;
                     _instance.PropertyChanged += propertyChangedProxy;
                 }
@@ -38,6 +39,7 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+        public event UndoArrayChangedEventHandler UndoArrayChanged;
         public event UndoPropertyChangedEventHandler UndoPropertyChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -51,6 +53,11 @@ namespace WendigoJaeger.TranslationTool
         {
             Path = System.IO.Path.GetFileName(Path);
             Save();
+        }
+
+        private void arrayProxy(object sender, UndoArrayChangedEventArgs e)
+        {
+            UndoArrayChanged?.Invoke(sender, e);
         }
 
         private void undoProxy(object sender, UndoPropertyChangedEventArgs e)

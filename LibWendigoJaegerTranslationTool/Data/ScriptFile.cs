@@ -117,6 +117,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_translations == null)
                 {
                     _translations = new UndoObservableCollection<TranslationEntry>();
+                    _translations.UndoArrayChanged += arrayProxy;
                     _translations.UndoPropertyChanged += undoProxy;
                 }
 
@@ -128,6 +129,9 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_translations != null)
                 {
+                    _translations.UndoArrayChanged -= arrayProxy;
+                    _translations.UndoArrayChanged += arrayProxy;
+
                     _translations.UndoPropertyChanged -= undoProxy;
                     _translations.UndoPropertyChanged += undoProxy;
                 }
@@ -182,6 +186,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_entries == null)
                 {
                     _entries = new UndoObservableCollection<ScriptEntry>();
+                    _entries.UndoArrayChanged += arrayProxy;
                     _entries.UndoPropertyChanged += undoProxy;
                 }
 
@@ -193,6 +198,9 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_entries != null)
                 {
+                    _entries.UndoArrayChanged -= arrayProxy;
+                    _entries.UndoArrayChanged += arrayProxy;
+
                     _entries.UndoPropertyChanged -= undoProxy;
                     _entries.UndoPropertyChanged += undoProxy;
                 }

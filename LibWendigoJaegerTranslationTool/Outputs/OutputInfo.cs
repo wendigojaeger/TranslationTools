@@ -14,6 +14,8 @@ namespace WendigoJaeger.TranslationTool.Outputs
 
         public List<OutputGraphics> Graphics { get; } = new List<OutputGraphics>();
 
+        public List<OutputAssemblyFile> AssemblyFiles { get; } = new List<OutputAssemblyFile>();
+
         public ISystem System { get; set; }
     }
 }

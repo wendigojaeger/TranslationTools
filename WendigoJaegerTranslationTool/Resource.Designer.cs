@@ -61,6 +61,33 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string buttonCancel {
+            get {
+                return ResourceManager.GetString("buttonCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string buttonOK {
+            get {
+                return ResourceManager.GetString("buttonOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assembly Files (*.asm,*.s)|*.asm;*.s.
+        /// </summary>
+        public static string filterAssemblyFile {
+            get {
+                return ResourceManager.GetString("filterAssemblyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Graphics Data (*.*)|*.*.
         /// </summary>
         public static string filterGraphicsData {
@@ -75,6 +102,24 @@ namespace WendigoJaeger.TranslationTool {
         public static string filterProjectFile {
             get {
                 return ResourceManager.GetString("filterProjectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry Name:.
+        /// </summary>
+        public static string labelEntryName {
+            get {
+                return ResourceManager.GetString("labelEntryName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Path:.
+        /// </summary>
+        public static string labelFilePath {
+            get {
+                return ResourceManager.GetString("labelFilePath", resourceCulture);
             }
         }
         
@@ -178,6 +223,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Assembly File....
+        /// </summary>
+        public static string mnuProjectAddAssemblyFile {
+            get {
+                return ResourceManager.GetString("mnuProjectAddAssemblyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Language....
         /// </summary>
         public static string mnuProjectAddLanguage {
@@ -268,6 +322,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Assembly Files.
+        /// </summary>
+        public static string projectHeaderCustomAssemblyFIle {
+            get {
+                return ResourceManager.GetString("projectHeaderCustomAssemblyFIle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Graphics.
         /// </summary>
         public static string projectHeaderGraphics {
@@ -354,6 +417,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string translationToolTranslation {
             get {
                 return ResourceManager.GetString("translationToolTranslation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Assembly File Settings.
+        /// </summary>
+        public static string windowCreateAssemblyFile {
+            get {
+                return ResourceManager.GetString("windowCreateAssemblyFile", resourceCulture);
             }
         }
     }

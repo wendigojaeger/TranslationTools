@@ -60,6 +60,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_entries == null)
                 {
                     _entries = new UndoObservableCollection<LocalizedFilePathEntry>();
+                    _entries.UndoArrayChanged += arrayProxy;
                     _entries.UndoPropertyChanged += undoProxy;
                 }
 
@@ -71,6 +72,9 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_entries != null)
                 {
+                    _entries.UndoArrayChanged -= arrayProxy;
+                    _entries.UndoArrayChanged += arrayProxy;
+
                     _entries.UndoPropertyChanged -= undoProxy;
                     _entries.UndoPropertyChanged += undoProxy;
                 }

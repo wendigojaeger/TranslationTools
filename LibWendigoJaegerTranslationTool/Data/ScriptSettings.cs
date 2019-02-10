@@ -31,6 +31,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_script == null)
                 {
                     _script = new ExternalFile<ScriptFile>();
+                    _script.UndoArrayChanged += arrayProxy;
                     _script.UndoPropertyChanged += undoProxy;
                 }
 
@@ -42,6 +43,9 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_script != null)
                 {
+                    _script.UndoArrayChanged -= arrayProxy;
+                    _script.UndoArrayChanged += arrayProxy;
+
                     _script.UndoPropertyChanged -= undoProxy;
                     _script.UndoPropertyChanged += undoProxy;
                 }
@@ -71,6 +75,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 if (_targetTableFiles == null)
                 {
                     _targetTableFiles = new UndoObservableCollection<LocalizedFilePathEntry>();
+                    _targetTableFiles.UndoArrayChanged += arrayProxy;
                     _targetTableFiles.UndoPropertyChanged += undoProxy;
                 }
 
@@ -82,6 +87,9 @@ namespace WendigoJaeger.TranslationTool.Data
 
                 if (_targetTableFiles != null)
                 {
+                    _targetTableFiles.UndoArrayChanged -= arrayProxy;
+                    _targetTableFiles.UndoArrayChanged += arrayProxy;
+
                     _targetTableFiles.UndoPropertyChanged -= undoProxy;
                     _targetTableFiles.UndoPropertyChanged += undoProxy;
                 }

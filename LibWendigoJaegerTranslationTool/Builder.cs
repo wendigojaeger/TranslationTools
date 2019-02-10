@@ -15,7 +15,7 @@ namespace WendigoJaeger.TranslationTool
                 BuildDirectory = Path.GetDirectoryName(settings.Path),
                 System = settings.Project.System,
                 InputFile = settings.Project.InputFile,
-                OutputFile = settings.Project.Lang[targetLanguage].OutputFile
+                OutputFile = settings.Project.Lang[targetLanguage].OutputFile,
             };
 
             foreach (var script in settings.Scripts)
@@ -48,6 +48,11 @@ namespace WendigoJaeger.TranslationTool
                 };
 
                 outputInfo.Graphics.Add(outputGraphics);
+            }
+
+            foreach(var assemblyFile in settings.AssemblyFileSettings)
+            {
+                outputInfo.AssemblyFiles.Add(new OutputAssemblyFile() { Path = assemblyFile.FilePath });
             }
 
             settings.Project.OutputGenerator.Generate(Reporter, outputInfo);

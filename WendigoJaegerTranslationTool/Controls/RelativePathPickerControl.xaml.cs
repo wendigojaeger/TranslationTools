@@ -4,12 +4,15 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System;
 
 namespace WendigoJaeger.TranslationTool.Controls
 {
     public partial class RelativePathPickerControl : UserControl, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public event Action<object, EventArgs> RelativePathChanged;
 
         public static readonly DependencyProperty RelativePathProperty = DependencyProperty.Register(nameof(RelativePath), typeof(string), typeof(RelativePathPickerControl), new UIPropertyMetadata(null));
         public string RelativePath
@@ -23,6 +26,8 @@ namespace WendigoJaeger.TranslationTool.Controls
                 SetValue(RelativePathProperty, value);
 
                 notifyPropertyChanged();
+
+                RelativePathChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 

@@ -25,3 +25,7 @@ include "<#=IncludeFileName(script)#>"
 seek($<#=gfx.RAMAddress.ToString("x")#>)
 insert "<#=gfx.FileName#>"
 <# } #>
+
+<# foreach(var assemblyFile in AssemblyFiles) { #>
+include "<#=assemblyFile.Path#>"
+<# } #>

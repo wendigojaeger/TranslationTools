@@ -17,11 +17,36 @@ namespace WendigoJaeger.TranslationTool.Undo
         }
     }
 
+    public class UndoArrayChangedEventArgs
+    {
+        public enum OperationType
+        {
+            Add,
+            Remove
+        }
+
+        public OperationType Operation { get; private set; }
+        public object[] Objects { get; private set; }
+
+        public UndoArrayChangedEventArgs(OperationType operation, object[] value)
+        {
+            Operation = operation;
+            Objects = value;
+        }
+    }
+
     public delegate void UndoPropertyChangedEventHandler(object sender, UndoPropertyChangedEventArgs e);
+
+    public delegate void UndoArrayChangedEventHandler(object sender, UndoArrayChangedEventArgs e);
 
     public interface IUndoPropertyChanged : INotifyPropertyChanged
     {
         event UndoPropertyChangedEventHandler UndoPropertyChanged;
+    }
+
+    public interface IUndoArrayChanged
+    {
+        event UndoArrayChangedEventHandler UndoArrayChanged;
     }
 
     public interface IUndoAware
@@ -29,8 +54,9 @@ namespace WendigoJaeger.TranslationTool.Undo
         bool DisableUndoNotify { get; set; }
     }
 
-    public class UndoObject : IUndoPropertyChanged
+    public class UndoObject : IUndoPropertyChanged, IUndoArrayChanged
     {
+        public event UndoArrayChangedEventHandler UndoArrayChanged;
         public event UndoPropertyChangedEventHandler UndoPropertyChanged;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,6 +70,11 @@ namespace WendigoJaeger.TranslationTool.Undo
         protected void notifyPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void arrayProxy(object sender, UndoArrayChangedEventArgs e)
+        {
+            UndoArrayChanged?.Invoke(sender, e);
         }
 
         protected void undoProxy(object sender, UndoPropertyChangedEventArgs e)

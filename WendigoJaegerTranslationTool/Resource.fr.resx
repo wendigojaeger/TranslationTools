@@ -216,4 +216,28 @@
   <data name="filterProjectFile" xml:space="preserve">
     <value>Projet de Tranduction WendigoJaeger (*.wtp)|*.wtp</value>
   </data>
+  <data name="projectHeaderCustomAssemblyFIle" xml:space="preserve">
+    <value>Fichiers Assembleur</value>
+  </data>
+  <data name="mnuProjectAddAssemblyFile" xml:space="preserve">
+    <value>Ajouter un fichier assembleur...</value>
+  </data>
+  <data name="windowCreateAssemblyFile" xml:space="preserve">
+    <value>Créer une configuration de fichier assembleur</value>
+  </data>
+  <data name="buttonOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="buttonCancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="labelEntryName" xml:space="preserve">
+    <value>Nom de l'entrée:</value>
+  </data>
+  <data name="labelFilePath" xml:space="preserve">
+    <value>Chemin du fichier:</value>
+  </data>
+  <data name="filterAssemblyFile" xml:space="preserve">
+    <value>Fihcier assembleur (*.asm,*.s)|*.asm;*.s</value>
+  </data>
 </root>
