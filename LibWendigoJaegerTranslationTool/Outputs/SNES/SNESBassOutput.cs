@@ -67,7 +67,7 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             foreach (var script in outputInfo.Scripts)
             {
                 File.Delete(Path.Combine(outputInfo.BuildDirectory, Path.ChangeExtension(script.FileName, ".inc")));
-            }
+            } 
         }
 
         private void generateScriptFile(string buildDirectory, OutputScriptBank script)

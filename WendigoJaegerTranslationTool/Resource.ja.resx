@@ -240,4 +240,49 @@
   <data name="filterAssemblyFile" xml:space="preserve">
     <value>Assembly Files (*.asm,*.s)|*.asm;*.s</value>
   </data>
+  <data name="projectHeaderFont" xml:space="preserve">
+    <value>フォント</value>
+  </data>
+  <data name="mnuProjectAddFont" xml:space="preserve">
+    <value>Add Font...</value>
+  </data>
+  <data name="mnuProjectAddGraphics" xml:space="preserve">
+    <value>Add Graphics...</value>
+  </data>
+  <data name="windowCreateFontSettings" xml:space="preserve">
+    <value>Create Font Settings</value>
+  </data>
+  <data name="windowBrowseObject" xml:space="preserve">
+    <value>Browse Objects</value>
+  </data>
+  <data name="labelGraphics" xml:space="preserve">
+    <value>Graphics:</value>
+  </data>
+  <data name="projectHeaderPalettes" xml:space="preserve">
+    <value>調色板</value>
+  </data>
+  <data name="labelFontOffset" xml:space="preserve">
+    <value>Font Offset:</value>
+  </data>
+  <data name="labelCharacterWidth" xml:space="preserve">
+    <value>Character Width:</value>
+  </data>
+  <data name="labelCharacterHeight" xml:space="preserve">
+    <value>Character Height:</value>
+  </data>
+  <data name="labelPalette" xml:space="preserve">
+    <value>調色板:</value>
+  </data>
+  <data name="groupBoxCommonSettings" xml:space="preserve">
+    <value>Common Settings</value>
+  </data>
+  <data name="checkBoxShowByte" xml:space="preserve">
+    <value>Show Byte Value</value>
+  </data>
+  <data name="checkBoxShowGrid" xml:space="preserve">
+    <value>Show Grid</value>
+  </data>
+  <data name="labelFontGraphics" xml:space="preserve">
+    <value>Font Graphics:</value>
+  </data>
 </root>

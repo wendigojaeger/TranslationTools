@@ -21,6 +21,8 @@ namespace WendigoJaeger.TranslationTool
         public static RoutedUICommand AddLanguage = new RoutedUICommand(Resource.mnuProjectAddLanguage, "mnuProjectAddLanguage", typeof(CustomCommands));
         public static RoutedUICommand AddScript = new RoutedUICommand(Resource.mnuProjectAddScript, "mnuProjectAddScript", typeof(CustomCommands));
         public static RoutedUICommand AddAssemblyFile = new RoutedUICommand(Resource.mnuProjectAddAssemblyFile, "mnuProjectAddAssemblyFile", typeof(CustomCommands));
+        public static RoutedUICommand AddFont = new RoutedUICommand(Resource.mnuProjectAddFont, "mnuProjectAddFont", typeof(CustomCommands));
+        public static RoutedUICommand AddGraphics = new RoutedUICommand(Resource.mnuProjectAddGraphics, "mnuProjectAddGraphics", typeof(CustomCommands));
         public static RoutedUICommand BuildAll = new RoutedUICommand(Resource.mnuBuildAll, "mnuBuildAll", typeof(CustomCommands), ShortcutCreator.Create(Key.F7));
         public static RoutedUICommand BuildAndRun = new RoutedUICommand(Resource.mnuBuildAndRun, "mnuBuildAndRun", typeof(CustomCommands), ShortcutCreator.Create(Key.F5));
         public static RoutedUICommand Exit = new RoutedUICommand(Resource.mnuFileExit, "mnuFileExit", typeof(CustomCommands), ShortcutCreator.Create(Key.F4, ModifierKeys.Alt));

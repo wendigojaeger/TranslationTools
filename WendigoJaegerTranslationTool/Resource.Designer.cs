@@ -79,6 +79,24 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Byte Value.
+        /// </summary>
+        public static string checkBoxShowByte {
+            get {
+                return ResourceManager.GetString("checkBoxShowByte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Grid.
+        /// </summary>
+        public static string checkBoxShowGrid {
+            get {
+                return ResourceManager.GetString("checkBoxShowGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assembly Files (*.asm,*.s)|*.asm;*.s.
         /// </summary>
         public static string filterAssemblyFile {
@@ -106,6 +124,33 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Common Settings.
+        /// </summary>
+        public static string groupBoxCommonSettings {
+            get {
+                return ResourceManager.GetString("groupBoxCommonSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Character Height:.
+        /// </summary>
+        public static string labelCharacterHeight {
+            get {
+                return ResourceManager.GetString("labelCharacterHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Character Width:.
+        /// </summary>
+        public static string labelCharacterWidth {
+            get {
+                return ResourceManager.GetString("labelCharacterWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entry Name:.
         /// </summary>
         public static string labelEntryName {
@@ -120,6 +165,42 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelFilePath {
             get {
                 return ResourceManager.GetString("labelFilePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font Graphics:.
+        /// </summary>
+        public static string labelFontGraphics {
+            get {
+                return ResourceManager.GetString("labelFontGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font Offset:.
+        /// </summary>
+        public static string labelFontOffset {
+            get {
+                return ResourceManager.GetString("labelFontOffset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graphics:.
+        /// </summary>
+        public static string labelGraphics {
+            get {
+                return ResourceManager.GetString("labelGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color Palette:.
+        /// </summary>
+        public static string labelPalette {
+            get {
+                return ResourceManager.GetString("labelPalette", resourceCulture);
             }
         }
         
@@ -232,6 +313,24 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Font....
+        /// </summary>
+        public static string mnuProjectAddFont {
+            get {
+                return ResourceManager.GetString("mnuProjectAddFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Graphics....
+        /// </summary>
+        public static string mnuProjectAddGraphics {
+            get {
+                return ResourceManager.GetString("mnuProjectAddGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Language....
         /// </summary>
         public static string mnuProjectAddLanguage {
@@ -331,11 +430,29 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Font.
+        /// </summary>
+        public static string projectHeaderFont {
+            get {
+                return ResourceManager.GetString("projectHeaderFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Graphics.
         /// </summary>
         public static string projectHeaderGraphics {
             get {
                 return ResourceManager.GetString("projectHeaderGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palettes.
+        /// </summary>
+        public static string projectHeaderPalettes {
+            get {
+                return ResourceManager.GetString("projectHeaderPalettes", resourceCulture);
             }
         }
         
@@ -421,11 +538,29 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse Objects.
+        /// </summary>
+        public static string windowBrowseObject {
+            get {
+                return ResourceManager.GetString("windowBrowseObject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Assembly File Settings.
         /// </summary>
         public static string windowCreateAssemblyFile {
             get {
                 return ResourceManager.GetString("windowCreateAssemblyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Font Settings.
+        /// </summary>
+        public static string windowCreateFontSettings {
+            get {
+                return ResourceManager.GetString("windowCreateFontSettings", resourceCulture);
             }
         }
     }

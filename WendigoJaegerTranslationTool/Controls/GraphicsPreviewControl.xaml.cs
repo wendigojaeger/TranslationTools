@@ -1,14 +1,14 @@
-﻿using WendigoJaeger.TranslationTool.Data;
-using WendigoJaeger.TranslationTool.Graphics;
-using System;
+﻿using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using WendigoJaeger.TranslationTool.Converters;
+using WendigoJaeger.TranslationTool.Data;
+using WendigoJaeger.TranslationTool.Graphics;
 
 namespace WendigoJaeger.TranslationTool.Controls
 {
@@ -58,7 +58,7 @@ namespace WendigoJaeger.TranslationTool.Controls
             }
         }
 
-        public static readonly DependencyProperty SelectedZoomFactorProperty = DependencyProperty.Register(nameof(SelectedZoomFactor), typeof(int), typeof(GraphicsPreviewControl), new UIPropertyMetadata(1, onZoomChanged));
+        public static readonly DependencyProperty SelectedZoomFactorProperty = DependencyProperty.Register(nameof(SelectedZoomFactor), typeof(int), typeof(GraphicsPreviewControl), new UIPropertyMetadata(0, onZoomChanged));
         public int SelectedZoomFactor
         {
             get
@@ -78,10 +78,10 @@ namespace WendigoJaeger.TranslationTool.Controls
             InitializeComponent();
         }
 
-        private void UserControl_Initialized(object sender, EventArgs e)
+        private void GraphicsPreviewControl_Loaded(object sender, RoutedEventArgs e)
         {
             comboZoom.ItemsSource = _availableZoomFactors;
-            comboZoom.SelectedItem = 1f;
+            SelectedZoomFactor = 3;
         }
 
         private static void onRefreshImage(DependencyObject source, DependencyPropertyChangedEventArgs e)
@@ -108,63 +108,17 @@ namespace WendigoJaeger.TranslationTool.Controls
 
         private void drawPreview()
         {
-            Color[] palette = new Color[256];
-            //palette[0] = Color.FromArgb(255, 0, 0, 0);
-            //palette[1] = Color.FromArgb(255, (byte)(255f * 0.25f), (byte)(255f * 0.25f), (byte)(255f * 0.25f));
-            //palette[2] = Color.FromArgb(255, (byte)(255f * 0.50f), (byte)(255f * 0.50f), (byte)(255f * 0.50f));
-            //palette[3] = Color.FromArgb(255, 255, 255, 255);
-
+            // TODO: Define palette
+            Color[] palette = new Color[4];
             palette[0] = Color.FromArgb(255, 0, 0, 0);
-            palette[1] = Color.FromArgb(255, 0xF0, 0xF0, 0xF0);
-            palette[2] = Color.FromArgb(255, 0x88, 0xe8, 0xf0);
-            palette[3] = Color.FromArgb(255, 0x03, 0x15, 0x4e);
+            palette[1] = Color.FromArgb(255, 64, 64, 64);
+            palette[2] = Color.FromArgb(255, 128, 128, 128);
+            palette[3] = Color.FromArgb(255, 255, 255, 255);
 
-            for (int i = 4; i < palette.Length; ++i)
+            _graphicsSource = TileGraphicsConverter.ConvertToWpfBitmap(ProjectSettings.GetAbsolutePath(ImageRelativePath), GraphicsReader, palette);
+
+            if (_graphicsSource != null)
             {
-                palette[i] = Colors.Black;
-            }
-
-            using (FileStream file = File.OpenRead(ProjectSettings.GetAbsolutePath(ImageRelativePath)))
-            {
-                var fileSize = file.Length;
-
-                int tileCount = (int)fileSize / GraphicsReader.BytesPerTile;
-
-                int tileWidth = 16;
-                int tileHeight = tileCount / 16;
-
-                _graphicsSource = BitmapFactory.New(tileWidth * 8, tileHeight * 8);
-                _graphicsSource.Lock();
-
-                for (int tile = 0; tile < tileCount; tile++)
-                {
-                    int tileX = tile % 16;
-                    int tileY = tile / 16;
-
-                    var tileData = GraphicsReader.Read(file);
-
-                    for (int y = 0; y < 8; ++y)
-                    {
-                        int finalY = tileY * 8 + y;
-
-                        int tileDataStride = y * 8;
-
-                        for (int x = 0; x < 8; ++x)
-                        {
-                            int finalX = tileX * 8 + x;
-
-                            int paletteIndex = tileData.Data[tileDataStride + x];
-
-                            if (finalX < _graphicsSource.Width && finalY < _graphicsSource.Height)
-                            {
-                                _graphicsSource.SetPixel(finalX, finalY, palette[paletteIndex]);
-                            }
-                        }
-                    }
-                }
-
-                _graphicsSource.Unlock();
-
                 imageTarget.Width = _graphicsSource.Width;
                 imageTarget.Height = _graphicsSource.Height;
                 imageTarget.Source = _graphicsSource;

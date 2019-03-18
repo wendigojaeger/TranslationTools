@@ -46,6 +46,11 @@
   <ItemGroup>
     <Compile Include="Builder.cs" />
     <Compile Include="Data\AssemblyFileSettings.cs" />
+    <Compile Include="Data\FontSettings.cs" />
+    <Compile Include="Data\Palette.cs" />
+    <Compile Include="ReferenceDatabase.cs" />
+    <Compile Include="RefObject.cs" />
+    <Compile Include="Data\TextPreviewInfo.cs" />
     <Compile Include="Data\LocalizedFilePathEntry.cs" />
     <Compile Include="Graphics\GraphicsReader2bppNeoGeoPocketColor.cs" />
     <Compile Include="Graphics\GraphicsReader2bppVirtualBoy.cs" />
@@ -85,6 +90,7 @@
     <Compile Include="ExternalFile.cs" />
     <Compile Include="Extractors\ITextExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefObjectPtr.cs" />
     <Compile Include="Reporter.cs" />
     <Compile Include="LibResource.Designer.cs">
       <AutoGen>True</AutoGen>

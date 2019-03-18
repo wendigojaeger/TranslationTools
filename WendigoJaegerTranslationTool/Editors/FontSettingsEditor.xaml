@@ -1,0 +1,66 @@
+﻿<local:BaseFontSettingsEditor x:Class="WendigoJaeger.TranslationTool.Editors.FontSettingsEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Editors"
+             xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
+             xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+             xmlns:data="clr-namespace:WendigoJaeger.TranslationTool.Data;assembly=LibWendigoJaegerTranslationTool"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="parentEditor">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="{x:Static i18n:Resource.groupBoxCommonSettings}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                
+                <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelFontOffset}" HorizontalAlignment="Right"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Offset}"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Content="{x:Static i18n:Resource.labelCharacterWidth}" HorizontalAlignment="Right" />
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CharacterWidth}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Content="{x:Static i18n:Resource.labelCharacterHeight}" HorizontalAlignment="Right" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CharacterHeight}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelFontGraphics}" HorizontalAlignment="Right" />
+                <controls:RefObjectPtrControl x:Name="graphicsPicker" Grid.Row="3" Grid.Column="1" RefObjectType="{x:Type data:GraphicsSettings}" />
+                
+                <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelPalette}" HorizontalAlignment="Right" />
+                <controls:RefObjectPtrControl x:Name="palettePicker" Grid.Row="4" Grid.Column="1" RefObjectType="{x:Type data:Palette}" />
+            </Grid>
+        </GroupBox>
+
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+        <Grid Grid.Row="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="24" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <CheckBox VerticalAlignment="Center" Content="{x:Static i18n:Resource.checkBoxShowGrid}" IsChecked="{Binding ElementName=fontEditor, Path=ShowGrid}" />
+                <CheckBox VerticalAlignment="Center" Content="{x:Static i18n:Resource.checkBoxShowByte}" IsChecked="{Binding ElementName=fontEditor,Path=ShowByteValue}" Margin="5,0,0,0"/>
+            </StackPanel>
+            <ScrollViewer Grid.Row="1" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+                <controls:FontEditorControl x:Name="fontEditor" HorizontalAlignment="Center" VerticalAlignment="Center" FontPath="{Binding ElementName=parentEditor, Path=GraphicsPath}" GraphicsReader="{Binding ElementName=parentEditor, Path=GraphicsReader}" FontSettings="{Binding ElementName=parentEditor, Path=Instance}" />
+            </ScrollViewer>
+            <ComboBox x:Name="comboZoom" Grid.Row="2" SelectedIndex="{Binding ElementName=fontEditor, Path=SelectedZoomFactor, Mode=TwoWay}" ItemStringFormat="P" ItemsSource="{Binding ElementName=fontEditor, Path=AvailableZoomFactors}"/>
+        </Grid>
+    </Grid>
+</local:BaseFontSettingsEditor>

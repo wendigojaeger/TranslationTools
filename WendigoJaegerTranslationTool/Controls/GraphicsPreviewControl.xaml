@@ -3,24 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Controls"
-             xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
-             mc:Ignorable="d" Initialized="UserControl_Initialized" x:Name="parentControl">
+             mc:Ignorable="d" x:Name="parentControl" Loaded="GraphicsPreviewControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
             <Image x:Name="imageTarget" RenderOptions.BitmapScalingMode="NearestNeighbor" />
         </ScrollViewer>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="55" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Content="{x:Static i18n:Resource.labelZoom}" Grid.Column="0" HorizontalAlignment="Right"/>
-            <ComboBox x:Name="comboZoom" Grid.Column="1" SelectedIndex="{Binding ElementName=parentControl, Path=SelectedZoomFactor, Mode=TwoWay}" ItemStringFormat="P" />
-        </Grid>
+        <ComboBox x:Name="comboZoom" Grid.Row="1" SelectedIndex="{Binding ElementName=parentControl, Path=SelectedZoomFactor, Mode=TwoWay}" ItemStringFormat="P" />
     </Grid>
 </UserControl>

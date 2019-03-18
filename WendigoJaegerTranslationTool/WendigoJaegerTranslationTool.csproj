@@ -67,14 +67,22 @@
     </Compile>
     <Compile Include="Controls\EditableTextBlock.cs" />
     <Compile Include="Controls\EnumBindingSourceExtension.cs" />
+    <Compile Include="Controls\FontEditorControl.cs" />
     <Compile Include="Controls\GraphicsPreviewControl.xaml.cs">
       <DependentUpon>GraphicsPreviewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\RefObjectPtrControl.xaml.cs">
+      <DependentUpon>RefObjectPtrControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\RelativePathPickerControl.xaml.cs">
       <DependentUpon>RelativePathPickerControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\CultureInfoConverters.cs" />
     <Compile Include="Converters\ScriptEntryStateConverter.cs" />
+    <Compile Include="Converters\TileGraphicsConverter.cs" />
+    <Compile Include="Creators\CreateFontSettingsWindow.xaml.cs">
+      <DependentUpon>CreateFontSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Creators\ObjectCreator.cs" />
     <Compile Include="Creators\CreateAssemblyFileSettingsWindow.xaml.cs">
       <DependentUpon>CreateAssemblyFileSettingsWindow.xaml</DependentUpon>
@@ -83,6 +91,9 @@
       <DependentUpon>AssemblyFileSettingsEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\BaseEditor.cs" />
+    <Compile Include="Editors\FontSettingsEditor.xaml.cs">
+      <DependentUpon>FontSettingsEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Editors\GraphicsEditor.xaml.cs">
       <DependentUpon>GraphicsEditor.xaml</DependentUpon>
     </Compile>
@@ -94,6 +105,7 @@
     </Compile>
     <Compile Include="Extensions\ISystemExtension.cs" />
     <Compile Include="Extensions\ItemContainerGeneratorExtension.cs" />
+    <Compile Include="Extensions\PaletteExtension.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,11 +121,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.ja.resx</DependentUpon>
     </Compile>
+    <Compile Include="Windows\RefObjectBrowserWindow.xaml.cs">
+      <DependentUpon>RefObjectBrowserWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\CountryStatusListControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\GraphicsPreviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RefObjectPtrControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -125,7 +144,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Creators\CreateFontSettingsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Editors\AssemblyFileSettingsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\FontSettingsEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -154,6 +181,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\RefObjectBrowserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

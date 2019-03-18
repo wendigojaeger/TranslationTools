@@ -57,6 +57,8 @@ namespace WendigoJaeger.TranslationTool.Data
         private UndoObservableCollection<ScriptSettings> _scripts;
         private UndoObservableCollection<GraphicsSettings> _graphics;
         private UndoObservableCollection<AssemblyFileSettings> _assemblyFileSettings;
+        private UndoObservableCollection<FontSettings> _fontSettings;
+        private UndoObservableCollection<Palette> _palettes;
 
         public Project Project
         {
@@ -170,6 +172,62 @@ namespace WendigoJaeger.TranslationTool.Data
 
                     _assemblyFileSettings.UndoPropertyChanged -= undoProxy;
                     _assemblyFileSettings.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public UndoObservableCollection<FontSettings> Fonts
+        {
+            get
+            {
+                if (_fontSettings == null)
+                {
+                    _fontSettings = new UndoObservableCollection<FontSettings>();
+                    _fontSettings.UndoArrayChanged += arrayProxy;
+                    _fontSettings.UndoPropertyChanged += undoProxy;
+                }
+
+                return _fontSettings;
+            }
+            set
+            {
+                _fontSettings = value;
+
+                if (_fontSettings != null)
+                {
+                    _fontSettings.UndoArrayChanged -= arrayProxy;
+                    _fontSettings.UndoArrayChanged += arrayProxy;
+
+                    _fontSettings.UndoPropertyChanged -= undoProxy;
+                    _fontSettings.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public UndoObservableCollection<Palette> Palettes
+        {
+            get
+            {
+                if (_palettes == null)
+                {
+                    _palettes = new UndoObservableCollection<Palette>();
+                    _palettes.UndoArrayChanged += arrayProxy;
+                    _palettes.UndoPropertyChanged += undoProxy;
+                }
+
+                return _palettes;
+            }
+            set
+            {
+                _palettes = value;
+
+                if (_palettes != null)
+                {
+                    _palettes.UndoArrayChanged -= arrayProxy;
+                    _palettes.UndoArrayChanged += arrayProxy;
+
+                    _palettes.UndoPropertyChanged -= undoProxy;
+                    _palettes.UndoPropertyChanged += undoProxy;
                 }
             }
         }

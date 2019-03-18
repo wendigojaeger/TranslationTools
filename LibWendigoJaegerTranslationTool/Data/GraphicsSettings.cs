@@ -4,26 +4,11 @@ using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
 {
-    public class GraphicsSettings : UndoObject
+    public class GraphicsSettings : RefObject
     {
-        private string _name;
         private UndoObservableCollection<LocalizedFilePathEntry> _entries;
         private IGraphicsReader _graphicsReader;
         private long _ramAddress;
-
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                var oldValue = _name;
-                _name = value;
-                notifyPropertyChanged(oldValue, value);
-            }
-        }
 
         public long RAMAddress
         {

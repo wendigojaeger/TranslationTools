@@ -21,6 +21,8 @@
         <CommandBinding Command="local:CustomCommands.AddAssemblyFile" CanExecute="AddAssemblyFile_CanExecute" Executed="AddAssemblyFile_Executed" />
         <CommandBinding Command="local:CustomCommands.AddLanguage" CanExecute="AddLanguage_CanExecute" Executed="AddLanguage_Executed" />
         <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddGraphics" CanExecute="AddGraphics_CanExecute" Executed="AddGraphics_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddFont" CanExecute="AddFont_CanExecute" Executed="AddFont_Executed" />
         <CommandBinding Command="local:CustomCommands.BuildAndRun" CanExecute="BuildAndRun_CanExecute" Executed="BuildAndRun_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ProjectSettings" CanExecute="ProjectSettings_CanExecute" Executed="ProjectSettings_Executed" />
@@ -65,6 +67,8 @@
                 <MenuItem Command="local:CustomCommands.AddScript" />
                 <MenuItem Command="local:CustomCommands.AddLanguage" />
                 <MenuItem Command="local:CustomCommands.AddAssemblyFile" />
+                <MenuItem Command="local:CustomCommands.AddGraphics" />
+                <MenuItem Command="local:CustomCommands.AddFont" />
                 <Separator />
                 <MenuItem Command="local:CustomCommands.ProjectSettings" />
             </MenuItem>
@@ -132,6 +136,9 @@
                         <controls:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" />
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type data:AssemblyFileSettings}">
+                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                    </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type data:FontSettings}">
                         <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
                     </HierarchicalDataTemplate>
                 </TreeView.Resources>

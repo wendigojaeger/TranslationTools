@@ -70,6 +70,19 @@ namespace WendigoJaeger.TranslationTool
             };
 
             yield return new ProjectTreeSubEntry() {
+                Name = Resource.projectHeaderFont,
+                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.Fonts
+            };
+
+            yield return new ProjectTreeSubEntry() {
+                Name = Resource.projectHeaderPalettes,
+                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.Palettes
+            };
+
+            yield return new ProjectTreeSubEntry()
+            {
                 Name = Resource.projectHeaderCustomAssemblyFIle,
                 Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.AssemblyFileSettings
@@ -436,7 +449,39 @@ namespace WendigoJaeger.TranslationTool
 
         private void AddScript_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            var newScript = ObjectCreator.Create<ScriptSettings>(ProjectSettings);
+            if (newScript != null)
+            {
+                ProjectSettings.Scripts.Add(newScript);
+            }
+        }
 
+        private void AddGraphics_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddGraphics_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newGraphics = ObjectCreator.Create<GraphicsSettings>(ProjectSettings);
+            if (newGraphics != null)
+            {
+                ProjectSettings.Graphics.Add(newGraphics);
+            }
+        }
+
+        private void AddFont_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddFont_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newFont = ObjectCreator.Create<FontSettings>(ProjectSettings);
+            if (newFont != null)
+            {
+                ProjectSettings.Fonts.Add(newFont);
+            }
         }
 
         private void ProjectSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)

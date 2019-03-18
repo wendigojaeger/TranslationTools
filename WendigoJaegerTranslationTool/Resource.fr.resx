@@ -240,4 +240,49 @@
   <data name="filterAssemblyFile" xml:space="preserve">
     <value>Fihcier assembleur (*.asm,*.s)|*.asm;*.s</value>
   </data>
+  <data name="projectHeaderFont" xml:space="preserve">
+    <value>Police de caractère</value>
+  </data>
+  <data name="mnuProjectAddFont" xml:space="preserve">
+    <value>Ajouter une police de caractère...</value>
+  </data>
+  <data name="mnuProjectAddGraphics" xml:space="preserve">
+    <value>Ajouter un graphique...</value>
+  </data>
+  <data name="windowCreateFontSettings" xml:space="preserve">
+    <value>Créer une police de caractère</value>
+  </data>
+  <data name="windowBrowseObject" xml:space="preserve">
+    <value>Sélection d'objects</value>
+  </data>
+  <data name="labelGraphics" xml:space="preserve">
+    <value>Graphique:</value>
+  </data>
+  <data name="projectHeaderPalettes" xml:space="preserve">
+    <value>Palettes</value>
+  </data>
+  <data name="labelFontOffset" xml:space="preserve">
+    <value>Décalage de la police:</value>
+  </data>
+  <data name="labelCharacterWidth" xml:space="preserve">
+    <value>Largeur d'un caractère:</value>
+  </data>
+  <data name="labelCharacterHeight" xml:space="preserve">
+    <value>Hauteur d'un caractère:</value>
+  </data>
+  <data name="labelPalette" xml:space="preserve">
+    <value>Palette de couleur:</value>
+  </data>
+  <data name="groupBoxCommonSettings" xml:space="preserve">
+    <value>Paramètres commun</value>
+  </data>
+  <data name="checkBoxShowByte" xml:space="preserve">
+    <value>Afficher la valeur du byte</value>
+  </data>
+  <data name="checkBoxShowGrid" xml:space="preserve">
+    <value>Afficher la grille</value>
+  </data>
+  <data name="labelFontGraphics" xml:space="preserve">
+    <value>Graphique de la police:</value>
+  </data>
 </root>

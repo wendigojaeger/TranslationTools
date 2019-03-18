@@ -22,6 +22,7 @@ namespace WendigoJaeger.TranslationTool
                         TypeNameHandling = TypeNameHandling.All
                     };
                     _serializer.Converters.Add(new StringEnumConverter());
+                    _serializer.Converters.Add(new RefObjectPtrConverter());
                 }
 
                 return _serializer;
