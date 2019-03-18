@@ -193,31 +193,20 @@ namespace WendigoJaeger.TranslationTool.Controls
                     }
                 }
 
-                if (!string.IsNullOrEmpty(control.FontPath)
-                    && control.GraphicsReader != null
-                    && control.FontSettings != null
-                    )
-                {
-                    Color[] palette = new Color[4];
-                    palette[0] = Color.FromArgb(255, 0, 0, 0);
-                    palette[1] = Color.FromArgb(255, 0xF0, 0xF0, 0xF0);
-                    palette[2] = Color.FromArgb(255, 0x88, 0xe8, 0xf0);
-                    palette[3] = Color.FromArgb(255, 0x03, 0x15, 0x4e);
-
-                    //var palette = control.FontSettings.Palette.Instance;
-                    //if (palette != null)
-                    //{
-                    control._fontBitmap = TileGraphicsConverter.ConvertToWpfBitmap(control.FontPath, control.GraphicsReader, palette);
-
-                    control.InvalidateVisual();
-                    //}
-                }
+                control.refreshFontBitmap();
             }
         }
 
         private void FontSettings_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            InvalidateVisual();
+            if (e.PropertyName == nameof(IRefObjectPtr.RefID))
+            {
+                refreshFontBitmap();
+            }
+            else
+            {
+                InvalidateVisual();
+            }
         }
 
         private static void refreshEditor(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -227,6 +216,24 @@ namespace WendigoJaeger.TranslationTool.Controls
             if (control != null)
             {
                 control.InvalidateVisual();
+            }
+        }
+
+        private void refreshFontBitmap()
+        {
+            if (!string.IsNullOrEmpty(FontPath)
+                   && GraphicsReader != null
+                   && FontSettings != null
+                   )
+            {
+                var palette = FontSettings.Palette.Instance;
+                if (palette != null)
+                {
+                    _fontBitmap = TileGraphicsConverter.ConvertToWpfBitmap(FontPath, GraphicsReader, palette.ToWpfColorArray());
+
+                    InvalidateVisual();
+                    InvalidateMeasure();
+                }
             }
         }
 

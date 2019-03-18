@@ -1,12 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace WendigoJaeger.TranslationTool.Undo
 {
-    public class UndoObservableCollection<T> : ObservableCollection<T>, IUndoPropertyChanged, IUndoArrayChanged where T : UndoObject
+    public class UndoObservableCollection<T> : ObservableCollection<T>, IUndoPropertyChanged, IUndoArrayChanged, INotifyPropertyChanged where T : UndoObject
     {
         public event UndoArrayChangedEventHandler UndoArrayChanged;
         public event UndoPropertyChangedEventHandler UndoPropertyChanged;
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
 
         protected override void OnCollectionChanged(NotifyCollectionChangedEventArgs e)
         {
@@ -21,6 +25,9 @@ namespace WendigoJaeger.TranslationTool.Undo
 
                     item.UndoPropertyChanged -= undoPropertyChangedProxy;
                     item.UndoPropertyChanged += undoPropertyChangedProxy;
+
+                    item.PropertyChanged -= propertyChangedProxy;
+                    item.PropertyChanged += propertyChangedProxy;
                 }
 
                 object[] affectedObjects = new object[e.NewItems.Count];
@@ -37,6 +44,7 @@ namespace WendigoJaeger.TranslationTool.Undo
                 {
                     item.UndoArrayChanged -= undoArrayChangedProxy;
                     item.UndoPropertyChanged -= undoPropertyChangedProxy;
+                    item.PropertyChanged -= propertyChangedProxy;
                 }
 
                 object[] affectedObjects = new object[e.OldItems.Count];
@@ -57,6 +65,11 @@ namespace WendigoJaeger.TranslationTool.Undo
         private void undoPropertyChangedProxy(object sender, UndoPropertyChangedEventArgs e)
         {
             UndoPropertyChanged?.Invoke(sender, e);
+        }
+
+        private void propertyChangedProxy(object sender, PropertyChangedEventArgs e)
+        {
+            PropertyChanged?.Invoke(sender, e);
         }
     }
 }

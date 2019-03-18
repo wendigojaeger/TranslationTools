@@ -11,6 +11,8 @@ namespace WendigoJaeger.TranslationTool.Creators
 
         public ProjectSettings ProjectSettings { get; set; }
 
+        public Type ObjectType { get; set; }
+
         public CreateAssemblyFileSettingsWindow()
         {
             InitializeComponent();

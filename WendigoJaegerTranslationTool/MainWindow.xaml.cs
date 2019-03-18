@@ -216,6 +216,14 @@ namespace WendigoJaeger.TranslationTool
 
         public bool DisableUndoNotify { get; set; }
 
+        internal UndoStack UndoStack
+        {
+            get
+            {
+                return _undoStack;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -484,6 +492,20 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+        private void AddPalette_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddPalette_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newPalette = ObjectCreator.Create<Palette>(ProjectSettings);
+            if (newPalette != null)
+            {
+                ProjectSettings.Palettes.Add(newPalette);
+            }
+        }
+
         private void ProjectSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null;
@@ -650,6 +672,7 @@ namespace WendigoJaeger.TranslationTool
                     editorInstance.ProjectSettings = ProjectSettings;
                     editorInstance.EditedItem = item;
                     editorInstance.UpdateStatusBar = onUpdateStatusBar;
+                    editorInstance.MainWindow = this;
                     editorInstance.Init();
 
                     editorContent.Content = editorInstance;

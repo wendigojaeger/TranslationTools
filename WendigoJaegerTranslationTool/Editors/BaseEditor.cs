@@ -21,11 +21,12 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         object EditedItem { get; set; }
         ProjectSettings ProjectSettings { get;  set; }
+        MainWindow MainWindow { get; set; }
 
         void Init();
     }
 
-    public class BaseEditor<T> : UserControl, IEditor where T : UndoObject
+    public class BaseEditor<T> : UserControl, IEditor, IUndoAware where T : UndoObject
     {
         public Action<string> UpdateStatusBar { get; set; }
 
@@ -43,10 +44,32 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         public ProjectSettings ProjectSettings { get; set; }
 
+        public MainWindow MainWindow { get; set; }
+
+        public bool DisableUndoNotify
+        {
+            get
+            {
+                return MainWindow.DisableUndoNotify;
+            }
+            set
+            {
+                MainWindow.DisableUndoNotify = value;
+            }
+        }
+
         protected T Instance { get; private set; }
 
         public virtual void Init()
         {
+        }
+
+        protected void execute(UndoCommand command)
+        {
+            if (!DisableUndoNotify)
+            {
+                MainWindow.UndoStack.Execute(command);
+            }
         }
 
         protected void updateStatusBar(string value)

@@ -36,6 +36,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 {
                     _graphics = new RefObjectPtr<GraphicsSettings>();
                     _graphics.UndoPropertyChanged += undoProxy;
+                    _graphics.PropertyChanged += propertyChangedProxy;
                 }
 
                 return _graphics;
@@ -48,6 +49,9 @@ namespace WendigoJaeger.TranslationTool.Data
                 {
                     _graphics.UndoPropertyChanged -= undoProxy;
                     _graphics.UndoPropertyChanged += undoProxy;
+
+                    _graphics.PropertyChanged -= propertyChangedProxy;
+                    _graphics.PropertyChanged += propertyChangedProxy;
                 }
             }
         }
@@ -60,6 +64,7 @@ namespace WendigoJaeger.TranslationTool.Data
                 {
                     _palette = new RefObjectPtr<Palette>();
                     _palette.UndoPropertyChanged += undoProxy;
+                    _palette.PropertyChanged += propertyChangedProxy;
                 }
 
                 return _palette;
@@ -71,6 +76,9 @@ namespace WendigoJaeger.TranslationTool.Data
                 {
                     _palette.UndoPropertyChanged -= undoProxy;
                     _palette.UndoPropertyChanged += undoProxy;
+
+                    _palette.PropertyChanged -= propertyChangedProxy;
+                    _palette.PropertyChanged += propertyChangedProxy;
                 }
             }
         }

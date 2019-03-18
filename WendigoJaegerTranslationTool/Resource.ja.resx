@@ -220,7 +220,7 @@
     <value>アセンブリファイル</value>
   </data>
   <data name="mnuProjectAddAssemblyFile" xml:space="preserve">
-    <value> アセンブリ ファイルを加える...</value>
+    <value>アセンブリ ファイルを加える...</value>
   </data>
   <data name="windowCreateAssemblyFile" xml:space="preserve">
     <value>アセンブリファイルコンフィグを作る</value>
@@ -284,5 +284,17 @@
   </data>
   <data name="labelFontGraphics" xml:space="preserve">
     <value>Font Graphics:</value>
+  </data>
+  <data name="mnuProjectAddPalette" xml:space="preserve">
+    <value>調色板を加える...</value>
+  </data>
+  <data name="windowGenericCreate" xml:space="preserve">
+    <value>Create {0}</value>
+  </data>
+  <data name="buttonAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="buttonRemove" xml:space="preserve">
+    <value>Remove</value>
   </data>
 </root>

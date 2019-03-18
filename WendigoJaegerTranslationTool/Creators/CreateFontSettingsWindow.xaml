@@ -11,14 +11,14 @@
         Title="{x:Static i18n:Resource.windowCreateFontSettings}" Height="124" Width="465">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="387*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="305*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="26" />
-            <RowDefinition Height="26" />
-            <RowDefinition Height="32" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelEntryName}" HorizontalAlignment="Right"/>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="textName" TextChanged="textName_TextChanged" Grid.ColumnSpan="2" />

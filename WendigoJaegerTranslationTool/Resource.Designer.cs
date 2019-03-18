@@ -61,6 +61,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add.
+        /// </summary>
+        public static string buttonAdd {
+            get {
+                return ResourceManager.GetString("buttonAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string buttonCancel {
@@ -75,6 +84,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string buttonOK {
             get {
                 return ResourceManager.GetString("buttonOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string buttonRemove {
+            get {
+                return ResourceManager.GetString("buttonRemove", resourceCulture);
             }
         }
         
@@ -340,6 +358,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Palette....
+        /// </summary>
+        public static string mnuProjectAddPalette {
+            get {
+                return ResourceManager.GetString("mnuProjectAddPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Script....
         /// </summary>
         public static string mnuProjectAddScript {
@@ -561,6 +588,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string windowCreateFontSettings {
             get {
                 return ResourceManager.GetString("windowCreateFontSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create {0}.
+        /// </summary>
+        public static string windowGenericCreate {
+            get {
+                return ResourceManager.GetString("windowGenericCreate", resourceCulture);
             }
         }
     }

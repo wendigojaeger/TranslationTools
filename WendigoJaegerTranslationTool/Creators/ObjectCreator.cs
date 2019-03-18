@@ -8,6 +8,7 @@ namespace WendigoJaeger.TranslationTool.Creators
     public interface IObjectCreator
     {
         object CreatedObject { get; }
+        Type ObjectType { set; }
         ProjectSettings ProjectSettings { get; set; }
         bool? ShowDialog();
     }
@@ -57,6 +58,7 @@ namespace WendigoJaeger.TranslationTool.Creators
             {
                 IObjectCreator creatorWindow = (IObjectCreator)Activator.CreateInstance(creatorType);
                 creatorWindow.ProjectSettings = projectSettings;
+                creatorWindow.ObjectType = typeof(T);
 
                 var result = creatorWindow.ShowDialog();
                 if (result.HasValue && result.Value)

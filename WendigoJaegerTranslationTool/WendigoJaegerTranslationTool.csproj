@@ -50,8 +50,23 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WriteableBitmapEx.Wpf, Version=1.5.0.0, Culture=neutral, PublicKeyToken=50375ca6144f1c69, processorArchitecture=MSIL">
-      <HintPath>..\packages\WriteableBitmapEx.1.5.1.0\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+    <Reference Include="WriteableBitmapEx.Wpf, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WriteableBitmapEx.1.6.2\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Commands\ArrayItemAddedCommand.cs" />
     <Compile Include="Commands\ArrayItemRemovedCommand.cs" />
+    <Compile Include="Commands\PaletteColorCommand.cs" />
     <Compile Include="Commands\PropertyValueChangedCommand.cs" />
     <Compile Include="Controls\CountryStatusListControl.xaml.cs">
       <DependentUpon>CountryStatusListControl.xaml</DependentUpon>
@@ -83,6 +99,9 @@
     <Compile Include="Creators\CreateFontSettingsWindow.xaml.cs">
       <DependentUpon>CreateFontSettingsWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Creators\GenericCreateWindow.xaml.cs">
+      <DependentUpon>GenericCreateWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Creators\ObjectCreator.cs" />
     <Compile Include="Creators\CreateAssemblyFileSettingsWindow.xaml.cs">
       <DependentUpon>CreateAssemblyFileSettingsWindow.xaml</DependentUpon>
@@ -96,6 +115,9 @@
     </Compile>
     <Compile Include="Editors\GraphicsEditor.xaml.cs">
       <DependentUpon>GraphicsEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\PaletteEditor.xaml.cs">
+      <DependentUpon>PaletteEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Editors\ScriptEntryEditor.xaml.cs">
       <DependentUpon>ScriptEntryEditor.xaml</DependentUpon>
@@ -148,6 +170,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Creators\GenericCreateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Editors\AssemblyFileSettingsEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\GraphicsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\PaletteEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

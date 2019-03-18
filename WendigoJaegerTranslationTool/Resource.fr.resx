@@ -285,4 +285,16 @@
   <data name="labelFontGraphics" xml:space="preserve">
     <value>Graphique de la police:</value>
   </data>
+  <data name="mnuProjectAddPalette" xml:space="preserve">
+    <value>Ajouter une palette...</value>
+  </data>
+  <data name="windowGenericCreate" xml:space="preserve">
+    <value>Créer {0}</value>
+  </data>
+  <data name="buttonAdd" xml:space="preserve">
+    <value>Ajouter</value>
+  </data>
+  <data name="buttonRemove" xml:space="preserve">
+    <value>Enlever</value>
+  </data>
 </root>
