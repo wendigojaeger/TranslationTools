@@ -10,8 +10,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="25" />
+            <ColumnDefinition Width="25" />
         </Grid.ColumnDefinitions>
         <TextBox Grid.Column="0" x:Name="textName" IsReadOnly="True" Text="{Binding ElementName=parentControl, Path=ObjectName}" />
         <Button Grid.Column="1" x:Name="buttonBrowse" Content="..." Click="buttonBrowse_Click" />
+        <Button Grid.Column="2" x:Name="buttonClear" Content="X" Click="buttonClear_Click" />
     </Grid>
 </UserControl>

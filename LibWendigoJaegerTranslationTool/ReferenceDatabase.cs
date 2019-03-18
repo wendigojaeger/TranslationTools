@@ -19,7 +19,10 @@ namespace WendigoJaeger.TranslationTool
 
         public void Register(RefObject obj)
         {
-            _database.Add(obj.ID, obj);
+            if (obj.ID != Guid.Empty)
+            {
+                _database.Add(obj.ID, obj);
+            }
         }
 
         public void Unregister(RefObject obj)
@@ -30,7 +33,7 @@ namespace WendigoJaeger.TranslationTool
         public T Get<T>(Guid id) where T : RefObject
         {
             RefObject result = null;
-            _database.TryGetValue(id, out result); 
+            _database.TryGetValue(id, out result);
             return result as T;
         }
 

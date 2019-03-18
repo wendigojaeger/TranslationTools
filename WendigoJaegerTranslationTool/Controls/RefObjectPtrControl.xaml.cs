@@ -21,6 +21,10 @@ namespace WendigoJaeger.TranslationTool.Controls
                 {
                     return SelectedRefObject.Name;
                 }
+                else if (RefObjectPtr != null)
+                {
+                    return RefObjectPtr.ObjectName;
+                }
 
                 return string.Empty;
             }
@@ -40,6 +44,19 @@ namespace WendigoJaeger.TranslationTool.Controls
                 SetValue(SelectedRefObjectProperty, value);
 
                 SelectedRefObjectChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public static readonly DependencyProperty RefObjectPtrProperty = DependencyProperty.Register(nameof(RefObjectPtr), typeof(IRefObjectPtr), typeof(RefObjectPtrControl), new UIPropertyMetadata(null, onRefObjectPtrChanged));
+        public IRefObjectPtr RefObjectPtr
+        {
+            get
+            {
+                return (IRefObjectPtr)GetValue(RefObjectPtrProperty);
+            }
+            set
+            {
+                SetValue(SelectedRefObjectProperty, value);
             }
         }
 
@@ -69,7 +86,26 @@ namespace WendigoJaeger.TranslationTool.Controls
             var result = browseWindow.ShowDialog();
             if (result.HasValue && result.Value)
             {
-                SelectedRefObject = browseWindow.SelectedRefObject;
+                if (RefObjectPtr != null)
+                {
+                    RefObjectPtr.RefID = browseWindow.SelectedRefObject.ID;
+                }
+                else
+                {
+                    SelectedRefObject = browseWindow.SelectedRefObject;
+                }
+            }
+        }
+
+        private void buttonClear_Click(object sender, RoutedEventArgs e)
+        {
+            if (RefObjectPtr != null)
+            {
+                RefObjectPtr.RefID = Guid.Empty;
+            }
+            else
+            {
+                SelectedRefObject = null;
             }
         }
 
@@ -78,13 +114,40 @@ namespace WendigoJaeger.TranslationTool.Controls
             RefObjectPtrControl control = dependencyObject as RefObjectPtrControl;
             if (control != null)
             {
-                control.notifyPropertyChanged(nameof(ObjectName));
+                control.refreshObjectName();
             }
+        }
+
+        private static void onRefObjectPtrChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        {
+            RefObjectPtrControl control = dependencyObject as RefObjectPtrControl;
+            if (control != null)
+            {
+                IRefObjectPtr target = e.NewValue as IRefObjectPtr;
+                if (target != null)
+                {
+                    target.PropertyChanged -= control.onRefIDChanged;
+                    target.PropertyChanged += control.onRefIDChanged;
+                }
+
+                control.refreshObjectName();
+            }
+        }
+
+        private void onRefIDChanged(object sender, PropertyChangedEventArgs e)
+        {
+            refreshObjectName();
+        }
+
+        private void refreshObjectName()
+        {
+            notifyPropertyChanged(nameof(ObjectName));
         }
 
         private void notifyPropertyChanged([CallerMemberName]string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
     }
 }

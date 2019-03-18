@@ -74,16 +74,16 @@ namespace WendigoJaeger.TranslationTool.Editors
             notifyPropertyChanged(nameof(GraphicsReader));
 
             Binding graphicsBinding = new Binding();
-            graphicsBinding.Source = Instance.Graphics;
-            graphicsBinding.Path = new PropertyPath(nameof(Instance.Graphics.Instance));
+            graphicsBinding.Source = Instance;
+            graphicsBinding.Path = new PropertyPath(nameof(Instance.Graphics));
             graphicsBinding.Mode = BindingMode.TwoWay;
-            graphicsPicker.SetBinding(RefObjectPtrControl.SelectedRefObjectProperty, graphicsBinding);
+            graphicsPicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, graphicsBinding);
 
             Binding paletteBinding = new Binding();
-            paletteBinding.Source = Instance.Palette;
-            paletteBinding.Path = new PropertyPath(nameof(Instance.Palette.Instance));
+            paletteBinding.Source = Instance;
+            paletteBinding.Path = new PropertyPath(nameof(Instance.Palette));
             paletteBinding.Mode = BindingMode.TwoWay;
-            palettePicker.SetBinding(RefObjectPtrControl.SelectedRefObjectProperty, paletteBinding);
+            palettePicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, paletteBinding);
 
             fontEditor.FontSettings = Instance;
         }

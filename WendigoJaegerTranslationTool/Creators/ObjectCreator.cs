@@ -61,6 +61,11 @@ namespace WendigoJaeger.TranslationTool.Creators
                 var result = creatorWindow.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
+                    if (creatorWindow.CreatedObject is IRefObjectPtr)
+                    {
+                        ReferenceDatabase.Instance.Register(creatorWindow.CreatedObject as RefObject);
+                    }
+
                     return creatorWindow.CreatedObject as T;
                 }
             }

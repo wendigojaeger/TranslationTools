@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool
 {
@@ -36,17 +37,42 @@ namespace WendigoJaeger.TranslationTool
         }
     }
 
-    public interface IRefObjectPtr
+    public interface IRefObjectPtr : IUndoPropertyChanged
     {
         Guid RefID { get; set; }
+        string ObjectName { get; }
     }
 
-    public class RefObjectPtr<T> : IRefObjectPtr where T : RefObject
+    public class RefObjectPtr<T> : UndoObject, IRefObjectPtr where T : RefObject
     {
+        private Guid _refID;
+
         public Guid RefID
         {
-            get;
-            set;
+            get
+            {
+                return _refID;
+            }
+            set
+            {
+                var oldValue = _refID;
+                _refID = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
+
+        public string ObjectName
+        {
+            get
+            {
+                var instance = Instance;
+                if (instance != null)
+                {
+                    return instance.Name;
+                }
+
+                return string.Empty;
+            }
         }
 
         public T Instance
