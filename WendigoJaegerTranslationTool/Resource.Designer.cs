@@ -142,6 +142,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Table Files (*.tbl)|*.tbl.
+        /// </summary>
+        public static string filterTableFile {
+            get {
+                return ResourceManager.GetString("filterTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Common Settings.
         /// </summary>
         public static string groupBoxCommonSettings {
@@ -214,11 +223,56 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Line:.
+        /// </summary>
+        public static string labelNewLine {
+            get {
+                return ResourceManager.GetString("labelNewLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Window:.
+        /// </summary>
+        public static string labelNewWindow {
+            get {
+                return ResourceManager.GetString("labelNewWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color Palette:.
         /// </summary>
         public static string labelPalette {
             get {
                 return ResourceManager.GetString("labelPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Table File:.
+        /// </summary>
+        public static string labelSourceTableFile {
+            get {
+                return ResourceManager.GetString("labelSourceTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table File:.
+        /// </summary>
+        public static string labelTableFile {
+            get {
+                return ResourceManager.GetString("labelTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entry Terminator:.
+        /// </summary>
+        public static string labelTerminator {
+            get {
+                return ResourceManager.GetString("labelTerminator", resourceCulture);
             }
         }
         
@@ -376,6 +430,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Table File....
+        /// </summary>
+        public static string mnuProjectAddTableFile {
+            get {
+                return ResourceManager.GetString("mnuProjectAddTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Settings....
         /// </summary>
         public static string mnuProjectSettings {
@@ -489,6 +552,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string projectHeaderScripts {
             get {
                 return ResourceManager.GetString("projectHeaderScripts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Table Files.
+        /// </summary>
+        public static string projectHeaderTableFile {
+            get {
+                return ResourceManager.GetString("projectHeaderTableFile", resourceCulture);
             }
         }
         

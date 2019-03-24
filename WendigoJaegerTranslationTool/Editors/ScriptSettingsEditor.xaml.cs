@@ -1,4 +1,7 @@
-﻿using WendigoJaeger.TranslationTool.Data;
+﻿using System.Windows;
+using System.Windows.Data;
+using WendigoJaeger.TranslationTool.Controls;
+using WendigoJaeger.TranslationTool.Data;
 
 namespace WendigoJaeger.TranslationTool.Editors
 {
@@ -18,6 +21,14 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         public override void Init()
         {
+            DataContext = Instance;
+
+            Binding tableFileBinding = new Binding();
+            tableFileBinding.Source = Instance;
+            tableFileBinding.Path = new PropertyPath(nameof(Instance.TableFile));
+            tableFileBinding.Mode = BindingMode.TwoWay;
+            tableFilePicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, tableFileBinding);
+
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;
         }

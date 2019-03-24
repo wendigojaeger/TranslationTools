@@ -48,6 +48,7 @@
     <Compile Include="Data\AssemblyFileSettings.cs" />
     <Compile Include="Data\FontSettings.cs" />
     <Compile Include="Data\Palette.cs" />
+    <Compile Include="Data\TableFile.cs" />
     <Compile Include="ReferenceDatabase.cs" />
     <Compile Include="RefObject.cs" />
     <Compile Include="Data\TextPreviewInfo.cs" />

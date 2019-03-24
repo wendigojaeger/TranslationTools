@@ -59,6 +59,7 @@ namespace WendigoJaeger.TranslationTool.Data
         private UndoObservableCollection<AssemblyFileSettings> _assemblyFileSettings;
         private UndoObservableCollection<FontSettings> _fontSettings;
         private UndoObservableCollection<Palette> _palettes;
+        private UndoObservableCollection<TableFile> _tableFiles;
 
         public Project Project
         {
@@ -228,6 +229,34 @@ namespace WendigoJaeger.TranslationTool.Data
 
                     _palettes.UndoPropertyChanged -= undoProxy;
                     _palettes.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public UndoObservableCollection<TableFile> TableFiles
+        {
+            get
+            {
+                if (_tableFiles == null)
+                {
+                    _tableFiles = new UndoObservableCollection<TableFile>();
+                    _tableFiles.UndoArrayChanged += arrayProxy;
+                    _tableFiles.UndoPropertyChanged += undoProxy;
+                }
+
+                return _tableFiles;
+            }
+            set
+            {
+                _tableFiles = value;
+
+                if (_tableFiles != null)
+                {
+                    _tableFiles.UndoArrayChanged -= arrayProxy;
+                    _tableFiles.UndoArrayChanged += arrayProxy;
+
+                    _tableFiles.UndoPropertyChanged -= undoProxy;
+                    _tableFiles.UndoPropertyChanged += undoProxy;
                 }
             }
         }

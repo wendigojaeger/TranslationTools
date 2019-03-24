@@ -4,9 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Editors"
+             xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
+             xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+             xmlns:data="clr-namespace:WendigoJaeger.TranslationTool.Data;assembly=LibWendigoJaegerTranslationTool"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label Content="TODO: Script Setting Editor" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelTableFile}" HorizontalAlignment="Right"/>
+        <controls:RefObjectPtrControl x:Name="tableFilePicker" Grid.Row="0" Grid.Column="1" RefObjectType="{x:Type data:TableFile}" />
     </Grid>
 </local:BaseScriptSettingsEditor>

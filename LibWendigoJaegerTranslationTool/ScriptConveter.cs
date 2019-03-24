@@ -12,7 +12,9 @@ namespace WendigoJaeger.TranslationTool
         {
             CorrespondenceTable table = new CorrespondenceTable();
 
-            string tblFileName = script.GetTargetTable(targetLanguage).Path;
+            var tableFile = script.TableFile.Instance;
+
+            string tblFileName = tableFile.GetTargetTable(targetLanguage).Path;
             string tblPath = Path.Combine(ConfigSerializer.RootDirectory, tblFileName);
             table.Parse(endian, tblPath);
 
@@ -21,12 +23,12 @@ namespace WendigoJaeger.TranslationTool
                 table.StringToBytes.Insert($"<{i:x2}>", new byte[] { (byte)i });
             }
 
-            if (script.NewLine.HasValue)
+            if (tableFile.NewLine.HasValue)
             {
-                table.StringToBytes.Insert("\n", new byte[] { script.NewLine.Value });
+                table.StringToBytes.Insert("\n", new byte[] { tableFile.NewLine.Value });
             }
 
-            output.Terminator = script.Terminator;
+            output.Terminator = tableFile.Terminator;
 
             foreach (var entry in script.Script.Instance.Entries)
             {

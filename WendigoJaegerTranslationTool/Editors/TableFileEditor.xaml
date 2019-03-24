@@ -1,0 +1,76 @@
+﻿<local:BaseTableFileEditor x:Class="WendigoJaeger.TranslationTool.Editors.TableFileEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Editors"
+             xmlns:convert="clr-namespace:WendigoJaeger.TranslationTool.Converters"
+             xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
+             xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="parentEditor">
+    <local:BaseTableFileEditor.Resources>
+        <convert:CultureDisplayNameConverter x:Key="cultureDisplayNameConverter" />
+        <convert:CultureImageConverter x:Key="cultureImageConverter" />
+    </local:BaseTableFileEditor.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="4" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelSourceTableFile}" HorizontalAlignment="Right"/>
+            <controls:RelativePathPickerControl x:Name="sourceTableFilePicker" ProjectSettings="{Binding ElementName=parentEditor, Path=ProjectSettings}" Filter="{x:Static i18n:Resource.filterTableFile}" Grid.Row="0" Grid.Column="1" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="{x:Static i18n:Resource.labelTerminator}" HorizontalAlignment="Right" />
+            <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                <xctk:ByteUpDown  Value="{Binding Terminator, Mode=TwoWay}" FormatString="X" ParsingNumberStyle="HexNumber"/>
+            </StackPanel>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelNewLine}" HorizontalAlignment="Right" />
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
+                <xctk:ByteUpDown Value="{Binding NewLine, Mode=TwoWay}" FormatString="X" ParsingNumberStyle="HexNumber" ValueChanged="NewLine_ValueChanged"/>
+            </StackPanel>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelNewWindow}" HorizontalAlignment="Right" />
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
+                <xctk:ByteUpDown Value="{Binding NextWindow, Mode=TwoWay}" FormatString="X" ParsingNumberStyle="HexNumber" />
+            </StackPanel>
+        </Grid>
+        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+        <TabControl Grid.Row="2" x:Name="tabControlsLang">
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                        <TextBlock Margin="3,0,0,0" Text="{Binding Lang,Converter={StaticResource ResourceKey=cultureDisplayNameConverter}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <controls:RelativePathPickerControl Grid.Row="0" RelativePath="{Binding Path, Mode=TwoWay}" ProjectSettings="{Binding ElementName=parentEditor, Path=ProjectSettings}" Filter="{x:Static i18n:Resource.filterTableFile}" />
+                    </Grid>
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+        </TabControl>
+    </Grid>
+</local:BaseTableFileEditor>

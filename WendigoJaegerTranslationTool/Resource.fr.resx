@@ -175,10 +175,10 @@
     <value>Extraire</value>
   </data>
   <data name="mnuScriptPrevious" xml:space="preserve">
-    <value>Entré précédente</value>
+    <value>Entrée précédente</value>
   </data>
   <data name="mnuScriptNext" xml:space="preserve">
-    <value>Entré suivante</value>
+    <value>Entrée suivante</value>
   </data>
   <data name="mnuScriptSettings" xml:space="preserve">
     <value>Configuration du script...</value>
@@ -211,7 +211,7 @@
     <value>Zoom:</value>
   </data>
   <data name="filterGraphicsData" xml:space="preserve">
-    <value>Données Graphique (*.*)|*.*</value>
+    <value>Données Graphiques (*.*)|*.*</value>
   </data>
   <data name="filterProjectFile" xml:space="preserve">
     <value>Projet de Tranduction WendigoJaeger (*.wtp)|*.wtp</value>
@@ -238,7 +238,7 @@
     <value>Chemin du fichier:</value>
   </data>
   <data name="filterAssemblyFile" xml:space="preserve">
-    <value>Fihcier assembleur (*.asm,*.s)|*.asm;*.s</value>
+    <value>Fichier Assembleur (*.asm,*.s)|*.asm;*.s</value>
   </data>
   <data name="projectHeaderFont" xml:space="preserve">
     <value>Police de caractère</value>
@@ -253,10 +253,10 @@
     <value>Créer une police de caractère</value>
   </data>
   <data name="windowBrowseObject" xml:space="preserve">
-    <value>Sélection d'objects</value>
+    <value>Sélection d'objets</value>
   </data>
   <data name="labelGraphics" xml:space="preserve">
-    <value>Graphique:</value>
+    <value>Graphiques:</value>
   </data>
   <data name="projectHeaderPalettes" xml:space="preserve">
     <value>Palettes</value>
@@ -274,7 +274,7 @@
     <value>Palette de couleur:</value>
   </data>
   <data name="groupBoxCommonSettings" xml:space="preserve">
-    <value>Paramètres commun</value>
+    <value>Paramètres communs</value>
   </data>
   <data name="checkBoxShowByte" xml:space="preserve">
     <value>Afficher la valeur du byte</value>
@@ -296,5 +296,29 @@
   </data>
   <data name="buttonRemove" xml:space="preserve">
     <value>Enlever</value>
+  </data>
+  <data name="labelSourceTableFile" xml:space="preserve">
+    <value>Table de correspondance source:</value>
+  </data>
+  <data name="labelTerminator" xml:space="preserve">
+    <value>Terminateur d'entrée:</value>
+  </data>
+  <data name="labelNewLine" xml:space="preserve">
+    <value>Nouvelle ligne:</value>
+  </data>
+  <data name="labelNewWindow" xml:space="preserve">
+    <value>Nouvelle fenêtre:</value>
+  </data>
+  <data name="mnuProjectAddTableFile" xml:space="preserve">
+    <value>Ajouter une table de correspondance...</value>
+  </data>
+  <data name="projectHeaderTableFile" xml:space="preserve">
+    <value>Table de correspondances</value>
+  </data>
+  <data name="filterTableFile" xml:space="preserve">
+    <value>Table de correspondances (*.tbl)|*.tbl</value>
+  </data>
+  <data name="labelTableFile" xml:space="preserve">
+    <value>Table de correspondance:</value>
   </data>
 </root>

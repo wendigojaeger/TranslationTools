@@ -125,6 +125,9 @@
     <Compile Include="Editors\ScriptSettingsEditor.xaml.cs">
       <DependentUpon>ScriptSettingsEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Editors\TableFileEditor.xaml.cs">
+      <DependentUpon>TableFileEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\ISystemExtension.cs" />
     <Compile Include="Extensions\ItemContainerGeneratorExtension.cs" />
     <Compile Include="Extensions\PaletteExtension.cs" />
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Editors\ScriptSettingsEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Editors\TableFileEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

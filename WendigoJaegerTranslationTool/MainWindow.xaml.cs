@@ -57,6 +57,13 @@ namespace WendigoJaeger.TranslationTool
 
         private IEnumerable<ProjectTreeSubEntry> generateItemsSource(ProjectSettings projectSettings)
         {
+            yield return new ProjectTreeSubEntry()
+            {
+                Name = Resource.projectHeaderTableFile,
+                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.TableFiles
+            };
+
             yield return new ProjectTreeSubEntry() {
                 Name = Resource.projectHeaderScripts,
                 Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
@@ -281,6 +288,13 @@ namespace WendigoJaeger.TranslationTool
 
                 string directory = Path.GetDirectoryName(saveDialog.FileName);
 
+                TableFile mainDialogTableFile = new TableFile();
+                mainDialogTableFile.NewLine = 0x80;
+                mainDialogTableFile.Terminator = 0x82;
+                mainDialogTableFile.SourceTableFile = "script_en.tbl";
+                mainDialogTableFile["fr-FR"] = "script_fr.tbl";
+                mainDialogTableFile["fr-CA"] = "script_fr.tbl";
+
                 ScriptSettings dialogSettings = new ScriptSettings
                 {
                     Name = "MainDialog",
@@ -288,14 +302,11 @@ namespace WendigoJaeger.TranslationTool
                     DestinationRAMAddress = 0x27D800,
                     DestinationEndRAMAddress = 0x27FFFF,
                     Entries = 59,
-                    Terminator = 0x82,
-                    NewLine = 0x80,
-                    SourceTableFile = "script_en.tbl",
                     TextExtractor = new LittleEndianPointer16TextExtractor()
                 };
+                dialogSettings.TableFile.Instance = mainDialogTableFile;
+
                 dialogSettings.Script.Path = Path.Combine(directory, "mmx2_main_dialog.wts");
-                dialogSettings["fr-FR"] = "script_fr.tbl";
-                dialogSettings["fr-CA"] = "script_fr.tbl";
 
                 newProjectSettings.Scripts.Add(dialogSettings);
 
@@ -461,6 +472,8 @@ namespace WendigoJaeger.TranslationTool
             if (newScript != null)
             {
                 ProjectSettings.Scripts.Add(newScript);
+
+                showEditor(newScript);
             }
         }
 
@@ -475,6 +488,8 @@ namespace WendigoJaeger.TranslationTool
             if (newGraphics != null)
             {
                 ProjectSettings.Graphics.Add(newGraphics);
+
+                showEditor(newGraphics);
             }
         }
 
@@ -489,6 +504,8 @@ namespace WendigoJaeger.TranslationTool
             if (newFont != null)
             {
                 ProjectSettings.Fonts.Add(newFont);
+
+                showEditor(newFont);
             }
         }
 
@@ -503,6 +520,24 @@ namespace WendigoJaeger.TranslationTool
             if (newPalette != null)
             {
                 ProjectSettings.Palettes.Add(newPalette);
+
+                showEditor(newPalette);
+            }
+        }
+
+        private void AddTableFile_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddTableFile_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newTableFile = ObjectCreator.Create<TableFile>(ProjectSettings);
+            if (newTableFile != null)
+            {
+                ProjectSettings.TableFiles.Add(newTableFile);
+
+                showEditor(newTableFile);
             }
         }
 

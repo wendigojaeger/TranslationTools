@@ -101,5 +101,16 @@ namespace WendigoJaeger.TranslationTool.Data
                 }
             }
         }
+
+        public void SyncLanguages(Project project)
+        {
+            foreach (var langEntry in project.Lang)
+            {
+                if (GetEntry(langEntry.Key) == null)
+                {
+                    Entries.Add(new LocalizedFilePathEntry { Lang = langEntry.Key });
+                }
+            }
+        }
     }
 }

@@ -297,4 +297,28 @@
   <data name="buttonRemove" xml:space="preserve">
     <value>Remove</value>
   </data>
+  <data name="labelSourceTableFile" xml:space="preserve">
+    <value>Source Table File:</value>
+  </data>
+  <data name="labelTerminator" xml:space="preserve">
+    <value>Entry Terminator:</value>
+  </data>
+  <data name="labelNewLine" xml:space="preserve">
+    <value>New Line:</value>
+  </data>
+  <data name="labelNewWindow" xml:space="preserve">
+    <value>New Window:</value>
+  </data>
+  <data name="mnuProjectAddTableFile" xml:space="preserve">
+    <value>Add Table File...</value>
+  </data>
+  <data name="projectHeaderTableFile" xml:space="preserve">
+    <value>Table Files</value>
+  </data>
+  <data name="filterTableFile" xml:space="preserve">
+    <value>Table Files (*.tbl)|*.tbl</value>
+  </data>
+  <data name="labelTableFile" xml:space="preserve">
+    <value>Table File:</value>
+  </data>
 </root>
