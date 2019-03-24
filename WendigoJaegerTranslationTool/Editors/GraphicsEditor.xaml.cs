@@ -18,6 +18,8 @@ namespace WendigoJaeger.TranslationTool.Editors
     [EditorFor(typeof(GraphicsSettings))]
     public partial class GraphicsEditor : BaseGraphicsEditor
     {
+        public override string WindowTitle => Instance.Name;
+
         static Type[] _cachedGfxDecoderTypes = null;
 
         //WriteableBitmap _textPreview;
@@ -62,6 +64,7 @@ namespace WendigoJaeger.TranslationTool.Editors
 
             tabControlsLang.ItemsSource = Instance.Entries;
 
+            Instance.PropertyChanged -= Instance_PropertyChanged;
             Instance.PropertyChanged += Instance_PropertyChanged;
         }
 
@@ -78,6 +81,11 @@ namespace WendigoJaeger.TranslationTool.Editors
                         break;
                     }
                 }
+            }
+
+            if (e.PropertyName == nameof(Instance.Name))
+            {
+                refreshWindowTitle();
             }
         }
 

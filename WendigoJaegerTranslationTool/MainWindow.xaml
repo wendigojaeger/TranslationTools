@@ -8,6 +8,7 @@
         xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
         xmlns:data="clr-namespace:WendigoJaeger.TranslationTool.Data;assembly=LibWendigoJaegerTranslationTool"
         xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+        xmlns:avalon="http://schemas.xceed.com/wpf/xaml/avalondock"
         mc:Ignorable="d"
         Title="{x:Static i18n:Resource.mainWindowTitle}" Height="350" Width="525" WindowState="Maximized" Loaded="Window_Loaded">
     <Window.Resources>
@@ -40,12 +41,10 @@
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="24" />
-            <RowDefinition Height="24" />
-            <RowDefinition Height="85*" />
-            <RowDefinition Height="4" />
-            <RowDefinition Height="15*" />
-            <RowDefinition Height="24" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="{x:Static i18n:Resource.mnuFile}">
@@ -102,67 +101,76 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </ToolBar>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20*" />
-                <ColumnDefinition Width="4" />
-                <ColumnDefinition Width="70*" />
-            </Grid.ColumnDefinitions>
-            <TreeView x:Name="treeViewProject" Grid.Column="0"  SelectedItemChanged="treeViewProject_SelectedItemChanged" KeyUp="TreeViewProject_KeyUp">
-                <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type data:ProjectSettings}" ItemsSource="{Binding Converter={StaticResource projectSettingsItemSource}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="Images/ProjectIcon.png" Width="18" Height="18" Margin="0,0,2,0" />
-                            <TextBlock Text="{Binding Project.Name}" />
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type local:ProjectTreeSubEntry}" ItemsSource="{Binding List}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding Icon}" Width="18" Height="18" Margin="0,0,2,0" />
-                            <TextBlock Text="{Binding Name}" />
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptSettings}" ItemsSource="{Binding Script.Instance.Entries}">
-                        <StackPanel Orientation="Horizontal">
-                            <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
-                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Script.Instance, Converter={StaticResource scriptFileProgressAggregator}, UpdateSourceTrigger=Explicit}" />
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptEntry}">
-                        <StackPanel Orientation="Horizontal">
-                            <controls:EditableTextBlock Text="{Binding Path=EntryName, Mode=TwoWay}" />
-                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Translations}" />
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type data:GraphicsSettings}">
-                        <controls:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" />
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type data:AssemblyFileSettings}">
-                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type data:FontSettings}">
-                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
-                    </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type data:Palette}">
-                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
-                    </HierarchicalDataTemplate>
-                </TreeView.Resources>
-            </TreeView>
-            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" />
-            <ContentControl x:Name="editorContent" Grid.Column="2"/>
-        </Grid>
-        <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" />
-        <Grid Grid.Row="4">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="24" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <DockPanel Grid.Row="0">
-                <Label Content="{x:Static i18n:Resource.outputHeader}" DockPanel.Dock="Left" Background="{x:Static SystemColors.ControlDarkBrush}"/>
-            </DockPanel>
-            <TextBox x:Name="textBoxOutput" Grid.Row="1" IsReadOnly="True" FontFamily="Hack" FontSize="12" />
-        </Grid>
-        <StatusBar Grid.Row="5">
+        <avalon:DockingManager Grid.Row="2">
+            <avalon:DockingManager.DocumentHeaderTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Content.Content.WindowTitle}" />
+                </DataTemplate>
+            </avalon:DockingManager.DocumentHeaderTemplate>
+            <avalon:LayoutRoot>
+                <avalon:LayoutPanel Orientation="Horizontal">
+                    <avalon:LayoutAnchorablePane DockWidth="Auto">
+                        <avalon:LayoutAnchorable Title="{x:Static i18n:Resource.mnuProject}" CanClose="False" CanAutoHide="False" CanHide="False">
+                            <TreeView x:Name="treeViewProject" Grid.Column="0" SelectedItemChanged="treeViewProject_SelectedItemChanged" KeyUp="TreeViewProject_KeyUp">
+                                <TreeView.Resources>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:ProjectSettings}" ItemsSource="{Binding Converter={StaticResource projectSettingsItemSource}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Images/ProjectIcon.png" Width="18" Height="18" Margin="0,0,2,0" />
+                                            <TextBlock Text="{Binding Project.Name}" />
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type local:ProjectTreeSubEntry}" ItemsSource="{Binding List}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Icon}" Width="18" Height="18" Margin="0,0,2,0" />
+                                            <TextBlock Text="{Binding Name}" />
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptSettings}" ItemsSource="{Binding Script.Instance.Entries}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Script.Instance, Converter={StaticResource scriptFileProgressAggregator}, UpdateSourceTrigger=Explicit}" />
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptEntry}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:EditableTextBlock Text="{Binding Path=EntryName, Mode=TwoWay}" />
+                                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Translations}" />
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:GraphicsSettings}">
+                                        <controls:EditableTextBlock Text="{Binding Name, Mode=TwoWay}" />
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:AssemblyFileSettings}">
+                                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:FontSettings}">
+                                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:Palette}">
+                                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                                    </HierarchicalDataTemplate>
+                                </TreeView.Resources>
+                            </TreeView>
+                        </avalon:LayoutAnchorable>
+                    </avalon:LayoutAnchorablePane>
+                    <avalon:LayoutDocumentPane>
+                        <avalon:LayoutDocument x:Name="layoutDocument" CanClose="False">
+                            <ContentControl x:Name="editorContent" Grid.Column="2"/>
+                        </avalon:LayoutDocument>
+                    </avalon:LayoutDocumentPane>
+                </avalon:LayoutPanel>
+                <avalon:LayoutRoot.BottomSide>
+                    <avalon:LayoutAnchorSide>
+                        <avalon:LayoutAnchorGroup>
+                            <avalon:LayoutAnchorable Title="{x:Static i18n:Resource.outputHeader}" IsMaximized="False">
+                                <TextBox x:Name="textBoxOutput" Grid.Row="1" IsReadOnly="True" FontFamily="Hack" FontSize="12" />
+                            </avalon:LayoutAnchorable>
+                        </avalon:LayoutAnchorGroup>
+                    </avalon:LayoutAnchorSide>
+                </avalon:LayoutRoot.BottomSide>
+            </avalon:LayoutRoot>
+        </avalon:DockingManager>
+        <StatusBar Grid.Row="3">
             <StatusBarItem>
                 <TextBlock Name="textBlockStatusBar" Text="Ln: 1, Col: 1" />
             </StatusBarItem>

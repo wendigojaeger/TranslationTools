@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
              xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
              xmlns:data="clr-namespace:WendigoJaeger.TranslationTool.Data;assembly=LibWendigoJaegerTranslationTool"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" x:Name="parentEditor">
     <Grid>
@@ -30,17 +31,23 @@
                 </Grid.RowDefinitions>
                 
                 <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelFontOffset}" HorizontalAlignment="Right"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Offset}"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                    <xctk:IntegerUpDown  Value="{Binding Offset}" />
+                </StackPanel>
 
                 <Label Grid.Row="1" Grid.Column="0" Content="{x:Static i18n:Resource.labelCharacterWidth}" HorizontalAlignment="Right" />
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CharacterWidth}" />
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+                    <xctk:IntegerUpDown  Value="{Binding CharacterWidth}" />
+                </StackPanel>
 
                 <Label Grid.Row="2" Grid.Column="0" Content="{x:Static i18n:Resource.labelCharacterHeight}" HorizontalAlignment="Right" />
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CharacterHeight}" />
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <xctk:IntegerUpDown Value="{Binding CharacterHeight}" />
+                </StackPanel>
 
                 <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelFontGraphics}" HorizontalAlignment="Right" />
                 <controls:RefObjectPtrControl x:Name="graphicsPicker" Grid.Row="3" Grid.Column="1" RefObjectType="{x:Type data:GraphicsSettings}" />
-                
+
                 <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelPalette}" HorizontalAlignment="Right" />
                 <controls:RefObjectPtrControl x:Name="palettePicker" Grid.Row="4" Grid.Column="1" RefObjectType="{x:Type data:Palette}" />
             </Grid>

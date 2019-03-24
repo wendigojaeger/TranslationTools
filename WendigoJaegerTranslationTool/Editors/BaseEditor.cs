@@ -2,6 +2,8 @@
 using WendigoJaeger.TranslationTool.Undo;
 using System;
 using System.Windows.Controls;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace WendigoJaeger.TranslationTool.Editors
 {
@@ -23,11 +25,15 @@ namespace WendigoJaeger.TranslationTool.Editors
         ProjectSettings ProjectSettings { get;  set; }
         MainWindow MainWindow { get; set; }
 
+        string WindowTitle { get; }
+
         void Init();
     }
 
-    public class BaseEditor<T> : UserControl, IEditor, IUndoAware where T : UndoObject
+    public class BaseEditor<T> : UserControl, IEditor, IUndoAware, INotifyPropertyChanged where T : UndoObject
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public Action<string> UpdateStatusBar { get; set; }
 
         public object EditedItem
@@ -39,6 +45,14 @@ namespace WendigoJaeger.TranslationTool.Editors
             set
             {
                 Instance = (T)value;
+            }
+        }
+
+        public virtual string WindowTitle
+        {
+            get
+            {
+                return string.Empty;
             }
         }
 
@@ -75,6 +89,16 @@ namespace WendigoJaeger.TranslationTool.Editors
         protected void updateStatusBar(string value)
         {
             UpdateStatusBar?.Invoke(value);
+        }
+
+        protected void notifyPropertyChanged([CallerMemberName]string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void refreshWindowTitle()
+        {
+            notifyPropertyChanged(nameof(WindowTitle));
         }
     }
 }

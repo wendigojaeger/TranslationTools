@@ -25,9 +25,9 @@ namespace WendigoJaeger.TranslationTool.Editors
     }
 
     [EditorFor(typeof(FontSettings))]
-    public partial class FontSettingsEditor : BaseFontSettingsEditor, INotifyPropertyChanged
+    public partial class FontSettingsEditor : BaseFontSettingsEditor
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public override string WindowTitle => Instance.Name;
 
         public IGraphicsReader GraphicsReader
         {
@@ -86,11 +86,17 @@ namespace WendigoJaeger.TranslationTool.Editors
             palettePicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, paletteBinding);
 
             fontEditor.FontSettings = Instance;
+
+            Instance.PropertyChanged -= updateWindowTitle;
+            Instance.PropertyChanged += updateWindowTitle;
         }
 
-        private void notifyPropertyChanged([CallerMemberName]string propertyName = "")
+        private void updateWindowTitle(object sender, PropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (e.PropertyName == nameof(Instance.Name))
+            {
+                refreshWindowTitle();
+            }
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)

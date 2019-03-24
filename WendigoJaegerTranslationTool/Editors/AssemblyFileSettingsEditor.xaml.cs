@@ -24,6 +24,8 @@ namespace WendigoJaeger.TranslationTool.Editors
     [EditorFor(typeof(AssemblyFileSettings))]
     public partial class AssemblyFileSettingsEditor : BaseAssemblyFileSettingsEditor
     {
+        public override string WindowTitle => Instance.Name;
+
         public AssemblyFileSettingsEditor()
         {
             InitializeComponent();
@@ -45,6 +47,17 @@ namespace WendigoJaeger.TranslationTool.Editors
             };
 
             filePathBrowser.SetBinding(RelativePathPickerControl.RelativePathProperty, pathBinding);
+
+            Instance.PropertyChanged -= updateWindowTitle;
+            Instance.PropertyChanged += updateWindowTitle;
+        }
+
+        private void updateWindowTitle(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Instance.Name))
+            {
+                refreshWindowTitle();
+            }
         }
     }
 }

@@ -46,6 +46,8 @@ namespace WendigoJaeger.TranslationTool.Editors
     [EditorFor(typeof(Palette))]
     public partial class PaletteEditor : BasePaletteEditor
     {
+        public override string WindowTitle => Instance.Name;
+
         public PaletteEditor()
         {
             InitializeComponent();
@@ -57,6 +59,17 @@ namespace WendigoJaeger.TranslationTool.Editors
 
             listBoxPalette.ItemsSource = Instance.Entries;
             Instance.Entries.PropertyChanged += Entries_PropertyChanged;
+
+            Instance.PropertyChanged -= updateWindowTitle;
+            Instance.PropertyChanged += updateWindowTitle;
+        }
+
+        private void updateWindowTitle(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(Instance.Name))
+            {
+                refreshWindowTitle();
+            }
         }
 
         private void Entries_PropertyChanged(object sender, PropertyChangedEventArgs e)
