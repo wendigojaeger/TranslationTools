@@ -31,7 +31,8 @@ namespace WendigoJaeger.TranslationTool.Editors
             }
 
             textOriginal.Text = Instance.Original;
-            icTranslations.ItemsSource = Instance.Translations;
+
+            onCurrentLocaleChanged(CurrentLocale);
 
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;
@@ -60,6 +61,15 @@ namespace WendigoJaeger.TranslationTool.Editors
                     updateStatusBar($"Ln: {line + 1}, Col: {column + 1}");
                 }
             }
+        }
+
+        protected override void onCurrentLocaleChanged(string newLocale)
+        {
+            var newEntry = Instance.GetTranslation(newLocale);
+
+            imageFlag.DataContext = newEntry;
+            comboEntryState.DataContext = newEntry;
+            textTranslatedEntry.DataContext = newEntry;
         }
     }
 }

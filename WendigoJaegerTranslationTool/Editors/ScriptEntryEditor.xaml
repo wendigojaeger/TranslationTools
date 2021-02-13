@@ -26,28 +26,19 @@
         </GroupBox>
         <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
         <GroupBox Header="{x:Static i18n:Resource.translationToolTranslation}" Grid.Row="2">
-            <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="icTranslations">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical" Margin="0,0,0,3">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Path=Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
-                                    <Label Margin="2,0,0,0" Content="{Binding Path=Lang, Converter={StaticResource ResourceKey=cultureDisplayNameConverter}}" FontWeight="Bold" />
-                                    <ComboBox Margin="2,0,0,0" ItemsSource="{Binding Source={controls:EnumBindingSource {x:Type data:ScriptEntryState}}}" SelectedItem="{Binding Path=State, Mode=TwoWay}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Converter={StaticResource ResourceKey=scriptEntryStateConverter}}" />
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
-                                    </ComboBox>
-                                </StackPanel>
-                                <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False"  SelectionChanged="TextBox_SelectionChanged" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
+            <StackPanel Orientation="Vertical" Margin="0,0,0,3">
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imageFlag" Source="{Binding Path=Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                    <ComboBox x:Name="comboEntryState" Margin="2,0,0,0" ItemsSource="{Binding Source={controls:EnumBindingSource {x:Type data:ScriptEntryState}}}" SelectedItem="{Binding Path=State, Mode=TwoWay}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource ResourceKey=scriptEntryStateConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <TextBox x:Name="textTranslatedEntry" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False"  SelectionChanged="TextBox_SelectionChanged" />
+            </StackPanel>
         </GroupBox>
     </Grid>
 </local:BaseScriptEditor>

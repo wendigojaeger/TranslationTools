@@ -655,7 +655,7 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Translations.
+        ///   Looks up a localized string similar to Translation.
         /// </summary>
         public static string translationToolTranslation {
             get {
