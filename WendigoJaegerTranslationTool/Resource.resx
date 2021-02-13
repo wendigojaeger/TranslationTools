@@ -321,4 +321,10 @@
   <data name="labelTableFile" xml:space="preserve">
     <value>Table File:</value>
   </data>
+  <data name="labelGfxDecoder" xml:space="preserve">
+    <value>GFX Decoder:</value>
+  </data>
+  <data name="labelGfxSource" xml:space="preserve">
+    <value>GFX Source:</value>
+  </data>
 </root>

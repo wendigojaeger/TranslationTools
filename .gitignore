@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 consolegfx\.txt
+/WendigoJaegerTranslationTool/Properties/launchSettings.json

@@ -27,11 +27,15 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         string WindowTitle { get; }
 
+        string CurrentLocale { get; set; }
+
         void Init();
     }
 
     public class BaseEditor<T> : UserControl, IEditor, IUndoAware, INotifyPropertyChanged where T : UndoObject
     {
+        protected string _currentLocale;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Action<string> UpdateStatusBar { get; set; }
@@ -53,6 +57,19 @@ namespace WendigoJaeger.TranslationTool.Editors
             get
             {
                 return string.Empty;
+            }
+        }
+
+        public string CurrentLocale
+        {
+            get
+            {
+                return _currentLocale;
+            }
+            set
+            {
+                _currentLocale = value;
+                onCurrentLocaleChanged(value);
             }
         }
 
@@ -99,6 +116,10 @@ namespace WendigoJaeger.TranslationTool.Editors
         protected void refreshWindowTitle()
         {
             notifyPropertyChanged(nameof(WindowTitle));
+        }
+
+        protected virtual void onCurrentLocaleChanged(string newLocale)
+        {
         }
     }
 }

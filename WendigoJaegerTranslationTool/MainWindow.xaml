@@ -92,7 +92,7 @@
         </Menu>
         <ToolBar Grid.Row="1">
             <TextBlock Text="{x:Static i18n:Resource.toolbarLanguage}" />
-            <ComboBox x:Name="comboLanguages" MinWidth="100">
+            <ComboBox x:Name="comboLanguages" MinWidth="100" SelectionChanged="comboLanguages_SelectionChanged">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">

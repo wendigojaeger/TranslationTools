@@ -17,56 +17,34 @@
     </local:BaseGraphicsEditor.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="4" />
-            <RowDefinition Height="60*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Header="Settings">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="GFX decoder: " />
-                <ComboBox x:Name="comboBoxGfxDecoder" MinWidth="300" SelectionChanged="comboBoxGfxDecoder_SelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label Content="{x:Static i18n:Resource.labelGfxDecoder}" />
+                    <ComboBox x:Name="comboBoxGfxDecoder" MinWidth="300" SelectionChanged="comboBoxGfxDecoder_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,5,0,0">
+                    <Image x:Name="imageFlag" Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                    <Label Content="{x:Static i18n:Resource.labelGfxSource}" />
+                    <controls:RelativePathPickerControl x:Name="relativePathControl" Grid.Row="1" RelativePath="{Binding Path, Mode=TwoWay}"  Filter="{x:Static i18n:Resource.filterGraphicsData}" MinWidth="400" />
+                </StackPanel>
+            </Grid>
         </GroupBox>
         <GridSplitter Grid.Row="1" />
-        <TabControl Grid.Row="2" x:Name="tabControlsLang">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
-                        <TextBlock Margin="3,0,0,0" Text="{Binding Lang,Converter={StaticResource ResourceKey=cultureDisplayNameConverter}}" />
-                    </StackPanel>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="24" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <controls:RelativePathPickerControl Grid.Row="0" RelativePath="{Binding Path, Mode=TwoWay}" ProjectSettings="{Binding ElementName=parentEditor, Path=ProjectSettings}" Filter="{x:Static i18n:Resource.filterGraphicsData}" />
-                        <controls:GraphicsPreviewControl Grid.Row="1" ImageRelativePath="{Binding Path}" GraphicsReader="{Binding ElementName=comboBoxGfxDecoder, Path=SelectedItem}" ProjectSettings="{Binding ElementName=parentEditor, Path=ProjectSettings}" />
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
-        <!--
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="110" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <Label Content="Text Preview:"/>
-                <TextBox x:Name="textBoxPreview" TextChanged="textBoxPreview_TextChanged" MinWidth="700" AcceptsReturn="True"  MinHeight="100"/>
-            </StackPanel>
-            <Image x:Name="imageTextPreview" Grid.Row="1" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
-        </Grid>-->
+        <controls:GraphicsPreviewControl x:Name="graphicsPreviewControl" Grid.Row="2" />
     </Grid>
 </local:BaseGraphicsEditor>

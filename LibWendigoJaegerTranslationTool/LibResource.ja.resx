@@ -121,7 +121,7 @@
     <value>Character '{0}' not found in correspondence table '{1}'. Context: Entry '{2}/{3} ({4})' line: {5} column: {6}</value>
   </data>
   <data name="bassAssembling" xml:space="preserve">
-    <value>bassで製品版のROMを作りっています。</value>
+    <value>bassで製品版のROMを作りっています</value>
   </data>
   <data name="bassError" xml:space="preserve">
     <value>bass.exe returned errors. Check the output for more details.</value>

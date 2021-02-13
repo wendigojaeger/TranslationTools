@@ -181,7 +181,7 @@
     <value>次記載</value>
   </data>
   <data name="mnuScriptSettings" xml:space="preserve">
-    <value>脚本コンフィグ</value>
+    <value>脚本コンフィグ...</value>
   </data>
   <data name="translationStateToTranslate" xml:space="preserve">
     <value>To Translate</value>
@@ -320,5 +320,11 @@
   </data>
   <data name="labelTableFile" xml:space="preserve">
     <value>Table File:</value>
+  </data>
+  <data name="labelGfxDecoder" xml:space="preserve">
+    <value>GFX Decoder:</value>
+  </data>
+  <data name="labelGfxSource" xml:space="preserve">
+    <value>GFX Source:</value>
   </data>
 </root>

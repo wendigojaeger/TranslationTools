@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Data;
+using WendigoJaeger.TranslationTool.Controls;
 using WendigoJaeger.TranslationTool.Data;
 using WendigoJaeger.TranslationTool.Graphics;
 
@@ -18,6 +21,14 @@ namespace WendigoJaeger.TranslationTool.Editors
         static Type[] _cachedGfxDecoderTypes = null;
 
         //WriteableBitmap _textPreview;
+
+        public string CurrentLocalizedPath
+        {
+            get
+            {
+                return Instance.GetEntry(CurrentLocale).Path;
+            }
+        }
 
         public GraphicsEditor()
         {
@@ -59,7 +70,26 @@ namespace WendigoJaeger.TranslationTool.Editors
                 }
             }
 
-            tabControlsLang.ItemsSource = Instance.Entries;
+            relativePathControl.ProjectSettings = ProjectSettings;
+
+            Binding graphicsReaderBinding = new Binding
+            {
+                Source = comboBoxGfxDecoder,
+                Path = new PropertyPath(nameof(comboBoxGfxDecoder.SelectedItem)),
+                Mode = BindingMode.OneWay
+            };
+            graphicsPreviewControl.SetBinding(GraphicsPreviewControl.GraphicsReaderProperty, graphicsReaderBinding);
+
+            Binding imageRelativePathBinding = new Binding
+            {
+                Path = new PropertyPath(nameof(LocalizedFilePathEntry.Path)),
+                Mode = BindingMode.OneWay
+            };
+            graphicsPreviewControl.SetBinding(GraphicsPreviewControl.ImageRelativePathProperty, imageRelativePathBinding);
+
+            graphicsPreviewControl.ProjectSettings = ProjectSettings;
+
+            onCurrentLocaleChanged(CurrentLocale);
 
             Instance.PropertyChanged -= Instance_PropertyChanged;
             Instance.PropertyChanged += Instance_PropertyChanged;
@@ -140,6 +170,15 @@ namespace WendigoJaeger.TranslationTool.Editors
                     Instance.GraphicsReader = graphicsReader;
                 }
             }
+        }
+
+        protected override void onCurrentLocaleChanged(string newLocale)
+        {
+            var newLocalizedEntry = Instance.GetEntry(newLocale);
+
+            imageFlag.DataContext = newLocalizedEntry;
+            relativePathControl.DataContext = newLocalizedEntry;
+            graphicsPreviewControl.DataContext = newLocalizedEntry;
         }
     }
 }

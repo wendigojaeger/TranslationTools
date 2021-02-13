@@ -231,6 +231,19 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+        internal string CurrentLocale
+        {
+            get
+            {
+                if (comboLanguages.SelectedItem != null)
+                {
+                    return ((KeyValuePair<string, LocalizedProjectSettings>)comboLanguages.SelectedItem).Key;
+                }
+
+                return string.Empty;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -420,9 +433,9 @@ namespace WendigoJaeger.TranslationTool
 
             builder.Reporter.OnLineOutput += onReporterOutput;
 
-            var selectedItem = (KeyValuePair<string, LocalizedProjectSettings>)comboLanguages.SelectedItem;
+            var currentLanguage = CurrentLocale;
 
-            builder.Build(selectedItem.Key, ProjectSettings);
+            builder.Build(currentLanguage, ProjectSettings);
 
             if (!builder.Reporter.HasErrors)
             {
@@ -432,7 +445,7 @@ namespace WendigoJaeger.TranslationTool
                 Process emulator = new Process();
                 emulator.StartInfo.FileName = @"C:\Programmation\Traduction\CommonTools\bsnes-plus\bsnes.exe";
                 emulator.StartInfo.WorkingDirectory = Path.GetDirectoryName(ProjectSettings.Path);
-                emulator.StartInfo.Arguments = ProjectSettings.Project.Lang[selectedItem.Key].OutputFile;
+                emulator.StartInfo.Arguments = ProjectSettings.Project.Lang[currentLanguage].OutputFile;
                 emulator.Start();
             }
         }
@@ -708,6 +721,7 @@ namespace WendigoJaeger.TranslationTool
                     editorInstance.EditedItem = item;
                     editorInstance.UpdateStatusBar = onUpdateStatusBar;
                     editorInstance.MainWindow = this;
+                    editorInstance.CurrentLocale = CurrentLocale;
                     editorInstance.Init();
 
                     editorContent.Content = editorInstance;
@@ -792,6 +806,15 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+
+        private void comboLanguages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_currentEditor != null)
+            {
+                _currentEditor.CurrentLocale = CurrentLocale;
+            }
+        }
+
         private void onReporterOutput(string line)
         {
             Dispatcher.InvokeAsync(() => textBoxOutput.Text += line);
@@ -824,5 +847,6 @@ namespace WendigoJaeger.TranslationTool
 
             return null;
         }
+
     }
 }
