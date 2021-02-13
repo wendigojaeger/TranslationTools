@@ -41,7 +41,7 @@ namespace WendigoJaeger.TranslationTool.Editors
             {
                 if (Instance != null)
                 {
-                    return ProjectSettings.GetAbsolutePath(Instance.Graphics.Instance.Entries.First().Path);
+                    return ProjectSettings.GetAbsolutePath(Instance.Graphics.Instance.GetEntry(CurrentLocale).Path);
                 }
 
                 return string.Empty;
@@ -102,6 +102,11 @@ namespace WendigoJaeger.TranslationTool.Editors
                     fontEditor.SelectedZoomFactor = Math.Max(fontEditor.SelectedZoomFactor - 1, 0);
                 }
             }
+        }
+
+        protected override void onCurrentLocaleChanged(string newLocale)
+        {
+            notifyPropertyChanged(nameof(GraphicsPath));
         }
     }
 }
