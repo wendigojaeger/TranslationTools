@@ -327,4 +327,7 @@
   <data name="labelGfxSource" xml:space="preserve">
     <value>GFX Source:</value>
   </data>
+  <data name="labelTargetTableFile" xml:space="preserve">
+    <value>Target Table File:</value>
+  </data>
 </root>

@@ -286,6 +286,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Target Table File:.
+        /// </summary>
+        public static string labelTargetTableFile {
+            get {
+                return ResourceManager.GetString("labelTargetTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entry Terminator:.
         /// </summary>
         public static string labelTerminator {

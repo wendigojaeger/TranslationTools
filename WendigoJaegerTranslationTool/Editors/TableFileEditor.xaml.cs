@@ -49,7 +49,15 @@ namespace WendigoJaeger.TranslationTool.Editors
             sourceTableFilePicker.ProjectSettings = ProjectSettings;
             sourceTableFilePicker.SetBinding(RelativePathPickerControl.RelativePathProperty, pathBinding);
 
-            tabControlsLang.ItemsSource = Instance.TargetTableFiles;
+            Binding targetPathBinding = new Binding
+            {
+                Path = new PropertyPath(nameof(LocalizedFilePathEntry.Path)),
+                Mode = BindingMode.TwoWay
+            };
+            targetTableFilePicker.ProjectSettings = ProjectSettings;
+            targetTableFilePicker.SetBinding(RelativePathPickerControl.RelativePathProperty, targetPathBinding);
+
+            onCurrentLocaleChanged(CurrentLocale);
 
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;
@@ -63,18 +71,12 @@ namespace WendigoJaeger.TranslationTool.Editors
             }
         }
 
-        private void NewLine_ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        protected override void onCurrentLocaleChanged(string newLocale)
         {
-            //if (!Instance.NewLine.HasValue)
-            //{
-            //    Instance.NewLine = Convert.ToByte(e.NewValue);
+            var newLocalizedEntry = Instance.GetTargetTable(newLocale);
 
-            //    IntegerUpDown control = sender as IntegerUpDown;
-            //    if (control != null)
-            //    {
-            //        control.GetBindingExpression(IntegerUpDown.ValueProperty).UpdateTarget();
-            //    }
-            //}
+            imageFlagTargetTable.DataContext = newLocalizedEntry;
+            targetTableFilePicker.DataContext = newLocalizedEntry;
         }
     }
 }

@@ -327,4 +327,7 @@
   <data name="labelGfxSource" xml:space="preserve">
     <value>Source du graphique:</value>
   </data>
+  <data name="labelTargetTableFile" xml:space="preserve">
+    <value>Table de correspondance traduite:</value>
+  </data>
 </root>

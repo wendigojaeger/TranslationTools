@@ -17,8 +17,6 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="4" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
@@ -26,6 +24,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -43,34 +42,23 @@
 
             <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelNewLine}" HorizontalAlignment="Right" />
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="1">
-                <xctk:ByteUpDown Value="{Binding NewLine, Mode=TwoWay}" FormatString="X" ParsingNumberStyle="HexNumber" ValueChanged="NewLine_ValueChanged"/>
+                <xctk:ByteUpDown Value="{Binding NewLine, Mode=TwoWay}" FormatString="X" ParsingNumberStyle="HexNumber" />
             </StackPanel>
 
             <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelNewWindow}" HorizontalAlignment="Right" />
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1">
                 <xctk:ByteUpDown Value="{Binding NextWindow, Mode=TwoWay}" FormatString="X" ParsingNumberStyle="HexNumber" />
             </StackPanel>
+
+            <Label Grid.Row="5" Grid.Column="0" Content="{x:Static i18n:Resource.labelTargetTableFile}" HorizontalAlignment="Right" />
+            <Grid Grid.Row="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"  x:Name="imageFlagTargetTable" Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                <controls:RelativePathPickerControl Grid.Column="1" x:Name="targetTableFilePicker" Grid.Row="0" Filter="{x:Static i18n:Resource.filterTableFile}" Margin="3,0,0,0" />
+            </Grid>
         </Grid>
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
-        <TabControl Grid.Row="2" x:Name="tabControlsLang">
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
-                        <TextBlock Margin="3,0,0,0" Text="{Binding Lang,Converter={StaticResource ResourceKey=cultureDisplayNameConverter}}" />
-                    </StackPanel>
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <controls:RelativePathPickerControl Grid.Row="0" RelativePath="{Binding Path, Mode=TwoWay}" ProjectSettings="{Binding ElementName=parentEditor, Path=ProjectSettings}" Filter="{x:Static i18n:Resource.filterTableFile}" />
-                    </Grid>
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
     </Grid>
 </local:BaseTableFileEditor>
