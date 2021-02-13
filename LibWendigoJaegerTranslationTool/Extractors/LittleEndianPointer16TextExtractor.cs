@@ -21,7 +21,9 @@ namespace WendigoJaeger.TranslationTool.Extractors
 
             CorrespondenceTable table = new CorrespondenceTable();
 
-            string tblPath = Path.Combine(ConfigSerializer.RootDirectory, settings.SourceTableFile);
+            var tableFile = settings.TableFile.Instance;
+
+            string tblPath = Path.Combine(ConfigSerializer.RootDirectory, tableFile.SourceTableFile);
             table.Parse(project.System.Endianess, tblPath);
 
             using (var romFile = File.OpenRead(romPath))
@@ -49,7 +51,7 @@ namespace WendigoJaeger.TranslationTool.Extractors
 
                         byte readByte = reader.ReadByte();
 
-                        while (readByte != settings.Terminator)
+                        while (readByte != tableFile.Terminator)
                         {
                             rawData.Add(readByte);
 
@@ -66,7 +68,7 @@ namespace WendigoJaeger.TranslationTool.Extractors
                         {
                             byte value = rawData[i];
 
-                            if (settings.NewLine.HasValue && settings.NewLine.Value == value && previousByteIsText)
+                            if (tableFile.NewLine.HasValue && tableFile.NewLine.Value == value && previousByteIsText)
                             {
                                 lineBuilder.Append('\n');
                             }

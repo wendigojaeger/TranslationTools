@@ -85,7 +85,7 @@ namespace WendigoJaeger.TranslationTool.Converters
 
                         if (!_imageCache.TryGetValue(countryCode, out image))
                         {
-                            Uri uri = new Uri($"/WendigoJaegerTranslationTool;component/Images/Flags/{countryCode.ToLower()}.png", UriKind.RelativeOrAbsolute);
+                            Uri uri = new Uri($"pack://application:,,,/Images/Flags/{countryCode.ToLower()}.png", UriKind.RelativeOrAbsolute);
                             image = new BitmapImage(uri);
                             _imageCache.Add(countryCode, image);
                         }

@@ -60,38 +60,38 @@ namespace WendigoJaeger.TranslationTool
             yield return new ProjectTreeSubEntry()
             {
                 Name = Resource.projectHeaderTableFile,
-                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.TableFiles
             };
 
             yield return new ProjectTreeSubEntry() {
                 Name = Resource.projectHeaderScripts,
-                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Scripts
             };
 
             yield return new ProjectTreeSubEntry() {
                 Name = Resource.projectHeaderGraphics,
-                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Graphics
             };
 
             yield return new ProjectTreeSubEntry() {
                 Name = Resource.projectHeaderFont,
-                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Fonts
             };
 
             yield return new ProjectTreeSubEntry() {
                 Name = Resource.projectHeaderPalettes,
-                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Palettes
             };
 
             yield return new ProjectTreeSubEntry()
             {
                 Name = Resource.projectHeaderCustomAssemblyFIle,
-                Icon = new BitmapImage(new Uri("/WendigoJaegerTranslationTool;component/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.AssemblyFileSettings
             };
         }

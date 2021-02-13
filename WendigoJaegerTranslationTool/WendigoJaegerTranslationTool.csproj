@@ -1,279 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11BD0994-AF05-495A-98FE-4B3514F6FEAD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WendigoJaeger.TranslationTool</RootNamespace>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
     <AssemblyName>WendigoJaegerTranslationTool</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
+    <RootNamespace>WendigoJaeger.TranslationTool</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xaml">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="WriteableBitmapEx.Wpf, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WriteableBitmapEx.1.6.2\lib\net40\WriteableBitmapEx.Wpf.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
-    </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit, Version=3.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Extended.Wpf.Toolkit.3.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="Commands\ArrayItemAddedCommand.cs" />
-    <Compile Include="Commands\ArrayItemRemovedCommand.cs" />
-    <Compile Include="Commands\PaletteColorCommand.cs" />
-    <Compile Include="Commands\PropertyValueChangedCommand.cs" />
-    <Compile Include="Controls\CountryStatusListControl.xaml.cs">
-      <DependentUpon>CountryStatusListControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\EditableTextBlock.cs" />
-    <Compile Include="Controls\EnumBindingSourceExtension.cs" />
-    <Compile Include="Controls\FontEditorControl.cs" />
-    <Compile Include="Controls\GraphicsPreviewControl.xaml.cs">
-      <DependentUpon>GraphicsPreviewControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RefObjectPtrControl.xaml.cs">
-      <DependentUpon>RefObjectPtrControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\RelativePathPickerControl.xaml.cs">
-      <DependentUpon>RelativePathPickerControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\CultureInfoConverters.cs" />
-    <Compile Include="Converters\ScriptEntryStateConverter.cs" />
-    <Compile Include="Converters\TileGraphicsConverter.cs" />
-    <Compile Include="Creators\CreateFontSettingsWindow.xaml.cs">
-      <DependentUpon>CreateFontSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Creators\GenericCreateWindow.xaml.cs">
-      <DependentUpon>GenericCreateWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Creators\ObjectCreator.cs" />
-    <Compile Include="Creators\CreateAssemblyFileSettingsWindow.xaml.cs">
-      <DependentUpon>CreateAssemblyFileSettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\AssemblyFileSettingsEditor.xaml.cs">
-      <DependentUpon>AssemblyFileSettingsEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\BaseEditor.cs" />
-    <Compile Include="Editors\FontSettingsEditor.xaml.cs">
-      <DependentUpon>FontSettingsEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\GraphicsEditor.xaml.cs">
-      <DependentUpon>GraphicsEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\PaletteEditor.xaml.cs">
-      <DependentUpon>PaletteEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\ScriptEntryEditor.xaml.cs">
-      <DependentUpon>ScriptEntryEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\ScriptSettingsEditor.xaml.cs">
-      <DependentUpon>ScriptSettingsEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Editors\TableFileEditor.xaml.cs">
-      <DependentUpon>TableFileEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Extensions\ISystemExtension.cs" />
-    <Compile Include="Extensions\ItemContainerGeneratorExtension.cs" />
-    <Compile Include="Extensions\PaletteExtension.cs" />
-    <Compile Include="Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resource.fr.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.fr.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resource.ja.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.ja.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\RefObjectBrowserWindow.xaml.cs">
-      <DependentUpon>RefObjectBrowserWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="Controls\CountryStatusListControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\GraphicsPreviewControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RefObjectPtrControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\RelativePathPickerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Creators\CreateAssemblyFileSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Creators\CreateFontSettingsWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Creators\GenericCreateWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\AssemblyFileSettingsEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\FontSettingsEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\GraphicsEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\PaletteEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\ScriptEntryEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\ScriptSettingsEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Editors\TableFileEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CustomCommands.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Windows\RefObjectBrowserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource.fr.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.fr.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource.ja.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.ja.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\LibWendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool.csproj">
-      <Project>{45462ce3-92e2-417d-a578-098b2a456322}</Project>
-      <Name>LibWendigoJaegerTranslationTool</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\GraphicsIcon.png" />
-    <Resource Include="Images\ScriptSettingsIcon.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Images\AssemblyFileIcon.png" />
     <Resource Include="Images\Flags\ad.png" />
     <Resource Include="Images\Flags\ae.png" />
     <Resource Include="Images\Flags\af.png" />
@@ -517,20 +253,18 @@
     <Resource Include="Images\Flags\za.png" />
     <Resource Include="Images\Flags\zm.png" />
     <Resource Include="Images\Flags\zw.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <Resource Include="Images\GraphicsIcon.png" />
     <Resource Include="Images\ProjectIcon.png" />
+    <Resource Include="Images\ScriptSettingsIcon.png" />
   </ItemGroup>
+
   <ItemGroup>
-    <Resource Include="Images\AssemblyFileIcon.png" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
+    <PackageReference Include="WriteableBitmapEx" Version="1.6.7" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <ItemGroup>
+    <ProjectReference Include="..\LibWendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool.csproj" />
+  </ItemGroup>
+
 </Project>
