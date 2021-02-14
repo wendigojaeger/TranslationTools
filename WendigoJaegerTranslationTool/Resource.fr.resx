@@ -330,4 +330,22 @@
   <data name="labelTargetTableFile" xml:space="preserve">
     <value>Table de correspondance traduite:</value>
   </data>
+  <data name="labelMaxPerLine" xml:space="preserve">
+    <value>Maximum de tuiles par ligne:</value>
+  </data>
+  <data name="labelMaxLines" xml:space="preserve">
+    <value>Lignes maximum:</value>
+  </data>
+  <data name="labelFont" xml:space="preserve">
+    <value>Police:</value>
+  </data>
+  <data name="labelTextPreview" xml:space="preserve">
+    <value>Aperçu du texte:</value>
+  </data>
+  <data name="projectHeaderTextPreview" xml:space="preserve">
+    <value>Aperçu de texte</value>
+  </data>
+  <data name="mnuProjectAddTextPreview" xml:space="preserve">
+    <value>Ajouter un aperçu de texte...</value>
+  </data>
 </root>

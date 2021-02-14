@@ -23,11 +23,21 @@ namespace WendigoJaeger.TranslationTool.Editors
         {
             DataContext = Instance;
 
-            Binding tableFileBinding = new Binding();
-            tableFileBinding.Source = Instance;
-            tableFileBinding.Path = new PropertyPath(nameof(Instance.TableFile));
-            tableFileBinding.Mode = BindingMode.TwoWay;
+            Binding tableFileBinding = new Binding
+            {
+                Source = Instance,
+                Path = new PropertyPath(nameof(Instance.TableFile)),
+                Mode = BindingMode.TwoWay
+            };
             tableFilePicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, tableFileBinding);
+
+            Binding textPreviewBinding = new Binding
+            {
+                Source = Instance,
+                Path = new PropertyPath(nameof(Instance.TextPreview)),
+                Mode = BindingMode.TwoWay
+            };
+            textPreviewPicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, textPreviewBinding);
 
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;

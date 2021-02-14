@@ -90,6 +90,13 @@ namespace WendigoJaeger.TranslationTool
 
             yield return new ProjectTreeSubEntry()
             {
+                Name = Resource.projectHeaderTextPreview,
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.TextPreviewInfos
+            };
+
+            yield return new ProjectTreeSubEntry()
+            {
                 Name = Resource.projectHeaderCustomAssemblyFIle,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.AssemblyFileSettings
@@ -554,6 +561,23 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+
+        private void AddTextPreview_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddTextPreview_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newTextPreviewInfo = ObjectCreator.Create<TextPreviewInfo>(ProjectSettings);
+            if (newTextPreviewInfo != null)
+            {
+                ProjectSettings.TextPreviewInfos.Add(newTextPreviewInfo);
+
+                showEditor(newTextPreviewInfo);
+            }
+        }
+
         private void ProjectSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null;
@@ -805,7 +829,6 @@ namespace WendigoJaeger.TranslationTool
                 }
             }
         }
-
 
         private void comboLanguages_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

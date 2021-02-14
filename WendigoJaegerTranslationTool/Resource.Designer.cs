@@ -196,6 +196,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Font:.
+        /// </summary>
+        public static string labelFont {
+            get {
+                return ResourceManager.GetString("labelFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Font Graphics:.
         /// </summary>
         public static string labelFontGraphics {
@@ -237,6 +246,24 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelGraphics {
             get {
                 return ResourceManager.GetString("labelGraphics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max lines:.
+        /// </summary>
+        public static string labelMaxLines {
+            get {
+                return ResourceManager.GetString("labelMaxLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max tiles per line:.
+        /// </summary>
+        public static string labelMaxPerLine {
+            get {
+                return ResourceManager.GetString("labelMaxPerLine", resourceCulture);
             }
         }
         
@@ -300,6 +327,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelTerminator {
             get {
                 return ResourceManager.GetString("labelTerminator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Preview:.
+        /// </summary>
+        public static string labelTextPreview {
+            get {
+                return ResourceManager.GetString("labelTextPreview", resourceCulture);
             }
         }
         
@@ -466,6 +502,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Text Preview....
+        /// </summary>
+        public static string mnuProjectAddTextPreview {
+            get {
+                return ResourceManager.GetString("mnuProjectAddTextPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Settings....
         /// </summary>
         public static string mnuProjectSettings {
@@ -588,6 +633,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string projectHeaderTableFile {
             get {
                 return ResourceManager.GetString("projectHeaderTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Preview.
+        /// </summary>
+        public static string projectHeaderTextPreview {
+            get {
+                return ResourceManager.GetString("projectHeaderTextPreview", resourceCulture);
             }
         }
         

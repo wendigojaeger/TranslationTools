@@ -330,4 +330,22 @@
   <data name="labelTargetTableFile" xml:space="preserve">
     <value>Target Table File:</value>
   </data>
+  <data name="labelMaxPerLine" xml:space="preserve">
+    <value>Max tiles per line:</value>
+  </data>
+  <data name="labelMaxLines" xml:space="preserve">
+    <value>Max lines:</value>
+  </data>
+  <data name="labelFont" xml:space="preserve">
+    <value>Font:</value>
+  </data>
+  <data name="labelTextPreview" xml:space="preserve">
+    <value>Text Preview:</value>
+  </data>
+  <data name="projectHeaderTextPreview" xml:space="preserve">
+    <value>Text Preview</value>
+  </data>
+  <data name="mnuProjectAddTextPreview" xml:space="preserve">
+    <value>Add Text Preview...</value>
+  </data>
 </root>

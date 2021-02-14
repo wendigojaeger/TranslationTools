@@ -26,6 +26,7 @@
         <CommandBinding Command="local:CustomCommands.AddFont" CanExecute="AddFont_CanExecute" Executed="AddFont_Executed" />
         <CommandBinding Command="local:CustomCommands.AddPalette" CanExecute="AddPalette_CanExecute" Executed="AddPalette_Executed" />
         <CommandBinding Command="local:CustomCommands.AddTableFile" CanExecute="AddTableFile_CanExecute" Executed="AddTableFile_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddTextPreview" CanExecute="AddTextPreview_CanExecute" Executed="AddTextPreview_Executed" />
         <CommandBinding Command="local:CustomCommands.BuildAndRun" CanExecute="BuildAndRun_CanExecute" Executed="BuildAndRun_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ProjectSettings" CanExecute="ProjectSettings_CanExecute" Executed="ProjectSettings_Executed" />
@@ -72,6 +73,7 @@
                 <MenuItem Command="local:CustomCommands.AddGraphics" />
                 <MenuItem Command="local:CustomCommands.AddFont" />
                 <MenuItem Command="local:CustomCommands.AddPalette" />
+                <MenuItem Command="local:CustomCommands.AddTextPreview" />
                 <Separator />
                 <MenuItem Command="local:CustomCommands.ProjectSettings" />
             </MenuItem>
@@ -152,6 +154,9 @@
                                         <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
                                     </HierarchicalDataTemplate>
                                     <HierarchicalDataTemplate DataType="{x:Type data:TableFile}">
+                                        <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
+                                    </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:TextPreviewInfo}">
                                         <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
                                     </HierarchicalDataTemplate>
                                 </TreeView.Resources>

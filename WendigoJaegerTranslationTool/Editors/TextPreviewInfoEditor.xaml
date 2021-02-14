@@ -1,0 +1,37 @@
+﻿<local:BaseTextPreviewInfoEditor x:Class="WendigoJaeger.TranslationTool.Editors.TextPreviewInfoEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Editors"
+             xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
+             xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:data="clr-namespace:WendigoJaeger.TranslationTool.Data;assembly=LibWendigoJaegerTranslationTool"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="parentEditor">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelFont}" HorizontalAlignment="Right"/>
+        <controls:RefObjectPtrControl x:Name="fontPicker" Grid.Row="0" Grid.Column="1" RefObjectType="{x:Type data:FontSettings}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static i18n:Resource.labelMaxPerLine}" HorizontalAlignment="Right" />
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1">
+            <xctk:ByteUpDown Value="{Binding MaxPerLine, Mode=TwoWay}" />
+        </StackPanel>
+
+        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static i18n:Resource.labelMaxLines}" HorizontalAlignment="Right" />
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+            <xctk:ByteUpDown Value="{Binding MaxLines, Mode=TwoWay}" />
+        </StackPanel>
+    </Grid>
+</local:BaseTextPreviewInfoEditor>

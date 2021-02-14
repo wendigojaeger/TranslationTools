@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using WendigoJaeger.TranslationTool.Extractors;
+﻿using WendigoJaeger.TranslationTool.Extractors;
 using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
@@ -9,6 +8,7 @@ namespace WendigoJaeger.TranslationTool.Data
         private string _name = string.Empty;
         private ExternalFile<ScriptFile> _script;
         private RefObjectPtr<TableFile> _tableFile;
+        private RefObjectPtr<TextPreviewInfo> _textPreview;
 
         public string Name
         {
@@ -85,6 +85,33 @@ namespace WendigoJaeger.TranslationTool.Data
 
                     _tableFile.PropertyChanged -= propertyChangedProxy;
                     _tableFile.PropertyChanged += propertyChangedProxy;
+                }
+            }
+        }
+
+        public RefObjectPtr<TextPreviewInfo> TextPreview
+        {
+            get
+            {
+                if (_textPreview == null)
+                {
+                    _textPreview = new RefObjectPtr<TextPreviewInfo>();
+                    _textPreview.UndoPropertyChanged += undoProxy;
+                    _textPreview.PropertyChanged += propertyChangedProxy;
+                }
+
+                return _textPreview;
+            }
+            set
+            {
+                _textPreview = value;
+                if (_textPreview != null)
+                {
+                    _textPreview.UndoPropertyChanged -= undoProxy;
+                    _textPreview.UndoPropertyChanged += undoProxy;
+
+                    _textPreview.PropertyChanged -= propertyChangedProxy;
+                    _textPreview.PropertyChanged += propertyChangedProxy;
                 }
             }
         }
