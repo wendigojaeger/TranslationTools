@@ -8,12 +8,19 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="[&lt;&lt;" x:Name="buttonFirst" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoFirst}"  Click="buttonFirst_Click"/>
+            <Button Content="&lt;" x:Name="buttonPrevious" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoPrevious}" Click="buttonPrevious_Click" />
+            <Button Content="&gt;" x:Name="buttonNext" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoNext}" Click="buttonNext_Click"/>
+            <Button Content="&gt;&gt;]" x:Name="buttonLast" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoLast}" Click="buttonLast_Click"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
             <local:TextPreviewRenderControl x:Name="textPreviewRender" />
         </ScrollViewer>
-        <ComboBox x:Name="comboZoom" Grid.Row="1" SelectedIndex="{Binding ElementName=textPreviewRender, Path=SelectedZoomFactor, Mode=TwoWay}" ItemStringFormat="P" ItemsSource="{Binding ElementName=textPreviewRender, Path=AvailableZoomFactors}" />
+        <ComboBox x:Name="comboZoom" Grid.Row="2" SelectedIndex="{Binding ElementName=textPreviewRender, Path=SelectedZoomFactor, Mode=TwoWay}" ItemStringFormat="P" ItemsSource="{Binding ElementName=textPreviewRender, Path=AvailableZoomFactors}" />
     </Grid>
 </UserControl>

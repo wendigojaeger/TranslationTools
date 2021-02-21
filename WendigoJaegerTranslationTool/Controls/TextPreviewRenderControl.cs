@@ -19,6 +19,8 @@ namespace WendigoJaeger.TranslationTool.Controls
         private WriteableBitmap _fontBitmap = null;
         private WriteableBitmap _textBitmap = null;
         private CorrespondenceTable _correspondence;
+        private int _currentWindow = 0;
+        private byte[] _textByteData = null;
 
         private static readonly float[] _availableZoomFactors = new float[] { 0.5f, 1f, 2f, 4f, 8f, 12f };
 
@@ -106,6 +108,59 @@ namespace WendigoJaeger.TranslationTool.Controls
             }
         }
 
+        public bool CanGoFirst
+        {
+            get
+            {
+                return MaxWindow > 0 && _currentWindow != 0;
+            }
+        }
+
+        public bool CanGoPrevious
+        {
+            get
+            {
+                return MaxWindow > 0 && _currentWindow > 0;
+            }
+        }
+
+        public bool CanGoNext
+        {
+            get
+            {
+                return MaxWindow > 0 && _currentWindow < MaxWindow;
+            }
+        }
+
+        public bool CanGoLast
+        {
+            get
+            {
+                return MaxWindow > 0 && _currentWindow < MaxWindow;
+            }
+        }
+
+        public int MaxWindow { get; private set; }
+
+        public int CurrentWindow
+        { 
+            get
+            {
+                return _currentWindow;
+            }
+            set
+            {
+                _currentWindow = Math.Clamp(value, 0, MaxWindow);
+
+                updateTextBitmap();
+                InvalidateVisual();
+
+                updateNavigation();
+
+                notifyPropertyChanged();
+            }
+        }
+
         public float ZoomFactor { get; private set; } = 4f;
 
         public ProjectSettings ProjectSettings { get; set; }
@@ -149,6 +204,7 @@ namespace WendigoJaeger.TranslationTool.Controls
             TextPreviewRenderControl control = source as TextPreviewRenderControl;
             if (control != null)
             {
+                control.updateTextByteData();
                 control.updateTextBitmap();
 
                 control.InvalidateVisual();
@@ -231,9 +287,19 @@ namespace WendigoJaeger.TranslationTool.Controls
                 _correspondence.StringToBytes.Insert($"<{i:x2}>", Array.Empty<byte>());
             }
 
+            foreach(var entry in _correspondence.BytesToString.Root.Children)
+            {
+                _correspondence.StringToBytes.Insert($"<{entry.Key:x2}>", new byte[] { entry.Key });
+            }
+
             if (Table.NewLine.HasValue)
             {
                 _correspondence.StringToBytes.Insert("\n", new byte[] { Table.NewLine.Value });
+            }
+
+            if (Table.NextWindow.HasValue)
+            {
+                _correspondence.StringToBytes.Insert($"<{Table.NextWindow.Value:x2}>", new byte[] { Table.NextWindow.Value });
             }
         }
 
@@ -250,6 +316,11 @@ namespace WendigoJaeger.TranslationTool.Controls
             }
 
             if (string.IsNullOrEmpty(Text))
+            {
+                return;
+            }
+
+            if (_textByteData == null)
             {
                 return;
             }
@@ -271,8 +342,6 @@ namespace WendigoJaeger.TranslationTool.Controls
                         _textBitmap.Lock();
                         _textBitmap.Clear(palette.Entries[0].ToWpfColor());
 
-                        List<byte> scriptGameData = convertTextToGameData(Text);
-
                         int destX = 0;
                         int destY = 0;
 
@@ -281,9 +350,29 @@ namespace WendigoJaeger.TranslationTool.Controls
                         int fontBitmapWidthInTiles = (int)(_fontBitmap.Width / font.CharacterWidth);
                         int fontBitmapHeightInTiles = (int)(_fontBitmap.Height / font.CharacterHeight);
 
-                        for (int index = 0; index < scriptGameData.Count; ++index)
+                        int startIndex = 0;
+
+                        if (Table.NextWindow.HasValue && CurrentWindow > 0)
                         {
-                            if (Table.NewLine.HasValue && scriptGameData[index] == Table.NewLine.Value)
+                            int targetWindow = 0;
+                            for (int index = 0; index < _textByteData.Length; ++index)
+                            {
+                                if (_textByteData[index] == Table.NextWindow.Value)
+                                {
+                                    ++targetWindow;
+
+                                    if (targetWindow == CurrentWindow)
+                                    {
+                                        startIndex = index + 1;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        for (int index = startIndex; index < _textByteData.Length; ++index)
+                        {
+                            if (Table.NewLine.HasValue && _textByteData[index] == Table.NewLine.Value)
                             {
                                 destX = 0;
 
@@ -298,7 +387,12 @@ namespace WendigoJaeger.TranslationTool.Controls
                                 continue;
                             }
 
-                            var graphicsIndex = scriptGameData[index] - font.Offset;
+                            if (Table.NextWindow.HasValue && _textByteData[index] == Table.NextWindow.Value)
+                            {
+                                break;
+                            }
+
+                            var graphicsIndex = _textByteData[index] - font.Offset;
 
                             int sourceX = graphicsIndex % fontBitmapWidthInTiles;
                             int sourceY = graphicsIndex / fontBitmapHeightInTiles;
@@ -318,6 +412,43 @@ namespace WendigoJaeger.TranslationTool.Controls
                     }
                 }
             }
+        }
+
+        private void updateTextByteData()
+        {
+            if (Table == null)
+            {
+                return;
+            }
+
+            if (_correspondence == null)
+            {
+                return;
+            }
+
+            if (string.IsNullOrEmpty(Text))
+            {
+                return;
+            }
+
+            _textByteData = convertTextToGameData(Text).ToArray();
+
+            MaxWindow = 0;
+
+            if (Table.NextWindow.HasValue)
+            {
+                for (int index = 0; index < _textByteData.Length; ++index)
+                {
+                    if (_textByteData[index] == Table.NextWindow.Value)
+                    {
+                        ++MaxWindow;
+                    }
+                }
+            }
+
+            _currentWindow = Math.Clamp(_currentWindow, 0, MaxWindow);
+
+            updateNavigation();
         }
 
         private List<byte> convertTextToGameData(string text)
@@ -377,6 +508,14 @@ namespace WendigoJaeger.TranslationTool.Controls
             }
 
             return data;
+        }
+
+        private void updateNavigation()
+        {
+            notifyPropertyChanged(nameof(CanGoFirst));
+            notifyPropertyChanged(nameof(CanGoPrevious));
+            notifyPropertyChanged(nameof(CanGoNext));
+            notifyPropertyChanged(nameof(CanGoLast));
         }
 
         private void notifyPropertyChanged([CallerMemberName] string propertyName = "")

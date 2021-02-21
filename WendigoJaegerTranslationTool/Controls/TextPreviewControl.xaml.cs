@@ -111,6 +111,26 @@ namespace WendigoJaeger.TranslationTool.Controls
             }
         }
 
+        private void buttonFirst_Click(object sender, RoutedEventArgs e)
+        {
+            textPreviewRender.CurrentWindow = 0;
+        }
+
+        private void buttonPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            textPreviewRender.CurrentWindow -= 1;
+        }
+
+        private void buttonNext_Click(object sender, RoutedEventArgs e)
+        {
+            textPreviewRender.CurrentWindow += 1;
+        }
+
+        private void buttonLast_Click(object sender, RoutedEventArgs e)
+        {
+            textPreviewRender.CurrentWindow = textPreviewRender.MaxWindow;
+        }
+
         private void notifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
