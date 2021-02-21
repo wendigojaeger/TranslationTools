@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Editors"
-            xmlns:convert="clr-namespace:WendigoJaeger.TranslationTool.Converters"
+             xmlns:convert="clr-namespace:WendigoJaeger.TranslationTool.Converters"
              xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
              xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
              xmlns:data="clr-namespace:WendigoJaeger.TranslationTool.Data;assembly=LibWendigoJaegerTranslationTool"
@@ -38,6 +38,7 @@
                     </ComboBox>
                 </StackPanel>
                 <TextBox x:Name="textTranslatedEntry" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False"  SelectionChanged="TextBox_SelectionChanged" />
+                <controls:TextPreviewControl x:Name="translatedTextPreview" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </GroupBox>
     </Grid>

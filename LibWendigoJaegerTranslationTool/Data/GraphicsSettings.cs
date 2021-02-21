@@ -7,6 +7,7 @@ namespace WendigoJaeger.TranslationTool.Data
     public class GraphicsSettings : RefObject
     {
         private UndoObservableCollection<LocalizedFilePathEntry> _entries;
+        private string _originalPath;
         private IGraphicsReader _graphicsReader;
         private long _ramAddress;
 
@@ -34,6 +35,20 @@ namespace WendigoJaeger.TranslationTool.Data
             {
                 var oldValue = _graphicsReader;
                 _graphicsReader = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
+
+        public string OriginalPath
+        {
+            get
+            {
+                return _originalPath;
+            }
+            set
+            {
+                var oldValue = _originalPath;
+                _originalPath = value;
                 notifyPropertyChanged(oldValue, value);
             }
         }
@@ -74,6 +89,17 @@ namespace WendigoJaeger.TranslationTool.Data
         public LocalizedFilePathEntry GetEntry(string lang)
         {
             return Entries.FirstOrDefault(x => x.Lang == lang);
+        }
+
+        public string GetGraphicsPath(string lang)
+        {
+            var localizedEntry = GetEntry(lang);
+            if (localizedEntry != null)
+            {
+                return localizedEntry.Path;
+            }
+
+            return OriginalPath;
         }
 
         public string this[string key]

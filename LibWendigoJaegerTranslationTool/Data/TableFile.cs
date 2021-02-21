@@ -105,6 +105,17 @@ namespace WendigoJaeger.TranslationTool.Data
             return TargetTableFiles.FirstOrDefault(x => x.Lang == lang);
         }
 
+        public string GetTablePath(string lang)
+        {
+            var entry = GetTargetTable(lang);
+            if (entry != null)
+            {
+                return entry.Path;
+            }
+
+            return SourceTableFile;
+        }
+
         public string this[string key]
         {
             get

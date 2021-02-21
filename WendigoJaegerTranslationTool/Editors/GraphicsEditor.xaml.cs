@@ -20,8 +20,6 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         static Type[] _cachedGfxDecoderTypes = null;
 
-        //WriteableBitmap _textPreview;
-
         public string CurrentLocalizedPath
         {
             get

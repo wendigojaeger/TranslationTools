@@ -32,12 +32,42 @@ namespace WendigoJaeger.TranslationTool.Editors
 
             textOriginal.Text = Instance.Original;
 
+            translatedTextPreview.ProjectSettings = ProjectSettings;
+            translatedTextPreview.TextPreview = FindPreviewInfo();
+            translatedTextPreview.Table = FindTableFile();
+
             onCurrentLocaleChanged(CurrentLocale);
 
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;
 
             updateStatusBar("Ln: 1 Col: 1");
+        }
+
+        private TextPreviewInfo FindPreviewInfo()
+        {
+            foreach(var script in ProjectSettings.Scripts)
+            {
+                if (script.Script.Instance.Entries.Contains(Instance))
+                {
+                    return script.TextPreview.Instance;
+                }
+            }
+
+            return null;
+        }
+
+        private TableFile FindTableFile()
+        {
+            foreach (var script in ProjectSettings.Scripts)
+            {
+                if (script.Script.Instance.Entries.Contains(Instance))
+                {
+                    return script.TableFile.Instance;
+                }
+            }
+
+            return null;
         }
 
         private void updateWindowTitle(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -70,6 +100,9 @@ namespace WendigoJaeger.TranslationTool.Editors
             imageFlag.DataContext = newEntry;
             comboEntryState.DataContext = newEntry;
             textTranslatedEntry.DataContext = newEntry;
+
+            translatedTextPreview.DataContext = newEntry;
+            translatedTextPreview.CurrentLocale = newLocale;
         }
     }
 }
