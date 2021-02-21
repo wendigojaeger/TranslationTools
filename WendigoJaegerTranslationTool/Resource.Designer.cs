@@ -160,6 +160,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Properties.
+        /// </summary>
+        public static string groupBoxProperties {
+            get {
+                return ResourceManager.GetString("groupBoxProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Character Height:.
         /// </summary>
         public static string labelCharacterHeight {

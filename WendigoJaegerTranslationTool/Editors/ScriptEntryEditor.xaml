@@ -16,30 +16,67 @@
         <convert:ScriptEntryStateConverter x:Key="scriptEntryStateConverter" />
     </local:BaseScriptEditor.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="200" />
-            <RowDefinition Height="4" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <GroupBox Header="{x:Static i18n:Resource.translationToolOriginal}" Grid.Row="0">
-            <TextBox x:Name="textOriginal" Grid.Row="1" IsReadOnly="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" FontFamily="Hack" FontSize="12" />
-        </GroupBox>
-        <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
-        <GroupBox Header="{x:Static i18n:Resource.translationToolTranslation}" Grid.Row="2">
-            <StackPanel Orientation="Vertical" Margin="0,0,0,3">
-                <StackPanel Orientation="Horizontal">
-                    <Image x:Name="imageFlag" Source="{Binding Path=Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
-                    <ComboBox x:Name="comboEntryState" Margin="2,0,0,0" ItemsSource="{Binding Source={controls:EnumBindingSource {x:Type data:ScriptEntryState}}}" SelectedItem="{Binding Path=State, Mode=TwoWay}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Converter={StaticResource ResourceKey=scriptEntryStateConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </StackPanel>
-                <TextBox x:Name="textTranslatedEntry" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False"  SelectionChanged="TextBox_SelectionChanged" />
-                <controls:TextPreviewControl x:Name="translatedTextPreview" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-        </GroupBox>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="4" />
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="4" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <GroupBox Header="{x:Static i18n:Resource.translationToolOriginal}" Grid.Row="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="4" />
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+                    <controls:TextPreviewControl Grid.Row="0" x:Name="originalTextPreview" />
+                    <GridSplitter Grid.Row="1" Height="4" />
+                    <TextBox x:Name="textOriginal" Grid.Row="2" IsReadOnly="True" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" FontFamily="Hack" FontSize="12" />
+                </Grid>
+            </GroupBox>
+            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" />
+            <GroupBox Header="{x:Static i18n:Resource.translationToolTranslation}" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="50*" />
+                        <RowDefinition Height="4" />
+                        <RowDefinition Height="50*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <Image x:Name="imageFlag" Source="{Binding Path=Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                        <ComboBox x:Name="comboEntryState" Margin="2,0,0,0" ItemsSource="{Binding Source={controls:EnumBindingSource {x:Type data:ScriptEntryState}}}" SelectedItem="{Binding Path=State, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource ResourceKey=scriptEntryStateConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <controls:TextPreviewControl Grid.Row="1" x:Name="translatedTextPreview" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridSplitter Grid.Row="2" Height="4" />
+                    <TextBox Grid.Row="3" x:Name="textTranslatedEntry" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False"  SelectionChanged="TextBox_SelectionChanged" />
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="4" />
+        <Grid Grid.Column="2">
+            <GroupBox Header="{x:Static i18n:Resource.groupBoxProperties}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Content="{x:Static i18n:Resource.labelTextPreview}" Grid.Row="0" />
+                    <controls:RefObjectPtrControl Grid.Row="1" x:Name="textPreviewRefControl" RefObjectType="{x:Type data:TextPreviewInfo}" SelectedRefObjectChanged="textPreviewRefControl_SelectedRefObjectChanged" />
+                </Grid>
+            </GroupBox>
+        </Grid>
     </Grid>
 </local:BaseScriptEditor>

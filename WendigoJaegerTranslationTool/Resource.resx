@@ -357,4 +357,7 @@
   <data name="labelTranslated" xml:space="preserve">
     <value>Translated:</value>
   </data>
+  <data name="groupBoxProperties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
 </root>

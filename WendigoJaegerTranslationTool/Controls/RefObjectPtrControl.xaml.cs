@@ -94,6 +94,8 @@ namespace WendigoJaeger.TranslationTool.Controls
                 {
                     SelectedRefObject = browseWindow.SelectedRefObject;
                 }
+
+                SelectedRefObjectChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -107,6 +109,8 @@ namespace WendigoJaeger.TranslationTool.Controls
             {
                 SelectedRefObject = null;
             }
+
+            SelectedRefObjectChanged?.Invoke(this, EventArgs.Empty);
         }
 
         private static void onSelectedRefObjectChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
@@ -148,6 +152,5 @@ namespace WendigoJaeger.TranslationTool.Controls
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

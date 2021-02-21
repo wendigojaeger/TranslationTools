@@ -65,8 +65,8 @@ namespace WendigoJaeger.TranslationTool.Data
         private string _entryName = string.Empty;
         private string _original = string.Empty;
         private string _comment = string.Empty;
-        
         private UndoObservableCollection<TranslationEntry> _translations;
+        private RefObjectPtr<TextPreviewInfo> _textPreview;
 
         public string EntryName
         {
@@ -134,6 +134,33 @@ namespace WendigoJaeger.TranslationTool.Data
 
                     _translations.UndoPropertyChanged -= undoProxy;
                     _translations.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public RefObjectPtr<TextPreviewInfo> TextPreview
+        {
+            get
+            {
+                if (_textPreview == null)
+                {
+                    _textPreview = new RefObjectPtr<TextPreviewInfo>();
+                    _textPreview.UndoPropertyChanged += undoProxy;
+                    _textPreview.PropertyChanged += propertyChangedProxy;
+                }
+
+                return _textPreview;
+            }
+            set
+            {
+                _textPreview = value;
+                if (_textPreview != null)
+                {
+                    _textPreview.UndoPropertyChanged -= undoProxy;
+                    _textPreview.UndoPropertyChanged += undoProxy;
+
+                    _textPreview.PropertyChanged -= propertyChangedProxy;
+                    _textPreview.PropertyChanged += propertyChangedProxy;
                 }
             }
         }

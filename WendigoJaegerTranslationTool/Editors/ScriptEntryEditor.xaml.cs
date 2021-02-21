@@ -1,6 +1,8 @@
 ﻿using WendigoJaeger.TranslationTool.Data;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using WendigoJaeger.TranslationTool.Controls;
 
 namespace WendigoJaeger.TranslationTool.Editors
 {
@@ -30,11 +32,26 @@ namespace WendigoJaeger.TranslationTool.Editors
                 }
             }
 
+            Binding textPreviewRefBinding = new Binding();
+            textPreviewRefBinding.Source = Instance;
+            textPreviewRefBinding.Path = new PropertyPath(nameof(Instance.TextPreview));
+            textPreviewRefBinding.Mode = BindingMode.TwoWay;
+            textPreviewRefControl.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, textPreviewRefBinding);
+
+            var table = FindTableFile();
+            var textPreview = FindPreviewInfo();
+
             textOriginal.Text = Instance.Original;
 
+            originalTextPreview.ProjectSettings = ProjectSettings;
+            originalTextPreview.Table = table;
+            originalTextPreview.TextPreview = textPreview;
+            originalTextPreview.Text = Instance.Original;
+            originalTextPreview.CurrentLocale = "Default";
+
             translatedTextPreview.ProjectSettings = ProjectSettings;
-            translatedTextPreview.TextPreview = FindPreviewInfo();
-            translatedTextPreview.Table = FindTableFile();
+            translatedTextPreview.Table = table;
+            translatedTextPreview.TextPreview = textPreview;
 
             onCurrentLocaleChanged(CurrentLocale);
 
@@ -46,11 +63,14 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         private TextPreviewInfo FindPreviewInfo()
         {
-            foreach(var script in ProjectSettings.Scripts)
+            foreach (var script in ProjectSettings.Scripts)
             {
-                if (script.Script.Instance.Entries.Contains(Instance))
+                foreach (var entry in script.Script.Instance.Entries)
                 {
-                    return script.TextPreview.Instance;
+                    if (entry == Instance)
+                    {
+                        return entry.TextPreview.Instance != null ? entry.TextPreview.Instance : script.TextPreview.Instance;
+                    }
                 }
             }
 
@@ -103,6 +123,14 @@ namespace WendigoJaeger.TranslationTool.Editors
 
             translatedTextPreview.DataContext = newEntry;
             translatedTextPreview.CurrentLocale = newLocale;
+        }
+
+        private void textPreviewRefControl_SelectedRefObjectChanged(object sender, System.EventArgs args)
+        {
+            var newTextPreview = FindPreviewInfo();
+
+            originalTextPreview.TextPreview = newTextPreview;
+            translatedTextPreview.TextPreview = newTextPreview;
         }
     }
 }
