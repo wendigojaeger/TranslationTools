@@ -26,6 +26,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Label Content="{x:Static i18n:Resource.labelGfxDecoder}" />
@@ -38,13 +39,40 @@
                     </ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,5,0,0">
-                    <Image x:Name="imageFlag" Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
                     <Label Content="{x:Static i18n:Resource.labelGfxSource}" />
-                    <controls:RelativePathPickerControl x:Name="relativePathControl" Grid.Row="1" RelativePath="{Binding Path, Mode=TwoWay}"  Filter="{x:Static i18n:Resource.filterGraphicsData}" MinWidth="400" />
+                    <controls:RelativePathPickerControl x:Name="sourceRelativePathControl" Grid.Row="1" RelativePath="{Binding OriginalPath, Mode=TwoWay}"  Filter="{x:Static i18n:Resource.filterGraphicsData}" MinWidth="400" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,5,0,0">
+                    <Image x:Name="imageFlag" Source="{Binding Lang, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                    <Label Content="{x:Static i18n:Resource.labelGfxTranslated}" />
+                    <controls:RelativePathPickerControl x:Name="translatedRelativePathControl" Grid.Row="1" RelativePath="{Binding Path, Mode=TwoWay}"  Filter="{x:Static i18n:Resource.filterGraphicsData}" MinWidth="400" />
                 </StackPanel>
             </Grid>
         </GroupBox>
         <GridSplitter Grid.Row="1" />
-        <controls:GraphicsPreviewControl x:Name="graphicsPreviewControl" Grid.Row="2" />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="{x:Static i18n:Resource.labelOriginal}" Grid.Row="0"/>
+                <controls:GraphicsPreviewControl x:Name="originalGraphicsPreview" Grid.Row="1" />
+            </Grid>
+            <GridSplitter Grid.Column="1" Width="4"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="{x:Static i18n:Resource.labelTranslated}" Grid.Row="0"/>
+                <controls:GraphicsPreviewControl x:Name="translatedGraphicsPreviewControl" Grid.Row="1" />
+            </Grid>
+        </Grid>
     </Grid>
 </local:BaseGraphicsEditor>

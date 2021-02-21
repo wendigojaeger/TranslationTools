@@ -325,7 +325,7 @@
     <value>GFX Decoder:</value>
   </data>
   <data name="labelGfxSource" xml:space="preserve">
-    <value>GFX Source:</value>
+    <value>GFX Original:</value>
   </data>
   <data name="labelTargetTableFile" xml:space="preserve">
     <value>Target Table File:</value>
@@ -347,5 +347,14 @@
   </data>
   <data name="mnuProjectAddTextPreview" xml:space="preserve">
     <value>Add Text Preview...</value>
+  </data>
+  <data name="labelGfxTranslated" xml:space="preserve">
+    <value>GFX Translated:</value>
+  </data>
+  <data name="labelOriginal" xml:space="preserve">
+    <value>Original:</value>
+  </data>
+  <data name="labelTranslated" xml:space="preserve">
+    <value>Translated:</value>
   </data>
 </root>

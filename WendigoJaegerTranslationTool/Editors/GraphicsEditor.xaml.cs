@@ -68,7 +68,10 @@ namespace WendigoJaeger.TranslationTool.Editors
                 }
             }
 
-            relativePathControl.ProjectSettings = ProjectSettings;
+            sourceRelativePathControl.DataContext = Instance;
+            sourceRelativePathControl.ProjectSettings = ProjectSettings;
+
+            translatedRelativePathControl.ProjectSettings = ProjectSettings;
 
             Binding graphicsReaderBinding = new Binding
             {
@@ -76,16 +79,26 @@ namespace WendigoJaeger.TranslationTool.Editors
                 Path = new PropertyPath(nameof(comboBoxGfxDecoder.SelectedItem)),
                 Mode = BindingMode.OneWay
             };
-            graphicsPreviewControl.SetBinding(GraphicsPreviewControl.GraphicsReaderProperty, graphicsReaderBinding);
+            originalGraphicsPreview.SetBinding(GraphicsPreviewControl.GraphicsReaderProperty, graphicsReaderBinding);
+            originalGraphicsPreview.ProjectSettings = ProjectSettings;
 
-            Binding imageRelativePathBinding = new Binding
+            Binding originalImageRelativePathBinding = new Binding
+            {
+                Path = new PropertyPath(nameof(GraphicsSettings.OriginalPath)),
+                Mode = BindingMode.OneWay,
+                Source = Instance
+            };
+            originalGraphicsPreview.SetBinding(GraphicsPreviewControl.ImageRelativePathProperty, originalImageRelativePathBinding);
+
+            Binding translatedImageRelativePathBinding = new Binding
             {
                 Path = new PropertyPath(nameof(LocalizedFilePathEntry.Path)),
                 Mode = BindingMode.OneWay
             };
-            graphicsPreviewControl.SetBinding(GraphicsPreviewControl.ImageRelativePathProperty, imageRelativePathBinding);
+            translatedGraphicsPreviewControl.SetBinding(GraphicsPreviewControl.ImageRelativePathProperty, translatedImageRelativePathBinding);
 
-            graphicsPreviewControl.ProjectSettings = ProjectSettings;
+            translatedGraphicsPreviewControl.SetBinding(GraphicsPreviewControl.GraphicsReaderProperty, graphicsReaderBinding);
+            translatedGraphicsPreviewControl.ProjectSettings = ProjectSettings;
 
             onCurrentLocaleChanged(CurrentLocale);
 
@@ -113,51 +126,6 @@ namespace WendigoJaeger.TranslationTool.Editors
                 refreshWindowTitle();
             }
         }
-
-        private void textBoxPreview_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            //_textPreview = BitmapFactory.New(8 * 28, 8 * 6);
-            //_textPreview.Lock();
-
-            //_textPreview.FillRectangle(0, 0, (int)_textPreview.Width, (int)_textPreview.Height, Color.FromArgb(255, 0, 0, 0));
-
-            //Rect destRect = new Rect(0, 0, 8, 8);
-
-            //foreach (var character in textBoxPreview.Text)
-            //{
-            //    int realByte = (byte)character - 0x16;
-
-            //    if (character == '\r')
-            //    {
-            //        continue;
-            //    }
-
-            //    if (character == '\n')
-            //    {
-            //        destRect.X = 0;
-            //        destRect.Y += 8;
-            //        continue;
-            //    }
-
-            //    if (destRect.X >= (8 * 28))
-            //    {
-            //        destRect.X = 0;
-            //        destRect.Y += 8;
-            //    }
-
-            //    int tileX = realByte % 16;
-            //    int tileY = realByte / 16;
-
-            //    _textPreview.Blit(destRect, _graphicsSource, new Rect(tileX * 8, tileY * 8, 8, 8));
-
-            //    destRect.X += 8;
-            //}
-
-            //_textPreview.Unlock();
-
-            //imageTextPreview.Source = _textPreview;
-        }
-
         private void comboBoxGfxDecoder_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             IGraphicsReader graphicsReader = comboBoxGfxDecoder.SelectedItem as IGraphicsReader;
@@ -175,8 +143,8 @@ namespace WendigoJaeger.TranslationTool.Editors
             var newLocalizedEntry = Instance.GetEntry(newLocale);
 
             imageFlag.DataContext = newLocalizedEntry;
-            relativePathControl.DataContext = newLocalizedEntry;
-            graphicsPreviewControl.DataContext = newLocalizedEntry;
+            translatedRelativePathControl.DataContext = newLocalizedEntry;
+            translatedGraphicsPreviewControl.DataContext = newLocalizedEntry;
         }
     }
 }

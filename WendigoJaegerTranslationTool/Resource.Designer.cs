@@ -232,11 +232,20 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GFX Source:.
+        ///   Looks up a localized string similar to GFX Original:.
         /// </summary>
         public static string labelGfxSource {
             get {
                 return ResourceManager.GetString("labelGfxSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GFX Translated:.
+        /// </summary>
+        public static string labelGfxTranslated {
+            get {
+                return ResourceManager.GetString("labelGfxTranslated", resourceCulture);
             }
         }
         
@@ -282,6 +291,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelNewWindow {
             get {
                 return ResourceManager.GetString("labelNewWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original:.
+        /// </summary>
+        public static string labelOriginal {
+            get {
+                return ResourceManager.GetString("labelOriginal", resourceCulture);
             }
         }
         
@@ -336,6 +354,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelTextPreview {
             get {
                 return ResourceManager.GetString("labelTextPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translated:.
+        /// </summary>
+        public static string labelTranslated {
+            get {
+                return ResourceManager.GetString("labelTranslated", resourceCulture);
             }
         }
         

@@ -325,7 +325,7 @@
     <value>Décodeur de graphique:</value>
   </data>
   <data name="labelGfxSource" xml:space="preserve">
-    <value>Source du graphique:</value>
+    <value>Graphique original:</value>
   </data>
   <data name="labelTargetTableFile" xml:space="preserve">
     <value>Table de correspondance traduite:</value>
@@ -347,5 +347,14 @@
   </data>
   <data name="mnuProjectAddTextPreview" xml:space="preserve">
     <value>Ajouter un aperçu de texte...</value>
+  </data>
+  <data name="labelGfxTranslated" xml:space="preserve">
+    <value>Graphique traduit:</value>
+  </data>
+  <data name="labelOriginal" xml:space="preserve">
+    <value>Original:</value>
+  </data>
+  <data name="labelTranslated" xml:space="preserve">
+    <value>Traduit:</value>
   </data>
 </root>
