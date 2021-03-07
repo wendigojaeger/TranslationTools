@@ -282,7 +282,7 @@ namespace WendigoJaeger.TranslationTool.Controls
             string tblPath = ProjectSettings.GetAbsolutePath(Table.GetTablePath(CurrentLocale));
             _correspondence.Parse(ProjectSettings.Project.System.Endianess, tblPath);
 
-            for (int i = 0; i < 0xFF; ++i)
+            for (int i = 0; i <= 0xFF; ++i)
             {
                 _correspondence.StringToBytes.Insert($"<{i:x2}>", Array.Empty<byte>());
             }
@@ -377,7 +377,7 @@ namespace WendigoJaeger.TranslationTool.Controls
                                 destX = 0;
 
                                 ++numberOfLines;
-                                if (numberOfLines >= textPreview.MaxPerLine)
+                                if (numberOfLines >= textPreview.MaxLines)
                                 {
                                     break;
                                 }

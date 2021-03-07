@@ -14,9 +14,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Content="[&lt;&lt;" x:Name="buttonFirst" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoFirst}"  Click="buttonFirst_Click"/>
-            <Button Content="&lt;" x:Name="buttonPrevious" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoPrevious}" Click="buttonPrevious_Click" />
-            <Button Content="&gt;" x:Name="buttonNext" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoNext}" Click="buttonNext_Click"/>
-            <Button Content="&gt;&gt;]" x:Name="buttonLast" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoLast}" Click="buttonLast_Click"/>
+            <Button Content="&lt;" x:Name="buttonPrevious" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoPrevious}" Click="buttonPrevious_Click" Margin="5,0,0,0" />
+            <Button Content="&gt;" x:Name="buttonNext" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoNext}" Click="buttonNext_Click" Margin="5,0,0,0"/>
+            <Button Content="&gt;&gt;]" x:Name="buttonLast" IsEnabled="{Binding ElementName=textPreviewRender, Path=CanGoLast}" Click="buttonLast_Click" Margin="5,0,0,0"/>
         </StackPanel>
         <ScrollViewer Grid.Row="1" CanContentScroll="True" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
             <local:TextPreviewRenderControl x:Name="textPreviewRender" />

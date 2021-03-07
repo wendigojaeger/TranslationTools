@@ -18,7 +18,7 @@ namespace WendigoJaeger.TranslationTool
             string tblPath = Path.Combine(ConfigSerializer.RootDirectory, tblFileName);
             table.Parse(endian, tblPath);
 
-            for(int i = 0; i < 0xFF; ++i)
+            for(int i = 0; i <= 0xFF; ++i)
             {
                 table.StringToBytes.Insert($"<{i:x2}>", new byte[] { (byte)i });
             }
