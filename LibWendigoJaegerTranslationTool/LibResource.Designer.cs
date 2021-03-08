@@ -19,10 +19,10 @@ namespace WendigoJaeger.TranslationTool {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class LibResource {
+    public class LibResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace WendigoJaeger.TranslationTool {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WendigoJaeger.TranslationTool.LibResource", typeof(LibResource).Assembly);
@@ -51,7 +51,7 @@ namespace WendigoJaeger.TranslationTool {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to Assembling final ROM with bass.
         /// </summary>
-        internal static string bassAssembling {
+        public static string bassAssembling {
             get {
                 return ResourceManager.GetString("bassAssembling", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to bass.exe returned errors. Check the output for more details..
         /// </summary>
-        internal static string bassError {
+        public static string bassError {
             get {
                 return ResourceManager.GetString("bassError", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to The script bank {0} is overflowing..
         /// </summary>
-        internal static string bassErrorOverflow {
+        public static string bassErrorOverflow {
             get {
                 return ResourceManager.GetString("bassErrorOverflow", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 1BPP Monochrome.
         /// </summary>
-        internal static string gfx1bpp {
+        public static string gfx1bpp {
             get {
                 return ResourceManager.GetString("gfx1bpp", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 2BPP Neo Geo Pocket Color.
         /// </summary>
-        internal static string gfx2bppNeoGeoPocketColor {
+        public static string gfx2bppNeoGeoPocketColor {
             get {
                 return ResourceManager.GetString("gfx2bppNeoGeoPocketColor", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 2BPP NES.
         /// </summary>
-        internal static string gfx2bppNES {
+        public static string gfx2bppNES {
             get {
                 return ResourceManager.GetString("gfx2bppNES", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 2BPP SNES/GB/GBC.
         /// </summary>
-        internal static string gfx2bppNintendo {
+        public static string gfx2bppNintendo {
             get {
                 return ResourceManager.GetString("gfx2bppNintendo", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 2BPP Virtual Boy.
         /// </summary>
-        internal static string gfx2bppVirtualBoy {
+        public static string gfx2bppVirtualBoy {
             get {
                 return ResourceManager.GetString("gfx2bppVirtualBoy", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 3BPP SNES.
         /// </summary>
-        internal static string gfx3bppSNES {
+        public static string gfx3bppSNES {
             get {
                 return ResourceManager.GetString("gfx3bppSNES", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 4BPP Sega Master System/Game Gear/Wonderswan Color.
         /// </summary>
-        internal static string gfx4bppGameGear {
+        public static string gfx4bppGameGear {
             get {
                 return ResourceManager.GetString("gfx4bppGameGear", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 4BPP Sega Genesis/Megadrive/X68000.
         /// </summary>
-        internal static string gfx4bppGenesis {
+        public static string gfx4bppGenesis {
             get {
                 return ResourceManager.GetString("gfx4bppGenesis", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 4BPP SNES/PC Engine.
         /// </summary>
-        internal static string gfx4bppSNES {
+        public static string gfx4bppSNES {
             get {
                 return ResourceManager.GetString("gfx4bppSNES", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to 8BPP SNES.
         /// </summary>
-        internal static string gfx8bppSNES {
+        public static string gfx8bppSNES {
             get {
                 return ResourceManager.GetString("gfx8bppSNES", resourceCulture);
             }
@@ -180,9 +180,18 @@ namespace WendigoJaeger.TranslationTool {
         /// <summary>
         ///   Looks up a localized string similar to Character &apos;{0}&apos; not found in correspondence table &apos;{1}&apos;. Context: Entry &apos;{2}/{3} ({4})&apos; line: {5} column: {6}.
         /// </summary>
-        internal static string scriptConverterError {
+        public static string scriptConverterError {
             get {
                 return ResourceManager.GetString("scriptConverterError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 16-bit Pointer Text Extractor (Little Endian).
+        /// </summary>
+        public static string textExtractorLE16 {
+            get {
+                return ResourceManager.GetString("textExtractorLE16", resourceCulture);
             }
         }
     }

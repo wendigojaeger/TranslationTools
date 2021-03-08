@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Text;
 using WendigoJaeger.TranslationTool.Data;
 
 namespace WendigoJaeger.TranslationTool.Extractors
 {
-    [DisplayName("16-bit Pointer Text Extractor (Little Endian)")]
     public class LittleEndianPointer16TextExtractor : ITextExtractor
     {
         [JsonIgnore]
         public ScriptBankType BankType => ScriptBankType.Pointer16;
+
+        public string Name => LibResource.textExtractorLE16;
 
         public void Extract(Project project, ScriptSettings settings)
         {

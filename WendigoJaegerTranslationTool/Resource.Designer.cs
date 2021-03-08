@@ -187,6 +187,24 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Destination RAM Address:.
+        /// </summary>
+        public static string labelDestinationRamAddress {
+            get {
+                return ResourceManager.GetString("labelDestinationRamAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination RAM Address End:.
+        /// </summary>
+        public static string labelDestinationRamAddressEnd {
+            get {
+                return ResourceManager.GetString("labelDestinationRamAddressEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Entry Name:.
         /// </summary>
         public static string labelEntryName {
@@ -304,6 +322,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entry Count:.
+        /// </summary>
+        public static string labelNumEntries {
+            get {
+                return ResourceManager.GetString("labelNumEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original:.
         /// </summary>
         public static string labelOriginal {
@@ -318,6 +345,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelPalette {
             get {
                 return ResourceManager.GetString("labelPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source RAM Address:.
+        /// </summary>
+        public static string labelSourceRamAddress {
+            get {
+                return ResourceManager.GetString("labelSourceRamAddress", resourceCulture);
             }
         }
         
@@ -354,6 +390,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelTerminator {
             get {
                 return ResourceManager.GetString("labelTerminator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text Extractor:.
+        /// </summary>
+        public static string labelTextExtractor {
+            get {
+                return ResourceManager.GetString("labelTextExtractor", resourceCulture);
             }
         }
         
@@ -777,6 +822,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string windowCreateFontSettings {
             get {
                 return ResourceManager.GetString("windowCreateFontSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Script Settings.
+        /// </summary>
+        public static string windowCreateScriptSettings {
+            get {
+                return ResourceManager.GetString("windowCreateScriptSettings", resourceCulture);
             }
         }
         

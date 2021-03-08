@@ -139,4 +139,7 @@
   <data name="gfx4bppGenesis" xml:space="preserve">
     <value>4BPP Sega Genesis/Megadrive/X68000</value>
   </data>
+  <data name="textExtractorLE16" xml:space="preserve">
+    <value>16-bit Pointer Text Extractor (Little Endian)</value>
+  </data>
 </root>

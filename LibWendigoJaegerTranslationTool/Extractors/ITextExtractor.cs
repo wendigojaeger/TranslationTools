@@ -8,6 +8,8 @@ namespace WendigoJaeger.TranslationTool.Extractors
         [JsonIgnore]
         ScriptBankType BankType { get; }
 
+        string Name { get; }
+
         void Extract(Project project, ScriptSettings settings);
     }
 }

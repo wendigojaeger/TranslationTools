@@ -360,4 +360,22 @@
   <data name="groupBoxProperties" xml:space="preserve">
     <value>Propriétés</value>
   </data>
+  <data name="labelNumEntries" xml:space="preserve">
+    <value>Nombre d'entrées:</value>
+  </data>
+  <data name="labelSourceRamAddress" xml:space="preserve">
+    <value>Source addresse RAM:</value>
+  </data>
+  <data name="labelDestinationRamAddress" xml:space="preserve">
+    <value>Adresse RAM destination:</value>
+  </data>
+  <data name="labelDestinationRamAddressEnd" xml:space="preserve">
+    <value>Adresse RAM fin destination:</value>
+  </data>
+  <data name="labelTextExtractor" xml:space="preserve">
+    <value>Extracteur de texte:</value>
+  </data>
+  <data name="windowCreateScriptSettings" xml:space="preserve">
+    <value>Créer une configuration de script</value>
+  </data>
 </root>
