@@ -108,7 +108,9 @@ namespace WendigoJaeger.TranslationTool.Editors
                 {
                     int column = textBox.CaretIndex - textBox.GetCharacterIndexFromLineIndex(line);
 
-                    updateStatusBar($"Ln: {line + 1}, Col: {column + 1}");
+                    var selectionLength = textBox.SelectedText.Length;
+
+                    updateStatusBar($"Ln: {line + 1}, Col: {column + 1} ({selectionLength} / 0x{selectionLength:x})");
                 }
             }
         }
