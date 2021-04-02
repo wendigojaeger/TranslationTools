@@ -6,16 +6,17 @@ using WendigoJaeger.TranslationTool.Data;
 
 namespace WendigoJaeger.TranslationTool.Extractors
 {
-    public class LittleEndianPointer16TextExtractor : ITextExtractor
+    public class ScriptExtractorPointer16LittleEndian : IScriptExtractor
     {
         [JsonIgnore]
         public ScriptBankType BankType => ScriptBankType.Pointer16;
 
+        [JsonIgnore]
         public string Name => LibResource.textExtractorLE16;
 
         public void Extract(Project project, ScriptSettings settings)
         {
-            settings.Script.Instance.Entries.Clear();
+            settings.Script.Instance.Clear();
 
             string romPath = Path.Combine(ConfigSerializer.RootDirectory, project.InputFile);
 

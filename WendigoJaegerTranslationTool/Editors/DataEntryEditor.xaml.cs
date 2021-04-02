@@ -2,17 +2,16 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using WendigoJaeger.TranslationTool.Controls;
 using WendigoJaeger.TranslationTool.Data;
 
 namespace WendigoJaeger.TranslationTool.Editors
 {
-    public class BaseScriptEditor : BaseEditor<ScriptEntry>
+    public class BaseDataEditor : BaseEditor<DataEntry>
     {
     }
 
-    [EditorFor(typeof(ScriptEntry))]
-    public partial class ScriptEntryEditor : BaseScriptEditor
+    [EditorFor(typeof(DataEntry))]
+    public partial class DataEntryEditor : BaseDataEditor
     {
         public override string WindowTitle => Instance.EntryName;
 
@@ -37,7 +36,7 @@ namespace WendigoJaeger.TranslationTool.Editors
             }
         }
 
-        public ScriptEntryEditor()
+        public DataEntryEditor()
         {
             InitializeComponent();
         }
@@ -53,14 +52,6 @@ namespace WendigoJaeger.TranslationTool.Editors
                     Instance.Translations.Add(new TranslationEntry { Lang = langSettings.Key, Value = Instance.Original });
                 }
             }
-
-            Binding textPreviewRefBinding = new()
-            {
-                Source = Instance,
-                Path = new PropertyPath(nameof(Instance.TextPreview)),
-                Mode = BindingMode.TwoWay
-            };
-            textPreviewRefControl.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, textPreviewRefBinding);
 
             Binding otherTranslationItemsSource = new()
             {
@@ -94,13 +85,13 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         private TextPreviewInfo FindPreviewInfo()
         {
-            foreach (var script in ProjectSettings.Scripts)
+            foreach (var dataSettings in ProjectSettings.DataSettings)
             {
-                foreach (var entry in script.Script.Instance.Entries)
+                foreach (var entry in dataSettings.DataFile.Instance.DataEntries)
                 {
                     if (entry == Instance)
                     {
-                        return entry.TextPreview.Instance != null ? entry.TextPreview.Instance : script.TextPreview.Instance;
+                        return dataSettings.TextPreview.Instance;
                     }
                 }
             }
@@ -110,11 +101,14 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         private TableFile FindTableFile()
         {
-            foreach (var script in ProjectSettings.Scripts)
+            foreach (var dataSettings in ProjectSettings.DataSettings)
             {
-                if (script.Script.Instance.Entries.Contains(Instance))
+                foreach (var entry in dataSettings.DataFile.Instance.DataEntries)
                 {
-                    return script.TableFile.Instance;
+                    if (entry == Instance)
+                    {
+                        return dataSettings.TableFile.Instance;
+                    }
                 }
             }
 

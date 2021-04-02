@@ -88,6 +88,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data Extractor 16-bit Pointer Little Endian.
+        /// </summary>
+        public static string dataExtractorPointer16LittleEndian {
+            get {
+                return ResourceManager.GetString("dataExtractorPointer16LittleEndian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 1BPP Monochrome.
         /// </summary>
         public static string gfx1bpp {
@@ -187,7 +196,7 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 16-bit Pointer Text Extractor (Little Endian).
+        ///   Looks up a localized string similar to Text Extractor 16-bit Pointer Little Endian.
         /// </summary>
         public static string textExtractorLE16 {
             get {

@@ -5,7 +5,7 @@ namespace WendigoJaeger.TranslationTool
 {
     public class ReferenceDatabase
     {
-        private Dictionary<Guid, RefObject> _database = new Dictionary<Guid, RefObject>();
+        private readonly Dictionary<Guid, RefObject> _database = new();
 
         public static ReferenceDatabase Instance { get; } = new ReferenceDatabase();
 
@@ -17,11 +17,18 @@ namespace WendigoJaeger.TranslationTool
         {
         }
 
+        public T CreateNew<T>() where T : RefObject, new()
+        {
+            T newObject = new();
+            Register(newObject);
+            return newObject;
+        }
+
         public void Register(RefObject obj)
         {
             if (obj.ID != Guid.Empty)
             {
-                _database.Add(obj.ID, obj);
+                _database.TryAdd(obj.ID, obj);
             }
         }
 
@@ -32,7 +39,7 @@ namespace WendigoJaeger.TranslationTool
 
         public T Get<T>(Guid id) where T : RefObject
         {
-            RefObject result = null;
+            RefObject result;
             _database.TryGetValue(id, out result);
             return result as T;
         }

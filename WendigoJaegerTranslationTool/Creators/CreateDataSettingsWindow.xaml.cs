@@ -7,16 +7,16 @@ using WendigoJaeger.TranslationTool.Extractors;
 
 namespace WendigoJaeger.TranslationTool.Creators
 {
-    [ObjectCreator(typeof(ScriptSettings))]
-    public partial class CreateScriptSettingsWindow : Window, IObjectCreator
+    [ObjectCreator(typeof(DataSettings))]
+    public partial class CreateDataSettingsWindow : Window, IObjectCreator
     {
         public object CreatedObject { get; set; }
         public ProjectSettings ProjectSettings { get; set; }
         public Type ObjectType { get; set; }
 
-        static Type[] _cachedTextExtractorTypes = null;
+        static Type[] _cachedDataExtractorTypes = null;
 
-        public CreateScriptSettingsWindow()
+        public CreateDataSettingsWindow()
         {
             InitializeComponent();
 
@@ -25,7 +25,7 @@ namespace WendigoJaeger.TranslationTool.Creators
 
         private void buttonOK_Click(object sender, RoutedEventArgs e)
         {
-            ScriptSettings newScriptSettings = new ScriptSettings
+            DataSettings newDataSettings = new DataSettings
             {
                 Name = textName.Text,
                 SourceRAMAddress = upDownSourceRAM.Value.Value,
@@ -33,13 +33,13 @@ namespace WendigoJaeger.TranslationTool.Creators
                 Entries = upDownEntries.Value.Value
             };
 
-            newScriptSettings.TextExtractor = (IScriptExtractor)comboTextExtractors.SelectedItem;
-            newScriptSettings.TableFile.RefID = tableRefObjectPicker.SelectedRefObject.ID;
-            newScriptSettings.TextPreview.RefID = textPreviewRefObjectPicker.SelectedRefObject.ID;
+            newDataSettings.DataExtractor = (IDataExtractor)comboDataExtractors.SelectedItem;
+            newDataSettings.TableFile.RefID = tableRefObjectPicker.SelectedRefObject.ID;
+            newDataSettings.TextPreview.RefID = textPreviewRefObjectPicker.SelectedRefObject.ID;
 
-            newScriptSettings.Script.Path = ProjectSettings.GetAbsolutePath($"{textName.Text}.wts");
+            newDataSettings.DataFile.Path = ProjectSettings.GetAbsolutePath($"{textName.Text}.wtd");
 
-            CreatedObject = newScriptSettings;
+            CreatedObject = newDataSettings;
 
             DialogResult = true;
             Close();
@@ -53,25 +53,25 @@ namespace WendigoJaeger.TranslationTool.Creators
 
         private void windowInit()
         {
-            if (_cachedTextExtractorTypes == null)
+            if (_cachedDataExtractorTypes == null)
             {
                 var query = from a in AppDomain.CurrentDomain.GetAssemblies()
                             from t in a.GetTypes()
-                            where t.GetInterfaces().Contains(typeof(IScriptExtractor))
+                            where t.GetInterfaces().Contains(typeof(IDataExtractor))
                             select t;
 
-                _cachedTextExtractorTypes = query.ToArray();
+                _cachedDataExtractorTypes = query.ToArray();
             }
 
-            List<IScriptExtractor> textExtractors = new List<IScriptExtractor>();
+            List<IDataExtractor> dataExtractors = new();
 
-            foreach (var type in _cachedTextExtractorTypes)
+            foreach (var type in _cachedDataExtractorTypes)
             {
-                textExtractors.Add((IScriptExtractor)Activator.CreateInstance(type));
+                dataExtractors.Add((IDataExtractor)Activator.CreateInstance(type));
             }
-            textExtractors.Sort((x, y) => x.Name.CompareTo(y.Name));
+            dataExtractors.Sort((x, y) => x.Name.CompareTo(y.Name));
 
-            comboTextExtractors.ItemsSource = textExtractors;
+            comboDataExtractors.ItemsSource = dataExtractors;
         }
     }
 }

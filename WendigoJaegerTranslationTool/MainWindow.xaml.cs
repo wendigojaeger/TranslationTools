@@ -70,6 +70,13 @@ namespace WendigoJaeger.TranslationTool
                 List = projectSettings.Scripts
             };
 
+            yield return new ProjectTreeSubEntry()
+            {
+                Name = Resource.projectHeaderData,
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.DataSettings
+            };
+
             yield return new ProjectTreeSubEntry() {
                 Name = Resource.projectHeaderGraphics,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
@@ -144,6 +151,73 @@ namespace WendigoJaeger.TranslationTool
                                 progress.State = ScriptEntryState.Review;
                             }
                             else if (stateCount[(int)ScriptEntryState.ToTranslate] == scriptFile.Entries.Count)
+                            {
+                                progress.State = ScriptEntryState.ToTranslate;
+                            }
+                            else
+                            {
+                                progress.State = ScriptEntryState.InProgress;
+                            }
+                        }
+
+                        result.Add(progress);
+                    }
+                }
+
+                return result;
+            }
+
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return null;
+        }
+    }
+
+    public class DataFileProgressAggregator : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            DataFile dataFile = value as DataFile;
+            if (dataFile != null)
+            {
+                List<TranslationEntry> result = new();
+
+                var projectSettings = ((MainWindow)Application.Current.MainWindow).ProjectSettings;
+                if (projectSettings != null)
+                {
+                    foreach (var lang in projectSettings.Project.Lang.Keys)
+                    {
+                        TranslationEntry progress = new()
+                        {
+                            State = ScriptEntryState.ToTranslate,
+                            Lang = lang
+                        };
+
+                        int[] stateCount = new int[Enum.GetNames(typeof(ScriptEntryState)).Length];
+
+                        foreach (var dataEntry in dataFile.DataEntries)
+                        {
+                            var translation = dataEntry.GetTranslation(lang);
+                            if (translation != null)
+                            {
+                                stateCount[(int)translation.State] += 1;
+                            }
+                        }
+
+                        if (stateCount[(int)ScriptEntryState.Final] == dataFile.DataEntries.Count)
+                        {
+                            progress.State = ScriptEntryState.Final;
+                        }
+                        else
+                        {
+                            if (stateCount[(int)ScriptEntryState.ToTranslate] == 0 && stateCount[(int)ScriptEntryState.InProgress] == 0)
+                            {
+                                progress.State = ScriptEntryState.Review;
+                            }
+                            else if (stateCount[(int)ScriptEntryState.ToTranslate] == dataFile.DataEntries.Count)
                             {
                                 progress.State = ScriptEntryState.ToTranslate;
                             }
@@ -322,7 +396,7 @@ namespace WendigoJaeger.TranslationTool
                     DestinationRAMAddress = 0x27D800,
                     DestinationEndRAMAddress = 0x27FFFF,
                     Entries = 59,
-                    TextExtractor = new LittleEndianPointer16TextExtractor()
+                    TextExtractor = new ScriptExtractorPointer16LittleEndian()
                 };
                 dialogSettings.TableFile.Instance = mainDialogTableFile;
 
@@ -494,6 +568,22 @@ namespace WendigoJaeger.TranslationTool
                 ProjectSettings.Scripts.Add(newScript);
 
                 showEditor(newScript);
+            }
+        }
+
+        private void AddData_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddData_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newData = ObjectCreator.Create<DataSettings>(ProjectSettings);
+            if (newData != null)
+            {
+                ProjectSettings.DataSettings.Add(newData);
+
+                showEditor(newData);
             }
         }
 
@@ -710,6 +800,24 @@ namespace WendigoJaeger.TranslationTool
         private void ScriptSettings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
            
+        }
+
+        private void DataExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is DataSettings;
+        }
+
+        private void DataExtract_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedDataSettings = treeViewProject.SelectedItem as DataSettings;
+
+            if (selectedDataSettings != null)
+            {
+                if (selectedDataSettings.DataFile != null)
+                {
+                    selectedDataSettings.DataExtractor.Extract(ProjectSettings.Project, selectedDataSettings);
+                }
+            }
         }
 
         private void treeViewProject_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

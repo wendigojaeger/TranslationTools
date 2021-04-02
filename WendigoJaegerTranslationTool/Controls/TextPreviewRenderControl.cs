@@ -285,6 +285,7 @@ namespace WendigoJaeger.TranslationTool.Controls
             for (int i = 0; i <= 0xFF; ++i)
             {
                 _correspondence.StringToBytes.Insert($"<{i:x2}>", Array.Empty<byte>());
+                _correspondence.StringToBytes.Insert($"<PTR{i:d3}>", Array.Empty<byte>());
             }
 
             foreach(var entry in _correspondence.BytesToString.Root.Children)

@@ -21,6 +21,10 @@ macro seek(variable offset) {
 include "<#=IncludeFileName(script)#>"
 <# } #>
 
+<# foreach(var data in DataBanks) { #>
+include "<#=IncludeFileName(data)#>"
+<# } #>
+
 <# foreach(var gfx in Graphics) { #>
 seek($<#=gfx.RAMAddress.ToString("x")#>)
 insert "<#=gfx.FileName#>"

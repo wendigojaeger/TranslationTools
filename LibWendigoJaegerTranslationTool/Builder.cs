@@ -29,7 +29,7 @@ namespace WendigoJaeger.TranslationTool
                     EndRAMAddress = script.DestinationEndRAMAddress
                 };
 
-                ScriptConveter.Convert(Reporter, targetLanguage, outputInfo.System.Endianess, script, outputBank);
+                OutputConveter.ConvertScript(Reporter, targetLanguage, outputInfo.System.Endianess, script, outputBank);
 
                 if (Reporter.HasErrors)
                 {
@@ -37,6 +37,26 @@ namespace WendigoJaeger.TranslationTool
                 }
 
                 outputInfo.Scripts.Add(outputBank);
+            }
+
+            foreach(var data in settings.DataSettings)
+            {
+                OutputDataBank outputData = new()
+                {
+                    Name = data.Name,
+                    FileName = data.DataFile.Path,
+                    RAMAddress = data.DestinationRAMAddress,
+                    EndRAMAddress = data.DestinationEndRAMAddress,
+                };
+
+                OutputConveter.ConvertData(Reporter, targetLanguage, outputInfo.System.Endianess, data, outputData);
+
+                if (Reporter.HasErrors)
+                {
+                    return;
+                }
+
+                outputInfo.DataBanks.Add(outputData);
             }
 
             foreach(var graphics in settings.Graphics)

@@ -18,9 +18,9 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
+    #line 1 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public partial class SNESBassTemplate : SNESBassTemplateBase
+    public partial class SNESBassDataIncludeTemplate : SNESBassDataIncludeTemplateBase
     {
 #line hidden
         /// <summary>
@@ -28,115 +28,153 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("arch snes.cpu\r\n\r\n");
-            
-            #line 8 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- if (IsLoROM) { 
-            
-            #line default
-            #line hidden
-            this.Write("macro seek(variable offset) {\r\n  origin ((offset & $7F0000) >> 1) | (offset & $7F" +
-                    "FF)\r\n  base offset\r\n}\r\n");
-            
-            #line 13 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- } else { 
-            
-            #line default
-            #line hidden
-            this.Write("macro seek(variable offset) {\r\n  origin (offset & $3FFFFF)\r\n  base offset\r\n}\r\n");
-            
-            #line 18 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 20 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- foreach(var script in Scripts) { 
-            
-            #line default
-            #line hidden
-            this.Write("include \"");
-            
-            #line 21 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(IncludeFileName(script)));
-            
-            #line default
-            #line hidden
-            this.Write("\"\r\n");
-            
-            #line 22 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 24 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- foreach(var data in DataBanks) { 
-            
-            #line default
-            #line hidden
-            this.Write("include \"");
-            
-            #line 25 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(IncludeFileName(data)));
-            
-            #line default
-            #line hidden
-            this.Write("\"\r\n");
-            
-            #line 26 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\r\n");
-            
-            #line 28 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- foreach(var gfx in Graphics) { 
-            
-            #line default
-            #line hidden
             this.Write("seek($");
             
-            #line 29 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(gfx.RAMAddress.ToString("x")));
+            #line 6 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataBank.RAMAddress.ToString("x")));
             
             #line default
             #line hidden
-            this.Write(")\r\ninsert \"");
+            this.Write(")\r\n");
             
-            #line 30 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(gfx.FileName));
+            #line 7 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(FormatEntryName(DataBank.Name)));
             
             #line default
             #line hidden
-            this.Write("\"\r\n");
+            this.Write(":\r\n");
             
-            #line 31 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
+            #line 8 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+ foreach(var pointerName in GetPointers()) { 
+            
+            #line default
+            #line hidden
+            this.Write("    dw ");
+            
+            #line 9 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(pointerName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 10 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 33 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
- foreach(var assemblyFile in AssemblyFiles) { 
+            #line 12 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+
+for(int entryIndex = 0; entryIndex < Entries.Count; ++entryIndex)
+{
+    var entry = Entries[entryIndex];
+
+    int pointerCount = 0;
+    Queue<int> pointerIndices = new(entry.Pointers);
+
+    OutputState state = OutputState.OutputDB;
+
+    int dataIndex = 0;
+    while(dataIndex < entry.Data.Length)
+    {
+        switch (state)
+        {
+            case OutputState.PrintPointerLabel:
+            {
+
             
             #line default
             #line hidden
-            this.Write("include \"");
             
-            #line 34 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(assemblyFile.Path));
+            #line 30 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(GenerateEntryName(entryIndex, pointerCount)));
             
             #line default
             #line hidden
-            this.Write("\"\r\n");
+            this.Write(":\r\n");
             
-            #line 35 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassTemplate.tt"
+            #line 31 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+
+                pointerCount++;
+                state = OutputState.OutputDB;
+                break;
+            }
+            case OutputState.OutputDB:
+            {
+                if (pointerIndices.Count > 0 && pointerIndices.Peek() == dataIndex)
+                {
+                    pointerIndices.Dequeue();
+                    state = OutputState.PrintPointerLabel;
+                }
+                else
+                {
+
+            
+            #line default
+            #line hidden
+            this.Write("    db ");
+            
+            #line 46 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture($"${entry.Data[dataIndex]:x}"));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 47 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+
+                    dataIndex++;
+                }
+                break;
+            }
+        }
+    }
+
+            
+            #line default
+            #line hidden
+            this.Write("    db $");
+            
+            #line 55 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataBank.Terminator.ToString("x")));
+            
+            #line default
+            #line hidden
+            this.Write(" \r\n");
+            
+            #line 56 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+
+}
+
+            
+            #line default
+            #line hidden
+            this.Write("\r\n");
+            
+            #line 60 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+ if (DataBank.EndRAMAddress.HasValue) { 
+            
+            #line default
+            #line hidden
+            this.Write("if pc() > $");
+            
+            #line 61 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DataBank.EndRAMAddress.Value.ToString("x")));
+            
+            #line default
+            #line hidden
+            this.Write(" {\r\n    error \"");
+            
+            #line 62 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Format(LibResource.bassErrorOverflow, DataBank.Name)));
+            
+            #line default
+            #line hidden
+            this.Write("\"\r\n}\r\n");
+            
+            #line 64 "C:\Programmation\C#\WendigoJaegerTranslationTool\LibWendigoJaegerTranslationTool\Outputs\SNES\SNESBassDataIncludeTemplate.tt"
  } 
             
             #line default
@@ -152,7 +190,7 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "16.0.0.0")]
-    public class SNESBassTemplateBase
+    public class SNESBassDataIncludeTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

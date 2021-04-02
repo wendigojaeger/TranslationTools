@@ -3,7 +3,7 @@ using WendigoJaeger.TranslationTool.Data;
 
 namespace WendigoJaeger.TranslationTool.Extractors
 {
-    public interface ITextExtractor
+    public interface IScriptExtractor
     {
         [JsonIgnore]
         ScriptBankType BankType { get; }

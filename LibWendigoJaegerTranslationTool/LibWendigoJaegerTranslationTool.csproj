@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
@@ -16,6 +16,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LibResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Outputs\SNES\SNESBassDataIncludeTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SNESBassDataIncludeTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Outputs\SNES\SNESBassScriptIncludeTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SNESBassScriptIncludeTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Outputs\SNES\SNESBassTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SNESBassTemplate.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +44,25 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LibResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Outputs\SNES\SNESBassDataIncludeTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SNESBassDataIncludeTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Outputs\SNES\SNESBassScriptIncludeTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SNESBassScriptIncludeTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="Outputs\SNES\SNESBassTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>SNESBassTemplate.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

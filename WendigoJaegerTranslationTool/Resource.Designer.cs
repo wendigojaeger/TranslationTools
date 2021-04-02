@@ -115,6 +115,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Translation From.
+        /// </summary>
+        public static string contextMenuCopyTranslationFrom {
+            get {
+                return ResourceManager.GetString("contextMenuCopyTranslationFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Assembly Files (*.asm,*.s)|*.asm;*.s.
         /// </summary>
         public static string filterAssemblyFile {
@@ -183,6 +192,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelCharacterWidth {
             get {
                 return ResourceManager.GetString("labelCharacterWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Extractor:.
+        /// </summary>
+        public static string labelDataExtractor {
+            get {
+                return ResourceManager.GetString("labelDataExtractor", resourceCulture);
             }
         }
         
@@ -475,6 +493,24 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string mnuData {
+            get {
+                return ResourceManager.GetString("mnuData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data Extract.
+        /// </summary>
+        public static string mnuDataExtract {
+            get {
+                return ResourceManager.GetString("mnuDataExtract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string mnuEdit {
@@ -525,6 +561,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string mnuProjectAddAssemblyFile {
             get {
                 return ResourceManager.GetString("mnuProjectAddAssemblyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Data....
+        /// </summary>
+        public static string mnuProjectAddData {
+            get {
+                return ResourceManager.GetString("mnuProjectAddData", resourceCulture);
             }
         }
         
@@ -673,6 +718,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string projectHeaderData {
+            get {
+                return ResourceManager.GetString("projectHeaderData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Font.
         /// </summary>
         public static string projectHeaderFont {
@@ -813,6 +867,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string windowCreateAssemblyFile {
             get {
                 return ResourceManager.GetString("windowCreateAssemblyFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create Data Settings.
+        /// </summary>
+        public static string windowCreateDataSettings {
+            get {
+                return ResourceManager.GetString("windowCreateDataSettings", resourceCulture);
             }
         }
         

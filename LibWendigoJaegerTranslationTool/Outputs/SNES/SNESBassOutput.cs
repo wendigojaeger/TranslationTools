@@ -16,9 +16,14 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
                 generateScriptFile(outputInfo.BuildDirectory, script);
             }
 
+            foreach (var dataBank in outputInfo.DataBanks)
+            {
+                generateDataFile(outputInfo.BuildDirectory, dataBank);
+            }
+
             bool isLorom = !(outputInfo.System is SNESHiROM);
 
-            SNESBassTemplate buildTemplate = new SNESBassTemplate
+            SNESBassTemplate buildTemplate = new()
             {
                 OutputInfo = outputInfo,
                 IsLoROM = isLorom
@@ -28,10 +33,8 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
 
             using (var buildFile = File.Open(buildFileName, FileMode.Create))
             {
-                using (var writer = new StreamWriter(buildFile, UTF8))
-                {
-                    writer.Write(buildTemplate.TransformText());
-                }
+                using var writer = new StreamWriter(buildFile, UTF8);
+                writer.Write(buildTemplate.TransformText());
             }
 
             string sourceFileName = Path.Combine(outputInfo.BuildDirectory, outputInfo.InputFile);
@@ -39,7 +42,7 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
 
             File.Copy(sourceFileName, outputFileName, true);
 
-            Process process = new Process();
+            Process process = new();
             process.StartInfo.FileName = $"\"{Path.Combine(outputInfo.BuildDirectory, "bass.exe")}\"";
             process.StartInfo.WorkingDirectory = outputInfo.BuildDirectory;
             process.StartInfo.Arguments = $"-o {outputInfo.OutputFile} build.asm";
@@ -67,28 +70,45 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             foreach (var script in outputInfo.Scripts)
             {
                 File.Delete(Path.Combine(outputInfo.BuildDirectory, Path.ChangeExtension(script.FileName, ".inc")));
-            } 
+            }
+
+            foreach (var dataBank in outputInfo.DataBanks)
+            {
+                File.Delete(Path.Combine(outputInfo.BuildDirectory, Path.ChangeExtension(dataBank.FileName, ".inc")));
+            }
         }
 
         private void generateScriptFile(string buildDirectory, OutputScriptBank script)
         {
             if (script.BankType == ScriptBankType.Pointer16)
             {
-                SNESBassScriptIncludeTemplate scriptTemplate = new SNESBassScriptIncludeTemplate
+                SNESBassScriptIncludeTemplate scriptTemplate = new()
                 {
                     ScriptBank = script
                 };
 
                 string scriptFileName = Path.Combine(buildDirectory, Path.ChangeExtension(script.FileName, ".inc"));
 
-                using (var buildFile = File.Open(scriptFileName, FileMode.Create))
-                {
-                    using (var writer = new StreamWriter(buildFile, UTF8))
-                    {
-                        writer.Write(scriptTemplate.TransformText());
-                    }
-                }
+                using var buildFile = File.Open(scriptFileName, FileMode.Create);
+                using var writer = new StreamWriter(buildFile, UTF8);
+
+                writer.Write(scriptTemplate.TransformText());
             }
+        }
+
+        private void generateDataFile(string buildDirectory, OutputDataBank dataBank)
+        {
+            SNESBassDataIncludeTemplate scriptTemplate = new()
+            {
+                DataBank = dataBank
+            };
+
+            string scriptFileName = Path.Combine(buildDirectory, Path.ChangeExtension(dataBank.FileName, ".inc"));
+
+            using var buildFile = File.Open(scriptFileName, FileMode.Create);
+            using var writer = new StreamWriter(buildFile, UTF8);
+
+            writer.Write(scriptTemplate.TransformText());
         }
     }
 }

@@ -3,13 +3,12 @@ using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
 {
-    public class ScriptEntry : UndoObject
+    public class DataEntry : RefObject
     {
         private string _entryName = string.Empty;
         private string _original = string.Empty;
         private string _comment = string.Empty;
         private UndoObservableCollection<TranslationEntry> _translations;
-        private RefObjectPtr<TextPreviewInfo> _textPreview;
 
         public string EntryName
         {
@@ -80,37 +79,9 @@ namespace WendigoJaeger.TranslationTool.Data
                 }
             }
         }
-
-        public RefObjectPtr<TextPreviewInfo> TextPreview
-        {
-            get
-            {
-                if (_textPreview == null)
-                {
-                    _textPreview = new RefObjectPtr<TextPreviewInfo>();
-                    _textPreview.UndoPropertyChanged += undoProxy;
-                    _textPreview.PropertyChanged += propertyChangedProxy;
-                }
-
-                return _textPreview;
-            }
-            set
-            {
-                _textPreview = value;
-                if (_textPreview != null)
-                {
-                    _textPreview.UndoPropertyChanged -= undoProxy;
-                    _textPreview.UndoPropertyChanged += undoProxy;
-
-                    _textPreview.PropertyChanged -= propertyChangedProxy;
-                    _textPreview.PropertyChanged += propertyChangedProxy;
-                }
-            }
-        }
-
         public bool HasTranslation(string lang)
         {
-            return Translations.Count(x => x.Lang == lang) > 0;
+            return Translations.Any(x => x.Lang == lang);
         }
 
         public TranslationEntry GetTranslation(string lang)
@@ -145,41 +116,122 @@ namespace WendigoJaeger.TranslationTool.Data
         }
     }
 
-    public class ScriptFile : UndoObject
+    public class DataPointer : UndoObject
     {
-        private UndoObservableCollection<ScriptEntry> _entries;
+        private int _pointerIndex;
+        private RefObjectPtr<DataEntry> _pointer;
 
-        public UndoObservableCollection<ScriptEntry> Entries
+        public int PointerIndex
         {
             get
             {
-                if (_entries == null)
-                {
-                    _entries = new UndoObservableCollection<ScriptEntry>();
-                    _entries.UndoArrayChanged += arrayProxy;
-                    _entries.UndoPropertyChanged += undoProxy;
-                }
-
-                return _entries;
+                return _pointerIndex;
             }
             set
             {
-                _entries = value;
+                var oldValue = _pointerIndex;
+                _pointerIndex = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
 
-                if (_entries != null)
+        public RefObjectPtr<DataEntry> Pointer
+        {
+            get
+            {
+                if (_pointer == null)
                 {
-                    _entries.UndoArrayChanged -= arrayProxy;
-                    _entries.UndoArrayChanged += arrayProxy;
+                    _pointer = new();
+                    _pointer.UndoPropertyChanged += undoProxy;
+                    _pointer.PropertyChanged -= propertyChangedProxy;
+                }
 
-                    _entries.UndoPropertyChanged -= undoProxy;
-                    _entries.UndoPropertyChanged += undoProxy;
+                return _pointer;
+            }
+            set
+            {
+                if (_pointer != null)
+                {
+                    _pointer.UndoPropertyChanged -= undoProxy;
+                    _pointer.PropertyChanged -= propertyChangedProxy;
+                }
+
+                _pointer = value;
+
+                if (_pointer != null)
+                {
+                    _pointer.UndoPropertyChanged += undoProxy;
+                    _pointer.PropertyChanged += propertyChangedProxy;
+                }
+            }
+        }
+    }
+
+    public class DataFile : UndoObject
+    {
+        private UndoObservableCollection<DataEntry> _dataEntries;
+        private UndoObservableCollection<DataPointer> _pointers;
+
+        public UndoObservableCollection<DataPointer> Pointers
+        {
+            get
+            {
+                if (_pointers == null)
+                {
+                    _pointers = new();
+                    _pointers.UndoArrayChanged += arrayProxy;
+                    _pointers.UndoPropertyChanged += undoProxy;
+                }
+
+                return _pointers;
+            }
+            set
+            {
+                _pointers = value;
+
+                if (_pointers != null)
+                {
+                    _pointers.UndoArrayChanged -= arrayProxy;
+                    _pointers.UndoArrayChanged += arrayProxy;
+
+                    _pointers.UndoPropertyChanged -= undoProxy;
+                    _pointers.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public UndoObservableCollection<DataEntry> DataEntries
+        {
+            get
+            {
+                if (_dataEntries == null)
+                {
+                    _dataEntries = new();
+                    _dataEntries.UndoArrayChanged += arrayProxy;
+                    _dataEntries.UndoPropertyChanged += undoProxy;
+                }
+
+                return _dataEntries;
+            }
+            set
+            {
+                _dataEntries = value;
+
+                if (_dataEntries != null)
+                {
+                    _dataEntries.UndoArrayChanged -= arrayProxy;
+                    _dataEntries.UndoArrayChanged += arrayProxy;
+
+                    _dataEntries.UndoPropertyChanged -= undoProxy;
+                    _dataEntries.UndoPropertyChanged += undoProxy;
                 }
             }
         }
 
         public void Clear()
         {
-            Entries.Clear();
+            Pointers.Clear();
+            DataEntries.Clear();
         }
     }
 }

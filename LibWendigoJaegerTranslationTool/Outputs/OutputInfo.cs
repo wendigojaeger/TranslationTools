@@ -16,6 +16,8 @@ namespace WendigoJaeger.TranslationTool.Outputs
 
         public List<OutputAssemblyFile> AssemblyFiles { get; } = new List<OutputAssemblyFile>();
 
+        public List<OutputDataBank> DataBanks { get; } = new List<OutputDataBank>();
+
         public ISystem System { get; set; }
     }
 }
