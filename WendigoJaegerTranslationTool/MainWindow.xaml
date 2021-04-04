@@ -30,6 +30,9 @@
         <CommandBinding Command="local:CustomCommands.AddTableFile" CanExecute="AddTableFile_CanExecute" Executed="AddTableFile_Executed" />
         <CommandBinding Command="local:CustomCommands.AddTextPreview" CanExecute="AddTextPreview_CanExecute" Executed="AddTextPreview_Executed" />
         <CommandBinding Command="local:CustomCommands.BuildAndRun" CanExecute="BuildAndRun_CanExecute" Executed="BuildAndRun_Executed" />
+        <CommandBinding Command="local:CustomCommands.Run" CanExecute="Run_CanExecute" Executed="Run_Executed" />
+        <CommandBinding Command="local:CustomCommands.BuildAll" CanExecute="BuildAll_CanExecute" Executed="BuildAll_Executed" />
+        <CommandBinding Command="local:CustomCommands.Distribute" CanExecute="Distribute_CanExecute" Executed="Distribute_Executed" />
         <CommandBinding Command="local:CustomCommands.DataExtract" CanExecute="DataExtract_CanExecute" Executed="DataExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ProjectSettings" CanExecute="ProjectSettings_CanExecute" Executed="ProjectSettings_Executed" />
@@ -94,6 +97,9 @@
             <MenuItem Header="{x:Static i18n:Resource.mnuBuild}">
                 <MenuItem Command="local:CustomCommands.BuildAndRun" />
                 <MenuItem Command="local:CustomCommands.Run" />
+                <MenuItem Command="local:CustomCommands.BuildAll" />
+                <Separator />
+                <MenuItem Command="local:CustomCommands.Distribute" />
             </MenuItem>
             <MenuItem Header="{x:Static i18n:Resource.mnuHelp}">
                 <MenuItem Command="local:CustomCommands.About" />

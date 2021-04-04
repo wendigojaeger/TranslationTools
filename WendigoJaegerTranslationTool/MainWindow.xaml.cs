@@ -1,5 +1,25 @@
+using Microsoft.Win32;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using WendigoJaeger.TranslationTool.Commands;
 using WendigoJaeger.TranslationTool.Controls;
+using WendigoJaeger.TranslationTool.Creators;
 using WendigoJaeger.TranslationTool.Data;
 using WendigoJaeger.TranslationTool.Editors;
 using WendigoJaeger.TranslationTool.Extensions;
@@ -7,24 +27,6 @@ using WendigoJaeger.TranslationTool.Extractors;
 using WendigoJaeger.TranslationTool.Outputs.SNES;
 using WendigoJaeger.TranslationTool.Systems;
 using WendigoJaeger.TranslationTool.Undo;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using WendigoJaeger.TranslationTool.Creators;
-using System.Collections;
 
 namespace WendigoJaeger.TranslationTool
 {
@@ -508,27 +510,124 @@ namespace WendigoJaeger.TranslationTool
 
         private void BuildAndRun_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Builder builder = new Builder();
+            Reporter reporter = new();
+            setupReporter(reporter);
 
-            textBoxOutput.Text = string.Empty;
+            var targetLanguage = CurrentLocale;
 
-            builder.Reporter.OnLineOutput += onReporterOutput;
-
-            var currentLanguage = CurrentLocale;
-
-            builder.Build(currentLanguage, ProjectSettings);
-
-            if (!builder.Reporter.HasErrors)
+            var buildAndRunTask = Task.Run(() =>
             {
-                builder.Reporter.Info(Resource.runMessage, ProjectSettings.Project.System.DisplayName(), "bsnes-plus");
-
-                // TODO: Configure this
-                Process emulator = new Process();
-                emulator.StartInfo.FileName = @"C:\Programmation\Traduction\CommonTools\bsnes-plus\bsnes.exe";
-                emulator.StartInfo.WorkingDirectory = Path.GetDirectoryName(ProjectSettings.Path);
-                emulator.StartInfo.Arguments = ProjectSettings.Project.Lang[currentLanguage].OutputFile;
-                emulator.Start();
+                doBuild(targetLanguage, reporter);
+            }).ContinueWith((previousTask) =>
+            {
+                if (!reporter.HasErrors)
+                {
+                    doRun(targetLanguage, reporter);
+                }
             }
+            );
+
+            buildAndRunTask.Wait();
+        }
+
+        private void Run_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void Run_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Reporter reporter = new();
+            setupReporter(reporter);
+
+            var targetLanguage = CurrentLocale;
+
+            var runTask = Task.Run(() =>
+            {
+                doRun(targetLanguage, reporter);
+            });
+
+            runTask.Wait();
+        }
+
+        private void BuildAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void BuildAll_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Reporter reporter = new();
+            setupReporter(reporter);
+
+            var taskSequence = new TaskCompletionSource();
+            taskSequence.SetResult();
+            Task parentTask = taskSequence.Task;
+            foreach (var targetLanguage in ProjectSettings.Project.Lang.Keys)
+            {
+                parentTask = parentTask.ContinueWith(t => doBuild(targetLanguage, reporter));
+            }
+            parentTask.Wait();
+        }
+
+        private void Distribute_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void Distribute_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            Reporter reporter = new();
+            setupReporter(reporter);
+
+            var taskSequence = new TaskCompletionSource();
+            taskSequence.SetResult();
+            Task parentTask = taskSequence.Task;
+            foreach (var targetLanguage in ProjectSettings.Project.Lang.Keys)
+            {
+                parentTask = parentTask.ContinueWith(t => doBuild(targetLanguage, reporter));
+            }
+
+            foreach (var langPair in ProjectSettings.Project.Lang)
+            {
+                parentTask = parentTask.ContinueWith(t =>
+                {
+                    string ipsPatch = Path.ChangeExtension(ProjectSettings.GetAbsolutePath(langPair.Value.OutputFile), ".ips");
+
+                    reporter.Info("Creating IPS patch for lang '{0}'", langPair.Key);
+
+                    if (ProjectSettings.Project.Patcher != null)
+                    {
+                        ProjectSettings.Project.Patcher.Create(ProjectSettings.GetAbsolutePath(ProjectSettings.Project.InputFile), ProjectSettings.GetAbsolutePath(langPair.Value.OutputFile), ipsPatch);
+                    }
+                });
+            }
+
+            parentTask = parentTask.ContinueWith(t =>
+            {
+                var zipFile = ProjectSettings.GetAbsolutePath($"{ProjectSettings.Project.Name}-{ProjectSettings.Project.Version}.zip");
+
+                reporter.Info("Creating ZIP file '{0}' for distribution", Path.GetFileName(zipFile));
+
+                using var distributeZipFile = new FileStream(zipFile, FileMode.Create);
+                using ZipArchive zipArchive = new(distributeZipFile, ZipArchiveMode.Create);
+
+                foreach (var langPair in ProjectSettings.Project.Lang)
+                {
+                    string ipsPatch = Path.ChangeExtension(ProjectSettings.GetAbsolutePath(langPair.Value.OutputFile), ".ips");
+
+                    zipArchive.CreateEntryFromFile(ipsPatch, Path.GetFileName(ipsPatch));
+                }
+
+                foreach(var additionalFile in ProjectSettings.Project.AdditionalFilesToPack)
+                {
+                    string filePath = ProjectSettings.GetAbsolutePath(additionalFile);
+
+                    zipArchive.CreateEntryFromFile(filePath, additionalFile);
+                }
+            });
+
+            parentTask.Wait();
         }
 
         private void AddAssemblyFile_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -651,7 +750,6 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
-
         private void AddTextPreview_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null;
@@ -675,7 +773,6 @@ namespace WendigoJaeger.TranslationTool
 
         private void ProjectSettings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-
         }
 
         private void ScriptExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -799,7 +896,6 @@ namespace WendigoJaeger.TranslationTool
 
         private void ScriptSettings_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-           
         }
 
         private void DataExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -944,6 +1040,31 @@ namespace WendigoJaeger.TranslationTool
             {
                 _currentEditor.CurrentLocale = CurrentLocale;
             }
+        }
+
+        private void setupReporter(Reporter reporter)
+        {
+            textBoxOutput.Text = string.Empty;
+            reporter.OnLineOutput += onReporterOutput;
+        }
+
+        private void doBuild(string targetLanguage, Reporter reporter)
+        {
+            Builder builder = new();
+            builder.Reporter = reporter;
+            builder.Build(targetLanguage, ProjectSettings);
+        }
+
+        private void doRun(string targetLanguage, Reporter reporter)
+        {
+            reporter.Info(Resource.runMessage, ProjectSettings.Project.System.DisplayName(), "bsnes-plus", targetLanguage);
+
+            // TODO: Configure this
+            Process emulator = new Process();
+            emulator.StartInfo.FileName = @"C:\Programmation\Traduction\CommonTools\bsnes-plus\bsnes.exe";
+            emulator.StartInfo.WorkingDirectory = Path.GetDirectoryName(ProjectSettings.Path);
+            emulator.StartInfo.Arguments = ProjectSettings.Project.Lang[targetLanguage].OutputFile;
+            emulator.Start();
         }
 
         private void onReporterOutput(string line)

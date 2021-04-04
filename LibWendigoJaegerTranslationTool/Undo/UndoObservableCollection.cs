@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace WendigoJaeger.TranslationTool.Undo
 {
-    public class UndoObservableCollection<T> : ObservableCollection<T>, IUndoPropertyChanged, IUndoArrayChanged, INotifyPropertyChanged where T : UndoObject
+    public class UndoObservableCollection<T> : ObservableCollection<T>, IUndoPropertyChanged, IUndoArrayChanged, INotifyPropertyChanged
     {
         public event UndoArrayChangedEventHandler UndoArrayChanged;
         public event UndoPropertyChangedEventHandler UndoPropertyChanged;
@@ -18,16 +18,19 @@ namespace WendigoJaeger.TranslationTool.Undo
 
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                foreach (UndoObject item in e.NewItems)
+                if (typeof(T).IsSubclassOf(typeof(UndoObject)))
                 {
-                    item.UndoArrayChanged -= undoArrayChangedProxy;
-                    item.UndoArrayChanged += undoArrayChangedProxy;
+                    foreach (UndoObject item in e.NewItems)
+                    {
+                        item.UndoArrayChanged -= undoArrayChangedProxy;
+                        item.UndoArrayChanged += undoArrayChangedProxy;
 
-                    item.UndoPropertyChanged -= undoPropertyChangedProxy;
-                    item.UndoPropertyChanged += undoPropertyChangedProxy;
+                        item.UndoPropertyChanged -= undoPropertyChangedProxy;
+                        item.UndoPropertyChanged += undoPropertyChangedProxy;
 
-                    item.PropertyChanged -= propertyChangedProxy;
-                    item.PropertyChanged += propertyChangedProxy;
+                        item.PropertyChanged -= propertyChangedProxy;
+                        item.PropertyChanged += propertyChangedProxy;
+                    }
                 }
 
                 object[] affectedObjects = new object[e.NewItems.Count];
@@ -40,11 +43,14 @@ namespace WendigoJaeger.TranslationTool.Undo
             }
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                foreach (UndoObject item in e.OldItems)
+                if (typeof(T).IsSubclassOf(typeof(UndoObject)))
                 {
-                    item.UndoArrayChanged -= undoArrayChangedProxy;
-                    item.UndoPropertyChanged -= undoPropertyChangedProxy;
-                    item.PropertyChanged -= propertyChangedProxy;
+                    foreach (UndoObject item in e.OldItems)
+                    {
+                        item.UndoArrayChanged -= undoArrayChangedProxy;
+                        item.UndoPropertyChanged -= undoPropertyChangedProxy;
+                        item.PropertyChanged -= propertyChangedProxy;
+                    }
                 }
 
                 object[] affectedObjects = new object[e.OldItems.Count];

@@ -493,6 +493,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Distribute.
+        /// </summary>
+        public static string mnuBuildDistribute {
+            get {
+                return ResourceManager.GetString("mnuBuildDistribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data.
         /// </summary>
         public static string mnuData {
@@ -781,7 +790,7 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Launching emulator &apos;{0} - {1}&apos;....
+        ///   Looks up a localized string similar to Launching emulator &apos;{0} - {1}&apos; for &apos;{2}&apos;....
         /// </summary>
         public static string runMessage {
             get {

@@ -196,7 +196,7 @@
     <value>Final</value>
   </data>
   <data name="runMessage" xml:space="preserve">
-    <value>Lancement de l'émulateur '{0} - {1}'...</value>
+    <value>Lancement de l'émulateur '{0} - {1}' pour '{2}';...</value>
   </data>
   <data name="projectHeaderScripts" xml:space="preserve">
     <value>Scripts</value>
@@ -398,5 +398,8 @@
   </data>
   <data name="contextMenuCopyTranslationFrom" xml:space="preserve">
     <value>Copier la traductrion depuis</value>
+  </data>
+  <data name="mnuBuildDistribute" xml:space="preserve">
+    <value>Distribuer</value>
   </data>
 </root>

@@ -1,5 +1,7 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Numerics;
 using System.Text;
 using WendigoJaeger.TranslationTool.Systems;
 
@@ -60,6 +62,8 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
 
             process.WaitForExit();
 
+            fixChecksum(outputInfo);
+
             if (process.ExitCode != 0)
             {
                 reporter.Error(LibResource.bassError);
@@ -76,6 +80,77 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             {
                 File.Delete(Path.Combine(outputInfo.BuildDirectory, Path.ChangeExtension(dataBank.FileName, ".inc")));
             }
+        }
+
+        private void fixChecksum(OutputInfo outputInfo)
+        {
+            string romFilePath = Path.Combine(outputInfo.BuildDirectory, outputInfo.OutputFile);
+            byte[] rom = File.ReadAllBytes(romFilePath);
+
+            bool isPowerOfTwo = BitOperations.PopCount((uint)rom.Length) == 1;
+
+            long physicalChecksum = outputInfo.System.RAMToPhysical(0x00FFDC);
+
+            Span<byte> currentChecksum = rom.AsSpan()[(int)physicalChecksum..((int)physicalChecksum + 4)];
+
+            ushort computedChecksum = 0;
+
+            if (isPowerOfTwo)
+            {
+                for (int i = 0; i < rom.Length; ++i)
+                {
+                    computedChecksum += rom[i];
+                }
+            }
+            else
+            {
+                ushort computedChecksum2 = 0;
+
+                uint romSize = (uint)rom.Length;
+
+                uint alignedUpRomSize = (uint)rom.Length;
+                alignedUpRomSize--;
+                alignedUpRomSize |= alignedUpRomSize >> 1;
+                alignedUpRomSize |= alignedUpRomSize >> 2;
+                alignedUpRomSize |= alignedUpRomSize >> 4;
+                alignedUpRomSize |= alignedUpRomSize >> 8;
+                alignedUpRomSize |= alignedUpRomSize >> 16;
+                alignedUpRomSize++;
+
+                uint halfRomSize = alignedUpRomSize >> 1;
+
+                int half_end = (int)((halfRomSize > romSize) ? romSize : halfRomSize);
+                for (int index = 0; index < half_end; ++index)
+                {
+                    computedChecksum += rom[index];
+                }
+
+                int remainder = (int)(romSize - halfRomSize);
+                if (remainder <= 0)
+                {
+                    remainder = (int)halfRomSize;
+                }
+
+                for (int index = (int)halfRomSize; index < romSize; ++index)
+                {
+                    computedChecksum2 += rom[index];
+                }
+
+                computedChecksum += (ushort)(computedChecksum2 * (halfRomSize / remainder));
+            }
+
+            long newChecksum = computedChecksum;
+            newChecksum += (-currentChecksum[0] - currentChecksum[1] - currentChecksum[2] - currentChecksum[3]) + 2 * 0xff;
+
+            using var fileStream = new FileStream(romFilePath, FileMode.Open, FileAccess.ReadWrite);
+            fileStream.Seek(physicalChecksum, SeekOrigin.Begin);
+
+            ushort inverse = (ushort)((newChecksum & 0xFFFF) ^ 0xFFFF);
+
+            fileStream.WriteByte((byte)(inverse & 0xFF));
+            fileStream.WriteByte((byte)((inverse >> 8) & 0xFF));
+            fileStream.WriteByte((byte)(newChecksum & 0xFF));
+            fileStream.WriteByte((byte)((newChecksum >> 8) & 0xFF));
         }
 
         private void generateScriptFile(string buildDirectory, OutputScriptBank script)

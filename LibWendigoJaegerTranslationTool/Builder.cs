@@ -6,10 +6,12 @@ namespace WendigoJaeger.TranslationTool
 {
     public class Builder
     {
-        public Reporter Reporter { get; } = new Reporter();
+        public Reporter Reporter { get; set; }
 
         public void Build(string targetLanguage, ProjectSettings settings)
         {
+            Reporter.Info("Build ROM for language '{0}'", targetLanguage);
+
             OutputInfo outputInfo = new OutputInfo
             {
                 BuildDirectory = Path.GetDirectoryName(settings.Path),

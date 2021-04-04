@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using WendigoJaeger.TranslationTool.Outputs;
+using WendigoJaeger.TranslationTool.Patch;
 using WendigoJaeger.TranslationTool.Systems;
 using WendigoJaeger.TranslationTool.Undo;
 
@@ -15,6 +16,10 @@ namespace WendigoJaeger.TranslationTool.Data
     {
         private string _name = string.Empty;
         private string _inputFile = string.Empty;
+        private string _version = string.Empty;
+        private UndoObservableCollection<string> _additionalFilesToPack;
+
+        private IPatcher _patcher;
 
         public string Name
         {
@@ -47,6 +52,62 @@ namespace WendigoJaeger.TranslationTool.Data
         public ISystem System { get; set; }
 
         public OutputGenerator OutputGenerator { get; set; }
+
+        public IPatcher Patcher
+        {
+            get
+            {
+                return _patcher;
+            }
+            set
+            {
+                var oldValue = _patcher;
+                _patcher = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
+
+        public UndoObservableCollection<string> AdditionalFilesToPack
+        {
+            get
+            {
+                if (_additionalFilesToPack == null)
+                {
+                    _additionalFilesToPack = new();
+                    _additionalFilesToPack.UndoArrayChanged += arrayProxy;
+                    _additionalFilesToPack.UndoPropertyChanged += undoProxy;
+                }
+
+                return _additionalFilesToPack;
+            }
+            set
+            {
+                _additionalFilesToPack = value;
+
+                if (_additionalFilesToPack != null)
+                {
+                    _additionalFilesToPack.UndoArrayChanged -= arrayProxy;
+                    _additionalFilesToPack.UndoArrayChanged += arrayProxy;
+
+                    _additionalFilesToPack.UndoPropertyChanged -= undoProxy;
+                    _additionalFilesToPack.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public string Version
+        {
+            get
+            {
+                return _version;
+            }
+            set
+            {
+                var oldValue = _version;
+                _version = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
 
         public Dictionary<string, LocalizedProjectSettings> Lang { get; set; } = new Dictionary<string, LocalizedProjectSettings>();
     }
