@@ -37,7 +37,7 @@
         <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelDestinationRamAddress}" HorizontalAlignment="Right"/>
         <xctk:LongUpDown Grid.Row="3" Grid.Column="1" x:Name="upDownDestinationRAM" FormatString="X" ParsingNumberStyle="HexNumber" />
 
-        <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelDestinationRamAddress}" HorizontalAlignment="Right"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelDestinationRamAddressEnd}" HorizontalAlignment="Right"/>
         <xctk:LongUpDown Grid.Row="4" Grid.Column="1" x:Name="upDownDestinationRAMEnd" FormatString="X" ParsingNumberStyle="HexNumber" />
 
         <Label Grid.Row="5" Grid.Column="0" Content="{x:Static i18n:Resource.labelNumEntries}" HorizontalAlignment="Right"/>
