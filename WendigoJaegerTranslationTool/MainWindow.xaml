@@ -38,7 +38,6 @@
         <CommandBinding Command="local:CustomCommands.ScriptExtract" CanExecute="ScriptExtract_CanExecute" Executed="ScriptExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptNext" CanExecute="ScriptNext_CanExecute" Executed="ScriptNext_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptPrevious" CanExecute="ScriptPrevious_CanExecute" Executed="ScriptPrevious_Executed" />
-        <CommandBinding Command="local:CustomCommands.ScriptSettings" CanExecute="ScriptSettings_CanExecute" Executed="ScriptSettings_Executed" />
         <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
         <CommandBinding Command="ApplicationCommands.Open" Executed="Open_Executed" />
         <CommandBinding Command="ApplicationCommands.Save" CanExecute="Save_CanExecute" Executed="Save_Executed" />
@@ -84,7 +83,6 @@
             </MenuItem>
             <MenuItem Header="{x:Static i18n:Resource.mnuScript}">
                 <MenuItem Command="local:CustomCommands.ScriptExtract" />
-                <MenuItem Command="local:CustomCommands.ScriptSettings" />
                 <Separator />
                 <MenuItem Command="local:CustomCommands.ScriptPrevious" />
                 <MenuItem Command="local:CustomCommands.ScriptNext" />

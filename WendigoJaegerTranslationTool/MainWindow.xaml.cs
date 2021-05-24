@@ -23,9 +23,6 @@ using WendigoJaeger.TranslationTool.Creators;
 using WendigoJaeger.TranslationTool.Data;
 using WendigoJaeger.TranslationTool.Editors;
 using WendigoJaeger.TranslationTool.Extensions;
-using WendigoJaeger.TranslationTool.Extractors;
-using WendigoJaeger.TranslationTool.Outputs.SNES;
-using WendigoJaeger.TranslationTool.Systems;
 using WendigoJaeger.TranslationTool.Undo;
 using WendigoJaeger.TranslationTool.Windows;
 
@@ -830,15 +827,6 @@ namespace WendigoJaeger.TranslationTool
                     }
                 }
             }
-        }
-
-        private void ScriptSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptSettings;
-        }
-
-        private void ScriptSettings_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
         }
 
         private void DataExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)

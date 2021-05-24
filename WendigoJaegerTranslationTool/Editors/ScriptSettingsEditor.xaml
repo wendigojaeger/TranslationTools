@@ -18,6 +18,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
         <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelTableFile}" HorizontalAlignment="Right"/>
@@ -25,5 +30,26 @@
 
         <Label Grid.Row="1" Grid.Column="0" Content="{x:Static i18n:Resource.labelTextPreview}" HorizontalAlignment="Right"/>
         <controls:RefObjectPtrControl x:Name="textPreviewPicker" Grid.Row="1" Grid.Column="1" RefObjectType="{x:Type data:TextPreviewInfo}" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static i18n:Resource.labelSourceRamAddress}" HorizontalAlignment="Right"/>
+        <xctk:LongUpDown Grid.Row="2" Grid.Column="1" x:Name="upDownSourceRAM" FormatString="X" ParsingNumberStyle="HexNumber" />
+        
+        <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelDestinationRamAddress}" HorizontalAlignment="Right"/>
+        <xctk:LongUpDown Grid.Row="3" Grid.Column="1" x:Name="upDownDestinationRAM" FormatString="X" ParsingNumberStyle="HexNumber" />
+
+        <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelDestinationRamAddress}" HorizontalAlignment="Right"/>
+        <xctk:LongUpDown Grid.Row="4" Grid.Column="1" x:Name="upDownDestinationRAMEnd" FormatString="X" ParsingNumberStyle="HexNumber" />
+
+        <Label Grid.Row="5" Grid.Column="0" Content="{x:Static i18n:Resource.labelNumEntries}" HorizontalAlignment="Right"/>
+        <xctk:UIntegerUpDown Grid.Row="5" Grid.Column="1" x:Name="upDownEntries" />
+        
+        <Label Grid.Row="6" Grid.Column="0" Content="{x:Static i18n:Resource.labelTextExtractor}" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="6" Grid.Column="1" x:Name="comboTextExtractors">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Name}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
     </Grid>
 </local:BaseScriptSettingsEditor>
