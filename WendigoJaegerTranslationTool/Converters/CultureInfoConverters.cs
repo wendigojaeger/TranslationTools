@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace WendigoJaeger.TranslationTool.Converters
 {
@@ -85,7 +86,7 @@ namespace WendigoJaeger.TranslationTool.Converters
 
                         if (!_imageCache.TryGetValue(countryCode, out image))
                         {
-                            Uri uri = new Uri($"pack://application:,,,/Images/Flags/{countryCode.ToLower()}.png", UriKind.RelativeOrAbsolute);
+                            Uri uri = new($"pack://application:,,,/Images/Flags/{countryCode.ToLower()}.png", UriKind.RelativeOrAbsolute);
                             image = new BitmapImage(uri);
                             _imageCache.Add(countryCode, image);
                         }
@@ -93,6 +94,9 @@ namespace WendigoJaeger.TranslationTool.Converters
                         return image;
                     }
                 }
+            }
+            catch(IOException)
+            {
             }
             catch (InvalidCastException)
             {

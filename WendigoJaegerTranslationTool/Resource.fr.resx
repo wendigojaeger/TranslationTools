@@ -196,7 +196,7 @@
     <value>Final</value>
   </data>
   <data name="runMessage" xml:space="preserve">
-    <value>Lancement de l'émulateur '{0} - {1}' pour '{2}';...</value>
+    <value>Lancement de l'émulateur '{0} - {1}' pour '{2}'...</value>
   </data>
   <data name="projectHeaderScripts" xml:space="preserve">
     <value>Scripts</value>
@@ -401,5 +401,47 @@
   </data>
   <data name="mnuBuildDistribute" xml:space="preserve">
     <value>Distribuer</value>
+  </data>
+  <data name="labelLanguages" xml:space="preserve">
+    <value>Langues:</value>
+  </data>
+  <data name="labelName" xml:space="preserve">
+    <value>Nom:</value>
+  </data>
+  <data name="labelOriginalROM" xml:space="preserve">
+    <value>ROM originale:</value>
+  </data>
+  <data name="labelSystem" xml:space="preserve">
+    <value>Système:</value>
+  </data>
+  <data name="labelOutputGenerator" xml:space="preserve">
+    <value>Générateur:</value>
+  </data>
+  <data name="labelPatcher" xml:space="preserve">
+    <value>Patcher:</value>
+  </data>
+  <data name="labelVersion" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="windowNewProject" xml:space="preserve">
+    <value>Nouveau projet</value>
+  </data>
+  <data name="buttonAddLanguage" xml:space="preserve">
+    <value>Ajouter une langue</value>
+  </data>
+  <data name="buttonRemoveLanguage" xml:space="preserve">
+    <value>Supprimer une langue</value>
+  </data>
+  <data name="dataGridHeaderLanguage" xml:space="preserve">
+    <value>Langue</value>
+  </data>
+  <data name="dataGridHeaderOutputFile" xml:space="preserve">
+    <value>Fichier de sortie</value>
+  </data>
+  <data name="windowSelectCulture" xml:space="preserve">
+    <value>Choisir une culture</value>
+  </data>
+  <data name="labelLanguage" xml:space="preserve">
+    <value>Langue:</value>
   </data>
 </root>

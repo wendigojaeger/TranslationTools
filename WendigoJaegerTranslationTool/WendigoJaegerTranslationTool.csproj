@@ -292,6 +292,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Controls\AbsolutePathPickerControl.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Creators\CreateDataSettingsWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

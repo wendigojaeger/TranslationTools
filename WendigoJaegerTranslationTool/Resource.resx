@@ -402,4 +402,46 @@
   <data name="mnuBuildDistribute" xml:space="preserve">
     <value>Distribute</value>
   </data>
+  <data name="windowNewProject" xml:space="preserve">
+    <value>New Project</value>
+  </data>
+  <data name="labelName" xml:space="preserve">
+    <value>Name:</value>
+  </data>
+  <data name="labelOriginalROM" xml:space="preserve">
+    <value>Original ROM:</value>
+  </data>
+  <data name="labelSystem" xml:space="preserve">
+    <value>System:</value>
+  </data>
+  <data name="labelOutputGenerator" xml:space="preserve">
+    <value>Output Generator:</value>
+  </data>
+  <data name="labelLanguages" xml:space="preserve">
+    <value>Languages:</value>
+  </data>
+  <data name="labelPatcher" xml:space="preserve">
+    <value>Patcher:</value>
+  </data>
+  <data name="labelVersion" xml:space="preserve">
+    <value>Version:</value>
+  </data>
+  <data name="buttonAddLanguage" xml:space="preserve">
+    <value>Add Language</value>
+  </data>
+  <data name="buttonRemoveLanguage" xml:space="preserve">
+    <value>Remove Language</value>
+  </data>
+  <data name="dataGridHeaderLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="dataGridHeaderOutputFile" xml:space="preserve">
+    <value>Output File</value>
+  </data>
+  <data name="windowSelectCulture" xml:space="preserve">
+    <value>Select Culture</value>
+  </data>
+  <data name="labelLanguage" xml:space="preserve">
+    <value>Language:</value>
+  </data>
 </root>

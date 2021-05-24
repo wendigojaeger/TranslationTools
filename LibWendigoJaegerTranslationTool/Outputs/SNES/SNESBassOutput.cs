@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Numerics;
@@ -7,6 +8,7 @@ using WendigoJaeger.TranslationTool.Systems;
 
 namespace WendigoJaeger.TranslationTool.Outputs.SNES
 {
+    [DisplayName("SNES - Near's bass assembler")]
     public class SNESBassOutput : OutputGenerator
     {
         private static readonly Encoding UTF8 = new UTF8Encoding(false);

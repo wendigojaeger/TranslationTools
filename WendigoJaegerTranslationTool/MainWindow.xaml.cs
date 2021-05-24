@@ -27,6 +27,7 @@ using WendigoJaeger.TranslationTool.Extractors;
 using WendigoJaeger.TranslationTool.Outputs.SNES;
 using WendigoJaeger.TranslationTool.Systems;
 using WendigoJaeger.TranslationTool.Undo;
+using WendigoJaeger.TranslationTool.Windows;
 
 namespace WendigoJaeger.TranslationTool
 {
@@ -367,59 +368,12 @@ namespace WendigoJaeger.TranslationTool
 
         private void New_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.Filter = Resource.filterProjectFile;
+            NewProjectWindow newProjectWindow = new();
 
-            var result = saveDialog.ShowDialog();
-            if (result.HasValue && result.Value)
+            var dialogResult = newProjectWindow.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value)
             {
-                ProjectSettings newProjectSettings = new ProjectSettings();
-
-                newProjectSettings.Project.Name = "Mega Man X2";
-                newProjectSettings.Project.InputFile = "mmx2_original.sfc";
-                newProjectSettings.Project.System = new SNESLoRomSlowRom();
-                newProjectSettings.Project.Lang.Add("fr-FR", new LocalizedProjectSettings() { OutputFile = "mmx2_fr.sfc" });
-                newProjectSettings.Project.Lang.Add("fr-CA", new LocalizedProjectSettings() { OutputFile = "mmx2_qc.sfc" });
-                newProjectSettings.Project.OutputGenerator = new SNESBassOutput();
-
-                string directory = Path.GetDirectoryName(saveDialog.FileName);
-
-                TableFile mainDialogTableFile = new TableFile();
-                mainDialogTableFile.NewLine = 0x80;
-                mainDialogTableFile.Terminator = 0x82;
-                mainDialogTableFile.SourceTableFile = "script_en.tbl";
-                mainDialogTableFile["fr-FR"] = "script_fr.tbl";
-                mainDialogTableFile["fr-CA"] = "script_fr.tbl";
-
-                ScriptSettings dialogSettings = new ScriptSettings
-                {
-                    Name = "MainDialog",
-                    SourceRAMAddress = 0x27D800,
-                    DestinationRAMAddress = 0x27D800,
-                    DestinationEndRAMAddress = 0x27FFFF,
-                    Entries = 59,
-                    TextExtractor = new ScriptExtractorPointer16LittleEndian()
-                };
-                dialogSettings.TableFile.Instance = mainDialogTableFile;
-
-                dialogSettings.Script.Path = Path.Combine(directory, "mmx2_main_dialog.wts");
-
-                newProjectSettings.Scripts.Add(dialogSettings);
-
-                GraphicsSettings mainFont = new GraphicsSettings
-                {
-                    RAMAddress = 0x2BC300,
-                    Name = "MainFont"
-                };
-                mainFont["fr-FR"] = "mainfont_fr.gfx";
-                mainFont["fr-CA"] = "mainfont_fr.gfx";
-
-                newProjectSettings.Graphics.Add(mainFont);
-
-                newProjectSettings.Save(saveDialog.FileName);
-
-                ProjectSettings = newProjectSettings;
-                ProjectSettings.Path = saveDialog.FileName;
+                ProjectSettings = newProjectWindow.NewProjectSettings;
             }
         }
 
@@ -498,7 +452,6 @@ namespace WendigoJaeger.TranslationTool
                 ProjectSettings.Path = saveDialog.FileName;
 
                 _undoStack.SetLastSaveCommand();
-
                 onUndoStackChanged(null, null);
             }
         }

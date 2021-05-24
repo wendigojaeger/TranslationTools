@@ -1,0 +1,41 @@
+﻿<Window x:Class="WendigoJaeger.TranslationTool.Windows.SelectCultureWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+        xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
+        xmlns:converters="clr-namespace:WendigoJaeger.TranslationTool.Converters"
+        xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Windows"
+        mc:Ignorable="d"
+        Title="{x:Static i18n:Resource.windowSelectCulture}" Height="100" Width="410" Loaded="Window_Loaded">
+    <Window.Resources>
+        <converters:CultureImageConverter x:Key="cultureImageConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelLanguage}" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" x:Name="comboCulture" IsTextSearchEnabled="True" IsEditable="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image x:Name="imageFlag" Source="{Binding Name, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <WrapPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="0,10,10,0" >
+            <Button x:Name="buttonOK" Content="{x:Static i18n:Resource.buttonOK}" Click="buttonOK_Click" IsDefault="True" />
+            <Button x:Name="buttonCancel" Content="{x:Static i18n:Resource.buttonCancel}" Margin="8,0,0,0" IsCancel="True" Click="buttonCancel_Click"/>
+        </WrapPanel>
+    </Grid>
+</Window>

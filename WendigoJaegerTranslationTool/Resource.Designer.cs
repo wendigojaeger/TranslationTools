@@ -70,6 +70,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Language.
+        /// </summary>
+        public static string buttonAddLanguage {
+            get {
+                return ResourceManager.GetString("buttonAddLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string buttonCancel {
@@ -97,6 +106,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Language.
+        /// </summary>
+        public static string buttonRemoveLanguage {
+            get {
+                return ResourceManager.GetString("buttonRemoveLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show Byte Value.
         /// </summary>
         public static string checkBoxShowByte {
@@ -120,6 +138,24 @@ namespace WendigoJaeger.TranslationTool {
         public static string contextMenuCopyTranslationFrom {
             get {
                 return ResourceManager.GetString("contextMenuCopyTranslationFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string dataGridHeaderLanguage {
+            get {
+                return ResourceManager.GetString("dataGridHeaderLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output File.
+        /// </summary>
+        public static string dataGridHeaderOutputFile {
+            get {
+                return ResourceManager.GetString("dataGridHeaderOutputFile", resourceCulture);
             }
         }
         
@@ -304,6 +340,24 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language:.
+        /// </summary>
+        public static string labelLanguage {
+            get {
+                return ResourceManager.GetString("labelLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Languages:.
+        /// </summary>
+        public static string labelLanguages {
+            get {
+                return ResourceManager.GetString("labelLanguages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max lines:.
         /// </summary>
         public static string labelMaxLines {
@@ -318,6 +372,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelMaxPerLine {
             get {
                 return ResourceManager.GetString("labelMaxPerLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name:.
+        /// </summary>
+        public static string labelName {
+            get {
+                return ResourceManager.GetString("labelName", resourceCulture);
             }
         }
         
@@ -358,11 +421,38 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original ROM:.
+        /// </summary>
+        public static string labelOriginalROM {
+            get {
+                return ResourceManager.GetString("labelOriginalROM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Output Generator:.
+        /// </summary>
+        public static string labelOutputGenerator {
+            get {
+                return ResourceManager.GetString("labelOutputGenerator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color Palette:.
         /// </summary>
         public static string labelPalette {
             get {
                 return ResourceManager.GetString("labelPalette", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patcher:.
+        /// </summary>
+        public static string labelPatcher {
+            get {
+                return ResourceManager.GetString("labelPatcher", resourceCulture);
             }
         }
         
@@ -381,6 +471,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelSourceTableFile {
             get {
                 return ResourceManager.GetString("labelSourceTableFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System:.
+        /// </summary>
+        public static string labelSystem {
+            get {
+                return ResourceManager.GetString("labelSystem", resourceCulture);
             }
         }
         
@@ -435,6 +534,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string labelTranslated {
             get {
                 return ResourceManager.GetString("labelTranslated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version:.
+        /// </summary>
+        public static string labelVersion {
+            get {
+                return ResourceManager.GetString("labelVersion", resourceCulture);
             }
         }
         
@@ -912,6 +1020,24 @@ namespace WendigoJaeger.TranslationTool {
         public static string windowGenericCreate {
             get {
                 return ResourceManager.GetString("windowGenericCreate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Project.
+        /// </summary>
+        public static string windowNewProject {
+            get {
+                return ResourceManager.GetString("windowNewProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Culture.
+        /// </summary>
+        public static string windowSelectCulture {
+            get {
+                return ResourceManager.GetString("windowSelectCulture", resourceCulture);
             }
         }
     }
