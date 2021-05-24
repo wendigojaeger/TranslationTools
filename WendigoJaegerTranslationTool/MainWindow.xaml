@@ -22,7 +22,6 @@
         <CommandBinding Command="local:CustomCommands.About" Executed="About_Executed" />
         <CommandBinding Command="local:CustomCommands.AddAssemblyFile" CanExecute="AddAssemblyFile_CanExecute" Executed="AddAssemblyFile_Executed" />
         <CommandBinding Command="local:CustomCommands.AddData" CanExecute="AddData_CanExecute" Executed="AddData_Executed" />
-        <CommandBinding Command="local:CustomCommands.AddLanguage" CanExecute="AddLanguage_CanExecute" Executed="AddLanguage_Executed" />
         <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
         <CommandBinding Command="local:CustomCommands.AddGraphics" CanExecute="AddGraphics_CanExecute" Executed="AddGraphics_Executed" />
         <CommandBinding Command="local:CustomCommands.AddFont" CanExecute="AddFont_CanExecute" Executed="AddFont_Executed" />
@@ -75,7 +74,6 @@
                 <MenuItem Command="local:CustomCommands.AddTableFile" />
                 <MenuItem Command="local:CustomCommands.AddScript" />
                 <MenuItem Command="local:CustomCommands.AddData" />
-                <MenuItem Command="local:CustomCommands.AddLanguage" />
                 <MenuItem Command="local:CustomCommands.AddAssemblyFile" />
                 <MenuItem Command="local:CustomCommands.AddGraphics" />
                 <MenuItem Command="local:CustomCommands.AddFont" />

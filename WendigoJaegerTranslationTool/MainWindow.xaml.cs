@@ -597,16 +597,6 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
-        private void AddLanguage_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ProjectSettings != null;
-        }
-
-        private void AddLanguage_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-
-        }
-
         private void AddScript_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null;
