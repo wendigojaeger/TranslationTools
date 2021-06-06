@@ -154,7 +154,6 @@ namespace WendigoJaeger.TranslationTool.Patch
 
                         similarBytes = 0;
                         blockSize = 0;
-                        index++;
                         state = CreateState.FindingDiff;
                         break;
                 }
