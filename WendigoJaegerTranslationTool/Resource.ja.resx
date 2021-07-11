@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="mainWindowTitle" xml:space="preserve">
-    <value>ウェンディゴジャエガー翻訳ツール</value>
+    <value>ウェンディゴジャエガーのスーパーロボット大戦EX翻訳ツール</value>
   </data>
   <data name="mnuAbout" xml:space="preserve">
-    <value>ウェンディゴジャエガー翻訳ツールについて</value>
+    <value>ウェンディゴジャエガーのスーパーロボット大戦EX翻訳ツールについて</value>
   </data>
   <data name="mnuFile" xml:space="preserve">
     <value>ファイル</value>

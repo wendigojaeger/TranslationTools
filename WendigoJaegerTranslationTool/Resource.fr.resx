@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="mnuAbout" xml:space="preserve">
-    <value>A propos de Outil de traduction de WendigoJaeger</value>
+    <value>A propos de Outil de traduction SRWEXde WendigoJaeger</value>
   </data>
   <data name="mnuBuild" xml:space="preserve">
     <value>Générer</value>
@@ -136,7 +136,7 @@
     <value>Aide</value>
   </data>
   <data name="mainWindowTitle" xml:space="preserve">
-    <value>Outil de traduction de WendigoJaeger</value>
+    <value>Outil de traduction SRWEX de WendigoJaeger</value>
   </data>
   <data name="mnuBuildAll" xml:space="preserve">
     <value>Générer Tout</value>

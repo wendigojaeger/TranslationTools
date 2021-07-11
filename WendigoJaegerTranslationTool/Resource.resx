@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="mainWindowTitle" xml:space="preserve">
-    <value>WendigoJaeger Translation Tool</value>
+    <value>WendigoJaeger SRWEX Translation Tool</value>
   </data>
   <data name="mnuAbout" xml:space="preserve">
-    <value>About WendigoJaeger Translation Tool</value>
+    <value>About WendigoJaeger SRWEX Translation Tool</value>
   </data>
   <data name="mnuBuild" xml:space="preserve">
     <value>Build</value>

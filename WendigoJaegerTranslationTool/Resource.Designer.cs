@@ -583,7 +583,7 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WendigoJaeger Translation Tool.
+        ///   Looks up a localized string similar to WendigoJaeger SRWEX Translation Tool.
         /// </summary>
         public static string mainWindowTitle {
             get {
@@ -592,7 +592,7 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About WendigoJaeger Translation Tool.
+        ///   Looks up a localized string similar to About WendigoJaeger SRWEX Translation Tool.
         /// </summary>
         public static string mnuAbout {
             get {
