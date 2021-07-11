@@ -10,16 +10,16 @@ namespace WendigoJaeger.TranslationTool.Controls
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public static readonly DependencyProperty RelativePathProperty = DependencyProperty.Register(nameof(AbsolutePath), typeof(string), typeof(AbsolutePathPickerControl), new UIPropertyMetadata(null));
+        public static readonly DependencyProperty AbsolutePathProperty = DependencyProperty.Register(nameof(AbsolutePath), typeof(string), typeof(AbsolutePathPickerControl), new UIPropertyMetadata(null));
         public string AbsolutePath
         {
             get
             {
-                return (string)GetValue(RelativePathProperty);
+                return (string)GetValue(AbsolutePathProperty);
             }
             set
             {
-                SetValue(RelativePathProperty, value);
+                SetValue(AbsolutePathProperty, value);
 
                 notifyPropertyChanged();
             }

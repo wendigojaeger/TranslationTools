@@ -444,4 +444,13 @@
   <data name="labelLanguage" xml:space="preserve">
     <value>言語：</value>
   </data>
+  <data name="labelAdditonalFiles" xml:space="preserve">
+    <value>Additional Files to Pack:</value>
+  </data>
+  <data name="buttonAddAdditonalFile" xml:space="preserve">
+    <value>Add additional file</value>
+  </data>
+  <data name="buttonRemoveAdditonalFile" xml:space="preserve">
+    <value>Remove additional file</value>
+  </data>
 </root>

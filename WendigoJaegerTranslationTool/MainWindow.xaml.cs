@@ -706,15 +706,6 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
-        private void ProjectSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ProjectSettings != null;
-        }
-
-        private void ProjectSettings_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-        }
-
         private void ScriptExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptSettings;

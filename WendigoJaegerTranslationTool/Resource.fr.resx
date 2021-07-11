@@ -444,4 +444,13 @@
   <data name="labelLanguage" xml:space="preserve">
     <value>Langue:</value>
   </data>
+  <data name="labelAdditonalFiles" xml:space="preserve">
+    <value>Fichiers supplémentaires:</value>
+  </data>
+  <data name="buttonAddAdditonalFile" xml:space="preserve">
+    <value>Ajouter un fichier supplémentaire</value>
+  </data>
+  <data name="buttonRemoveAdditonalFile" xml:space="preserve">
+    <value>Enelever un fichier supplémentaire</value>
+  </data>
 </root>

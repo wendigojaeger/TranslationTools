@@ -34,7 +34,6 @@
         <CommandBinding Command="local:CustomCommands.Distribute" CanExecute="Distribute_CanExecute" Executed="Distribute_Executed" />
         <CommandBinding Command="local:CustomCommands.DataExtract" CanExecute="DataExtract_CanExecute" Executed="DataExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
-        <CommandBinding Command="local:CustomCommands.ProjectSettings" CanExecute="ProjectSettings_CanExecute" Executed="ProjectSettings_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptExtract" CanExecute="ScriptExtract_CanExecute" Executed="ScriptExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptNext" CanExecute="ScriptNext_CanExecute" Executed="ScriptNext_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptPrevious" CanExecute="ScriptPrevious_CanExecute" Executed="ScriptPrevious_Executed" />
@@ -78,8 +77,6 @@
                 <MenuItem Command="local:CustomCommands.AddFont" />
                 <MenuItem Command="local:CustomCommands.AddPalette" />
                 <MenuItem Command="local:CustomCommands.AddTextPreview" />
-                <Separator />
-                <MenuItem Command="local:CustomCommands.ProjectSettings" />
             </MenuItem>
             <MenuItem Header="{x:Static i18n:Resource.mnuScript}">
                 <MenuItem Command="local:CustomCommands.ScriptExtract" />

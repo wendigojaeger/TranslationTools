@@ -1,0 +1,117 @@
+﻿<local:BaseProjectSettingsEditor x:Class="WendigoJaeger.TranslationTool.Editors.ProjectSettingsEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WendigoJaeger.TranslationTool.Editors"
+             xmlns:i18n="clr-namespace:WendigoJaeger.TranslationTool"
+             xmlns:controls="clr-namespace:WendigoJaeger.TranslationTool.Controls"
+             xmlns:converters="clr-namespace:WendigoJaeger.TranslationTool.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <local:BaseProjectSettingsEditor.Resources>
+        <converters:CultureImageConverter x:Key="cultureImageConverter" />
+        <converters:SystemNameConverter x:Key="systemNameConverter" />
+        <converters:PatcherNameConverter x:Key="patcherNameConverter" />
+        <converters:OutputGeneratorNameConverter x:Key="outputGeneratorNameConverter" />
+    </local:BaseProjectSettingsEditor.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelName}" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textName" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="{x:Static i18n:Resource.labelOriginalROM}" HorizontalAlignment="Right"/>
+        <controls:RelativePathPickerControl Grid.Row="1" Grid.Column="1"  x:Name="filePathOriginalROM" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="{x:Static i18n:Resource.labelSystem}" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="comboSystem">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource ResourceKey=systemNameConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Grid.Row="3" Grid.Column="0" Content="{x:Static i18n:Resource.labelOutputGenerator}" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="comboOutputGenerator">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource ResourceKey=outputGeneratorNameConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Grid.Row="4" Grid.Column="0" Content="{x:Static i18n:Resource.labelPatcher}" HorizontalAlignment="Right"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" x:Name="comboPatcher">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource ResourceKey=patcherNameConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Label Grid.Row="5" Grid.Column="0" Content="{x:Static i18n:Resource.labelVersion}" HorizontalAlignment="Right"/>
+        <TextBox Grid.Row="5" Grid.Column="1" x:Name="textVersion" />
+
+        <Label Grid.Row="6" Grid.Column="0" Content="{x:Static i18n:Resource.labelLanguages}" HorizontalAlignment="Right"/>
+        <Grid Grid.Row="6" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button x:Name="buttonAddLanguage" Content="{x:Static i18n:Resource.buttonAddLanguage}" Click="buttonAddLanguage_Click" />
+                <Button x:Name="buttonRemoveLanguage" Content="{x:Static i18n:Resource.buttonRemoveLanguage}" Margin="5,0,0,0" Click="buttonRemoveLanguage_Click"/>
+            </StackPanel>
+            <DataGrid Grid.Row="1" x:Name="dataGridLanguages" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="{x:Static i18n:Resource.dataGridHeaderLanguage}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="imageFlag" Source="{Binding Key, Converter={StaticResource ResourceKey=cultureImageConverter}}" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding Key}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="{x:Static i18n:Resource.dataGridHeaderOutputFile}">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Value.OutputFile, Mode=TwoWay}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Label Grid.Row="7" Grid.Column="0" Content="{x:Static i18n:Resource.labelAdditonalFiles}" HorizontalAlignment="Right"/>
+        <Grid Grid.Row="7" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button x:Name="buttonAddAdditonalFile" Content="{x:Static i18n:Resource.buttonAddAdditonalFile}" Click="buttonAddAdditonalFile_Click" />
+                <Button x:Name="buttonRemoveAdditonalFile" Content="{x:Static i18n:Resource.buttonRemoveAdditonalFile}" Margin="5,0,0,0"  Click="buttonRemoveAdditonalFile_Click"/>
+            </StackPanel>
+            <ListBox Grid.Row="1" x:Name="listBoxAdditonalFiles">
+            </ListBox>
+        </Grid>
+    </Grid>
+</local:BaseProjectSettingsEditor>

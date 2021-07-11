@@ -7,9 +7,22 @@ using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
 {
-    public class LocalizedProjectSettings
+    public class LocalizedProjectSettings : UndoObject
     {
-        public string OutputFile { get; set; }
+        private string _outputFile;
+        public string OutputFile
+        {
+            get
+            {
+                return _outputFile;
+            }
+            set
+            {
+                var oldValue = _outputFile;
+                _outputFile = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
     }
 
     public class Project : UndoObject
@@ -17,9 +30,10 @@ namespace WendigoJaeger.TranslationTool.Data
         private string _name = string.Empty;
         private string _inputFile = string.Empty;
         private string _version = string.Empty;
-        private UndoObservableCollection<string> _additionalFilesToPack;
-
+        private ISystem _system;
+        private OutputGenerator _outputGenerator;
         private IPatcher _patcher;
+        private UndoObservableCollection<string> _additionalFilesToPack;
 
         public string Name
         {
@@ -49,9 +63,33 @@ namespace WendigoJaeger.TranslationTool.Data
             }
         }
 
-        public ISystem System { get; set; }
+        public ISystem System
+        {
+            get
+            {
+                return _system;
+            }
+            set
+            {
+                var oldValue = _system;
+                _system = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
 
-        public OutputGenerator OutputGenerator { get; set; }
+        public OutputGenerator OutputGenerator
+        {
+            get
+            {
+                return _outputGenerator;
+            }
+            set
+            {
+                var oldValue = _outputGenerator;
+                _outputGenerator = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
 
         public IPatcher Patcher
         {

@@ -70,6 +70,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add additional file.
+        /// </summary>
+        public static string buttonAddAdditonalFile {
+            get {
+                return ResourceManager.GetString("buttonAddAdditonalFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Language.
         /// </summary>
         public static string buttonAddLanguage {
@@ -102,6 +111,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string buttonRemove {
             get {
                 return ResourceManager.GetString("buttonRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove additional file.
+        /// </summary>
+        public static string buttonRemoveAdditonalFile {
+            get {
+                return ResourceManager.GetString("buttonRemoveAdditonalFile", resourceCulture);
             }
         }
         
@@ -210,6 +228,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string groupBoxProperties {
             get {
                 return ResourceManager.GetString("groupBoxProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional Files to Pack:.
+        /// </summary>
+        public static string labelAdditonalFiles {
+            get {
+                return ResourceManager.GetString("labelAdditonalFiles", resourceCulture);
             }
         }
         

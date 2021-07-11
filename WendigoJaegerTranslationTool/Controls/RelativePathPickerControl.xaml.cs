@@ -67,7 +67,7 @@ namespace WendigoJaeger.TranslationTool.Controls
         {
             if (ProjectSettings != null)
             {
-                OpenFileDialog fileDialog = new OpenFileDialog();
+                OpenFileDialog fileDialog = new();
                 if (!string.IsNullOrEmpty(Filter))
                 {
                     fileDialog.Filter = Filter;
