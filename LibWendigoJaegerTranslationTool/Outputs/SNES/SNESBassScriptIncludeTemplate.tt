@@ -5,17 +5,57 @@
 <#@ import namespace="System.Collections.Generic" #>
 seek($<#=ScriptBank.RAMAddress.ToString("x")#>)
 <#=FormatEntryName(ScriptBank.Name)#>:
-<# for(int i=0; i<Entries.Count; ++i) { #>
-    dw <#=GenerateEntryName(i)#>
+<# foreach(var pointerName in GetPointers()) { #>
+    dw <#=pointerName#>
 <# } #>
 
-<# for(int i=0; i<Entries.Count; ++i) { #>
-<#=GenerateEntryName(i)#>:
-<# if (Entries[i].Data.Length > 0) { #>
-    db <#=string.Join(", ", Entries[i].Data.Select(data => $"${data:x2}"))#>
-<# } #>
-    db $<#=ScriptBank.Terminator.ToString("x")#>
-<# } #>
+<#
+for(int entryIndex = 0; entryIndex < Entries.Count; ++entryIndex)
+{
+    var entry = Entries[entryIndex];
+
+    int pointerCount = 0;
+    Queue<int> pointerIndices = new(entry.Pointers);
+
+    OutputState state = OutputState.OutputDB;
+
+    int dataIndex = 0;
+    while(dataIndex < entry.Data.Length)
+    {
+        switch (state)
+        {
+            case OutputState.PrintPointerLabel:
+            {
+#>
+<#= GenerateEntryName(entryIndex, pointerCount) #>:
+<#
+                pointerCount++;
+                state = OutputState.OutputDB;
+                break;
+            }
+            case OutputState.OutputDB:
+            {
+                if (pointerIndices.Count > 0 && pointerIndices.Peek() == dataIndex)
+                {
+                    pointerIndices.Dequeue();
+                    state = OutputState.PrintPointerLabel;
+                }
+                else
+                {
+#>
+    db <#= $"${entry.Data[dataIndex]:x}" #>
+<#
+                    dataIndex++;
+                }
+                break;
+            }
+        }
+    }
+#>
+    db $<#=ScriptBank.Terminator.ToString("x")#> 
+<#
+}
+#>
 
 <# if (ScriptBank.EndRAMAddress.HasValue) { #>
 if pc() > $<#=ScriptBank.EndRAMAddress.Value.ToString("x")#> {

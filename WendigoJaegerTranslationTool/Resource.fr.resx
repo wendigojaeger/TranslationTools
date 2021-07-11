@@ -180,9 +180,6 @@
   <data name="mnuScriptNext" xml:space="preserve">
     <value>Entrée suivante</value>
   </data>
-  <data name="mnuScriptSettings" xml:space="preserve">
-    <value>Configuration du script...</value>
-  </data>
   <data name="translationStateToTranslate" xml:space="preserve">
     <value>À Traduire</value>
   </data>
@@ -378,23 +375,8 @@
   <data name="windowCreateScriptSettings" xml:space="preserve">
     <value>Créer une configuration de script</value>
   </data>
-  <data name="mnuData" xml:space="preserve">
-    <value>Données</value>
-  </data>
-  <data name="mnuDataExtract" xml:space="preserve">
-    <value>Extraire les données</value>
-  </data>
-  <data name="projectHeaderData" xml:space="preserve">
-    <value>Données</value>
-  </data>
-  <data name="mnuProjectAddData" xml:space="preserve">
-    <value>Ajouter un fichier de données...</value>
-  </data>
-  <data name="windowCreateDataSettings" xml:space="preserve">
-    <value>Créer une configuration de données</value>
-  </data>
-  <data name="labelDataExtractor" xml:space="preserve">
-    <value>Extracteur de données:</value>
+  <data name="labelScriptExtractor" xml:space="preserve">
+    <value>Extracteur de script:</value>
   </data>
   <data name="contextMenuCopyTranslationFrom" xml:space="preserve">
     <value>Copier la traductrion depuis</value>

@@ -180,9 +180,6 @@
   <data name="mnuScriptNext" xml:space="preserve">
     <value>Next Entry</value>
   </data>
-  <data name="mnuScriptSettings" xml:space="preserve">
-    <value>Script Settings...</value>
-  </data>
   <data name="translationStateToTranslate" xml:space="preserve">
     <value>To Translate</value>
   </data>
@@ -378,23 +375,8 @@
   <data name="windowCreateScriptSettings" xml:space="preserve">
     <value>Create Script Settings</value>
   </data>
-  <data name="mnuData" xml:space="preserve">
-    <value>Data</value>
-  </data>
-  <data name="mnuDataExtract" xml:space="preserve">
-    <value>Data Extract</value>
-  </data>
-  <data name="projectHeaderData" xml:space="preserve">
-    <value>Data</value>
-  </data>
-  <data name="mnuProjectAddData" xml:space="preserve">
-    <value>Add Data...</value>
-  </data>
-  <data name="windowCreateDataSettings" xml:space="preserve">
-    <value>Create Data Settings</value>
-  </data>
-  <data name="labelDataExtractor" xml:space="preserve">
-    <value>Data Extractor:</value>
+  <data name="labelScriptExtractor" xml:space="preserve">
+    <value>Script Extractor:</value>
   </data>
   <data name="contextMenuCopyTranslationFrom" xml:space="preserve">
     <value>Copy Translation From</value>

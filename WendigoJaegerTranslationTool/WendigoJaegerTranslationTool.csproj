@@ -268,7 +268,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Creators\CreateDataSettingsWindow.xaml.cs">
+    <Compile Update="Creators\CreateScriptSettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resource.Designer.cs">
@@ -295,14 +295,14 @@
     <Page Update="Controls\AbsolutePathPickerControl.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Creators\CreateDataSettingsWindow.xaml">
+    <Page Update="Creators\CreateScriptSettingsWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Editors\DataSettingsEditor.xaml">
+    <Page Update="Editors\ScriptSettingsEditor.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
-    <Page Update="Editors\DataEntryEditor.xaml">
+    <Page Update="Editors\ScriptEntryEditor.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>

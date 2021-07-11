@@ -14,7 +14,7 @@ namespace WendigoJaeger.TranslationTool.Creators
         public ProjectSettings ProjectSettings { get; set; }
         public Type ObjectType { get; set; }
 
-        static Type[] _cachedTextExtractorTypes = null;
+        private static Type[] _cachedScriptExtractorTypes;
 
         public CreateScriptSettingsWindow()
         {
@@ -33,11 +33,11 @@ namespace WendigoJaeger.TranslationTool.Creators
                 Entries = upDownEntries.Value.Value
             };
 
-            newScriptSettings.TextExtractor = (IScriptExtractor)comboTextExtractors.SelectedItem;
+            newScriptSettings.ScriptExtractor = (IScriptExtractor)comboScriptExtractors.SelectedItem;
             newScriptSettings.TableFile.RefID = tableRefObjectPicker.SelectedRefObject.ID;
             newScriptSettings.TextPreview.RefID = textPreviewRefObjectPicker.SelectedRefObject.ID;
 
-            newScriptSettings.Script.Path = ProjectSettings.GetAbsolutePath($"{textName.Text}.wts");
+            newScriptSettings.ScriptFile.Path = ProjectSettings.GetAbsolutePath($"{textName.Text}.wtd");
 
             CreatedObject = newScriptSettings;
 
@@ -53,25 +53,25 @@ namespace WendigoJaeger.TranslationTool.Creators
 
         private void windowInit()
         {
-            if (_cachedTextExtractorTypes == null)
+            if (_cachedScriptExtractorTypes == null)
             {
                 var query = from a in AppDomain.CurrentDomain.GetAssemblies()
                             from t in a.GetTypes()
                             where t.GetInterfaces().Contains(typeof(IScriptExtractor))
                             select t;
 
-                _cachedTextExtractorTypes = query.ToArray();
+                _cachedScriptExtractorTypes = query.ToArray();
             }
 
-            List<IScriptExtractor> textExtractors = new List<IScriptExtractor>();
+            List<IScriptExtractor> scriptExtractors = new();
 
-            foreach (var type in _cachedTextExtractorTypes)
+            foreach (var type in _cachedScriptExtractorTypes)
             {
-                textExtractors.Add((IScriptExtractor)Activator.CreateInstance(type));
+                scriptExtractors.Add((IScriptExtractor)Activator.CreateInstance(type));
             }
-            textExtractors.Sort((x, y) => x.Name.CompareTo(y.Name));
+            scriptExtractors.Sort((x, y) => x.Name.CompareTo(y.Name));
 
-            comboTextExtractors.ItemsSource = textExtractors;
+            comboScriptExtractors.ItemsSource = scriptExtractors;
         }
     }
 }

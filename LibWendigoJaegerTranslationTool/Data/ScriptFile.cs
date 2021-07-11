@@ -3,7 +3,7 @@ using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
 {
-    public class ScriptEntry : UndoObject
+    public class ScriptEntry : RefObject
     {
         private string _entryName = string.Empty;
         private string _original = string.Empty;
@@ -110,7 +110,7 @@ namespace WendigoJaeger.TranslationTool.Data
 
         public bool HasTranslation(string lang)
         {
-            return Translations.Count(x => x.Lang == lang) > 0;
+            return Translations.Any(x => x.Lang == lang);
         }
 
         public TranslationEntry GetTranslation(string lang)
@@ -145,9 +145,89 @@ namespace WendigoJaeger.TranslationTool.Data
         }
     }
 
+    public class ScriptPointer : UndoObject
+    {
+        private int _pointerIndex;
+        private RefObjectPtr<ScriptEntry> _pointer;
+
+        public int PointerIndex
+        {
+            get
+            {
+                return _pointerIndex;
+            }
+            set
+            {
+                var oldValue = _pointerIndex;
+                _pointerIndex = value;
+                notifyPropertyChanged(oldValue, value);
+            }
+        }
+
+        public RefObjectPtr<ScriptEntry> Pointer
+        {
+            get
+            {
+                if (_pointer == null)
+                {
+                    _pointer = new();
+                    _pointer.UndoPropertyChanged += undoProxy;
+                    _pointer.PropertyChanged -= propertyChangedProxy;
+                }
+
+                return _pointer;
+            }
+            set
+            {
+                if (_pointer != null)
+                {
+                    _pointer.UndoPropertyChanged -= undoProxy;
+                    _pointer.PropertyChanged -= propertyChangedProxy;
+                }
+
+                _pointer = value;
+
+                if (_pointer != null)
+                {
+                    _pointer.UndoPropertyChanged += undoProxy;
+                    _pointer.PropertyChanged += propertyChangedProxy;
+                }
+            }
+        }
+    }
+
     public class ScriptFile : UndoObject
     {
         private UndoObservableCollection<ScriptEntry> _entries;
+        private UndoObservableCollection<ScriptPointer> _pointers;
+
+        public UndoObservableCollection<ScriptPointer> Pointers
+        {
+            get
+            {
+                if (_pointers == null)
+                {
+                    _pointers = new();
+                    _pointers.UndoArrayChanged += arrayProxy;
+                    _pointers.UndoPropertyChanged += undoProxy;
+                }
+
+                return _pointers;
+            }
+            set
+            {
+                _pointers = value;
+
+                if (_pointers != null)
+                {
+                    _pointers.UndoArrayChanged -= arrayProxy;
+                    _pointers.UndoArrayChanged += arrayProxy;
+
+                    _pointers.UndoPropertyChanged -= undoProxy;
+                    _pointers.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
 
         public UndoObservableCollection<ScriptEntry> Entries
         {
@@ -155,7 +235,7 @@ namespace WendigoJaeger.TranslationTool.Data
             {
                 if (_entries == null)
                 {
-                    _entries = new UndoObservableCollection<ScriptEntry>();
+                    _entries = new();
                     _entries.UndoArrayChanged += arrayProxy;
                     _entries.UndoPropertyChanged += undoProxy;
                 }
@@ -179,6 +259,7 @@ namespace WendigoJaeger.TranslationTool.Data
 
         public void Clear()
         {
+            Pointers.Clear();
             Entries.Clear();
         }
     }

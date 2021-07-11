@@ -4,7 +4,14 @@ namespace WendigoJaeger.TranslationTool.Outputs
 {
     public class OutputScriptEntry
     {
+        public List<int> Pointers = new();
         public byte[] Data;
+    }
+
+    public struct OutputScriptPointer
+    {
+        public int Index;
+        public OutputScriptEntry Entry;
     }
 
     public class OutputScriptBank
@@ -19,8 +26,8 @@ namespace WendigoJaeger.TranslationTool.Outputs
 
         public byte Terminator { get; set; }
 
-        public ScriptBankType BankType { get; set; }
-
         public List<OutputScriptEntry> Entries { get; } = new List<OutputScriptEntry>();
+
+        public List<OutputScriptPointer> Pointers { get; } = new List<OutputScriptPointer>();
     }
 }

@@ -94,13 +94,13 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         private TextPreviewInfo FindPreviewInfo()
         {
-            foreach (var script in ProjectSettings.Scripts)
+            foreach (var scriptSettings in ProjectSettings.ScriptSettings)
             {
-                foreach (var entry in script.Script.Instance.Entries)
+                foreach (var entry in scriptSettings.ScriptFile.Instance.Entries)
                 {
                     if (entry == Instance)
                     {
-                        return entry.TextPreview.Instance != null ? entry.TextPreview.Instance : script.TextPreview.Instance;
+                        return scriptSettings.TextPreview.Instance;
                     }
                 }
             }
@@ -110,11 +110,14 @@ namespace WendigoJaeger.TranslationTool.Editors
 
         private TableFile FindTableFile()
         {
-            foreach (var script in ProjectSettings.Scripts)
+            foreach (var scriptSettings in ProjectSettings.ScriptSettings)
             {
-                if (script.Script.Instance.Entries.Contains(Instance))
+                foreach (var entry in scriptSettings.ScriptFile.Instance.Entries)
                 {
-                    return script.TableFile.Instance;
+                    if (entry == Instance)
+                    {
+                        return scriptSettings.TableFile.Instance;
+                    }
                 }
             }
 

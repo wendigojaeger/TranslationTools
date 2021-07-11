@@ -153,14 +153,13 @@ namespace WendigoJaeger.TranslationTool.Data
     public class ProjectSettings : UndoObject
     {
         private Project _project;
-        private UndoObservableCollection<ScriptSettings> _scripts;
         private UndoObservableCollection<GraphicsSettings> _graphics;
         private UndoObservableCollection<AssemblyFileSettings> _assemblyFileSettings;
         private UndoObservableCollection<FontSettings> _fontSettings;
         private UndoObservableCollection<Palette> _palettes;
         private UndoObservableCollection<TableFile> _tableFiles;
         private UndoObservableCollection<TextPreviewInfo> _textPreviewInfos;
-        private UndoObservableCollection<DataSettings> _dataSettings;
+        private UndoObservableCollection<ScriptSettings> _scriptSettings;
 
         public Project Project
         {
@@ -190,34 +189,6 @@ namespace WendigoJaeger.TranslationTool.Data
 
                     _project.PropertyChanged -= propertyChangedProxy;
                     _project.PropertyChanged += propertyChangedProxy;
-                }
-            }
-        }
-
-        public UndoObservableCollection<ScriptSettings> Scripts
-        {
-            get
-            {
-                if (_scripts == null)
-                {
-                    _scripts = new UndoObservableCollection<ScriptSettings>();
-                    _scripts.UndoArrayChanged += arrayProxy;
-                    _scripts.UndoPropertyChanged += undoProxy;
-                }
-
-                return _scripts;
-            }
-            set
-            {
-                _scripts = value;
-
-                if (_scripts != null)
-                {
-                    _scripts.UndoArrayChanged -= arrayProxy;
-                    _scripts.UndoArrayChanged += arrayProxy;
-
-                    _scripts.UndoPropertyChanged -= undoProxy;
-                    _scripts.UndoPropertyChanged += undoProxy;
                 }
             }
         }
@@ -390,30 +361,30 @@ namespace WendigoJaeger.TranslationTool.Data
             }
         }
 
-        public UndoObservableCollection<DataSettings> DataSettings
+        public UndoObservableCollection<ScriptSettings> ScriptSettings
         {
             get
             {
-                if (_dataSettings == null)
+                if (_scriptSettings == null)
                 {
-                    _dataSettings = new UndoObservableCollection<DataSettings>();
-                    _dataSettings.UndoArrayChanged += arrayProxy;
-                    _dataSettings.UndoPropertyChanged += undoProxy;
+                    _scriptSettings = new UndoObservableCollection<ScriptSettings>();
+                    _scriptSettings.UndoArrayChanged += arrayProxy;
+                    _scriptSettings.UndoPropertyChanged += undoProxy;
                 }
 
-                return _dataSettings;
+                return _scriptSettings;
             }
             set
             {
-                _dataSettings = value;
+                _scriptSettings = value;
 
-                if (_dataSettings != null)
+                if (_scriptSettings != null)
                 {
-                    _dataSettings.UndoArrayChanged -= arrayProxy;
-                    _dataSettings.UndoArrayChanged += arrayProxy;
+                    _scriptSettings.UndoArrayChanged -= arrayProxy;
+                    _scriptSettings.UndoArrayChanged += arrayProxy;
 
-                    _dataSettings.UndoPropertyChanged -= undoProxy;
-                    _dataSettings.UndoPropertyChanged += undoProxy;
+                    _scriptSettings.UndoPropertyChanged -= undoProxy;
+                    _scriptSettings.UndoPropertyChanged += undoProxy;
                 }
             }
         }

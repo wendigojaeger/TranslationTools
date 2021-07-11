@@ -56,7 +56,7 @@
                         </ComboBox>
                     </StackPanel>
                     <controls:TextPreviewControl Grid.Row="1" x:Name="translatedTextPreview" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBox Grid.Row="2" x:Name="textTranslatedEntry" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False"  SelectionChanged="TextBox_SelectionChanged">
+                    <TextBox Grid.Row="2" x:Name="textTranslatedEntry" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontFamily="Hack" FontSize="12" AcceptsReturn="True" IsUndoEnabled="False" SelectionChanged="TextBox_SelectionChanged">
                         <TextBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Command="ApplicationCommands.Cut" />

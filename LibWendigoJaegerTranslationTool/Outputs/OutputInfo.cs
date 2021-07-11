@@ -10,13 +10,11 @@ namespace WendigoJaeger.TranslationTool.Outputs
         public string InputFile { get; set; }
         public string OutputFile { get; set; }
 
-        public List<OutputScriptBank> Scripts { get; } = new List<OutputScriptBank>();
-
         public List<OutputGraphics> Graphics { get; } = new List<OutputGraphics>();
 
         public List<OutputAssemblyFile> AssemblyFiles { get; } = new List<OutputAssemblyFile>();
 
-        public List<OutputDataBank> DataBanks { get; } = new List<OutputDataBank>();
+        public List<OutputScriptBank> ScriptBanks { get; } = new List<OutputScriptBank>();
 
         public ISystem System { get; set; }
     }

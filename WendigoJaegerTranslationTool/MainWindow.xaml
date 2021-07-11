@@ -16,25 +16,22 @@
         <convert:CultureImageConverter x:Key="cultureImageConverter" />
         <local:ProjectSettingsItemSource x:Key="projectSettingsItemSource" />
         <local:ScriptFileProgressAggregator x:Key="scriptFileProgressAggregator" />
-        <local:DataFileProgressAggregator x:Key="dataFileProgressAggregator" />
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="local:CustomCommands.About" Executed="About_Executed" />
         <CommandBinding Command="local:CustomCommands.AddAssemblyFile" CanExecute="AddAssemblyFile_CanExecute" Executed="AddAssemblyFile_Executed" />
-        <CommandBinding Command="local:CustomCommands.AddData" CanExecute="AddData_CanExecute" Executed="AddData_Executed" />
-        <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
         <CommandBinding Command="local:CustomCommands.AddGraphics" CanExecute="AddGraphics_CanExecute" Executed="AddGraphics_Executed" />
         <CommandBinding Command="local:CustomCommands.AddFont" CanExecute="AddFont_CanExecute" Executed="AddFont_Executed" />
         <CommandBinding Command="local:CustomCommands.AddPalette" CanExecute="AddPalette_CanExecute" Executed="AddPalette_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
         <CommandBinding Command="local:CustomCommands.AddTableFile" CanExecute="AddTableFile_CanExecute" Executed="AddTableFile_Executed" />
         <CommandBinding Command="local:CustomCommands.AddTextPreview" CanExecute="AddTextPreview_CanExecute" Executed="AddTextPreview_Executed" />
         <CommandBinding Command="local:CustomCommands.BuildAndRun" CanExecute="BuildAndRun_CanExecute" Executed="BuildAndRun_Executed" />
         <CommandBinding Command="local:CustomCommands.Run" CanExecute="Run_CanExecute" Executed="Run_Executed" />
         <CommandBinding Command="local:CustomCommands.BuildAll" CanExecute="BuildAll_CanExecute" Executed="BuildAll_Executed" />
         <CommandBinding Command="local:CustomCommands.Distribute" CanExecute="Distribute_CanExecute" Executed="Distribute_Executed" />
-        <CommandBinding Command="local:CustomCommands.DataExtract" CanExecute="DataExtract_CanExecute" Executed="DataExtract_Executed" />
-        <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptExtract" CanExecute="ScriptExtract_CanExecute" Executed="ScriptExtract_Executed" />
+        <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptNext" CanExecute="ScriptNext_CanExecute" Executed="ScriptNext_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptPrevious" CanExecute="ScriptPrevious_CanExecute" Executed="ScriptPrevious_Executed" />
         <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
@@ -71,7 +68,6 @@
             <MenuItem Header="{x:Static i18n:Resource.mnuProject}">
                 <MenuItem Command="local:CustomCommands.AddTableFile" />
                 <MenuItem Command="local:CustomCommands.AddScript" />
-                <MenuItem Command="local:CustomCommands.AddData" />
                 <MenuItem Command="local:CustomCommands.AddAssemblyFile" />
                 <MenuItem Command="local:CustomCommands.AddGraphics" />
                 <MenuItem Command="local:CustomCommands.AddFont" />
@@ -83,9 +79,6 @@
                 <Separator />
                 <MenuItem Command="local:CustomCommands.ScriptPrevious" />
                 <MenuItem Command="local:CustomCommands.ScriptNext" />
-            </MenuItem>
-            <MenuItem Header="{x:Static i18n:Resource.mnuData}">
-                <MenuItem Command="local:CustomCommands.DataExtract" />
             </MenuItem>
             <MenuItem Header="{x:Static i18n:Resource.mnuBuild}">
                 <MenuItem Command="local:CustomCommands.BuildAndRun" />
@@ -135,25 +128,13 @@
                                             <TextBlock Text="{Binding Name}" />
                                         </StackPanel>
                                     </HierarchicalDataTemplate>
-                                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptSettings}" ItemsSource="{Binding Script.Instance.Entries}">
+                                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptSettings}" ItemsSource="{Binding ScriptFile.Instance.Entries}">
                                         <StackPanel Orientation="Horizontal">
-                                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Script.Instance, Converter={StaticResource scriptFileProgressAggregator}, UpdateSourceTrigger=Explicit}" />
+                                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding ScriptFile.Instance, Converter={StaticResource scriptFileProgressAggregator}, UpdateSourceTrigger=Explicit}" />
                                             <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
                                         </StackPanel>
                                     </HierarchicalDataTemplate>
                                     <HierarchicalDataTemplate DataType="{x:Type data:ScriptEntry}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Translations}" />
-                                            <controls:EditableTextBlock Text="{Binding Path=EntryName, Mode=TwoWay}" />
-                                        </StackPanel>
-                                    </HierarchicalDataTemplate>
-                                    <HierarchicalDataTemplate DataType="{x:Type data:DataSettings}" ItemsSource="{Binding DataFile.Instance.DataEntries}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding DataFile.Instance, Converter={StaticResource dataFileProgressAggregator}, UpdateSourceTrigger=Explicit}" />
-                                            <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
-                                        </StackPanel>
-                                    </HierarchicalDataTemplate>
-                                    <HierarchicalDataTemplate DataType="{x:Type data:DataEntry}">
                                         <StackPanel Orientation="Horizontal">
                                             <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding Translations}" />
                                             <controls:EditableTextBlock Text="{Binding Path=EntryName, Mode=TwoWay}" />

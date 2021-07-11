@@ -16,11 +16,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>LibResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Outputs\SNES\SNESBassDataIncludeTemplate.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>SNESBassDataIncludeTemplate.tt</DependentUpon>
-    </Compile>
     <Compile Update="Outputs\SNES\SNESBassScriptIncludeTemplate.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -51,10 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Outputs\SNES\SNESBassDataIncludeTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>SNESBassDataIncludeTemplate.cs</LastGenOutput>
-    </None>
     <None Update="Outputs\SNES\SNESBassScriptIncludeTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>SNESBassScriptIncludeTemplate.cs</LastGenOutput>

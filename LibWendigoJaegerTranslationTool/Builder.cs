@@ -20,48 +20,27 @@ namespace WendigoJaeger.TranslationTool
                 OutputFile = settings.Project.Lang[targetLanguage].OutputFile,
             };
 
-            foreach (var script in settings.Scripts)
+            foreach (var script in settings.ScriptSettings)
             {
-                OutputScriptBank outputBank = new OutputScriptBank
+                OutputScriptBank outputScriptBank = new()
                 {
                     Name = script.Name,
-                    BankType = script.TextExtractor.BankType,
-                    FileName = script.Script.Path,
+                    FileName = script.ScriptFile.Path,
                     RAMAddress = script.DestinationRAMAddress,
-                    EndRAMAddress = script.DestinationEndRAMAddress
+                    EndRAMAddress = script.DestinationEndRAMAddress,
                 };
 
-                OutputConveter.ConvertScript(Reporter, targetLanguage, outputInfo.System.Endianess, script, outputBank);
+                OutputConveter.ConverScript(Reporter, targetLanguage, outputInfo.System.Endianess, script, outputScriptBank);
 
                 if (Reporter.HasErrors)
                 {
                     return;
                 }
 
-                outputInfo.Scripts.Add(outputBank);
+                outputInfo.ScriptBanks.Add(outputScriptBank);
             }
 
-            foreach(var data in settings.DataSettings)
-            {
-                OutputDataBank outputData = new()
-                {
-                    Name = data.Name,
-                    FileName = data.DataFile.Path,
-                    RAMAddress = data.DestinationRAMAddress,
-                    EndRAMAddress = data.DestinationEndRAMAddress,
-                };
-
-                OutputConveter.ConvertData(Reporter, targetLanguage, outputInfo.System.Endianess, data, outputData);
-
-                if (Reporter.HasErrors)
-                {
-                    return;
-                }
-
-                outputInfo.DataBanks.Add(outputData);
-            }
-
-            foreach(var graphics in settings.Graphics)
+            foreach (var graphics in settings.Graphics)
             {
                 var outputGraphics = new OutputGraphics
                 {
@@ -72,7 +51,7 @@ namespace WendigoJaeger.TranslationTool
                 outputInfo.Graphics.Add(outputGraphics);
             }
 
-            foreach(var assemblyFile in settings.AssemblyFileSettings)
+            foreach (var assemblyFile in settings.AssemblyFileSettings)
             {
                 outputInfo.AssemblyFiles.Add(new OutputAssemblyFile() { Path = assemblyFile.FilePath });
             }

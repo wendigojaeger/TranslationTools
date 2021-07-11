@@ -9,19 +9,11 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
 
         public OutputInfo OutputInfo { get; set; }
 
-        public IEnumerable<OutputScriptBank> Scripts
+        public IEnumerable<OutputScriptBank> ScriptBanks
         {
             get
             {
-                return OutputInfo.Scripts;
-            }
-        }
-
-        public IEnumerable<OutputDataBank> DataBanks
-        {
-            get
-            {
-                return OutputInfo.DataBanks;
+                return OutputInfo.ScriptBanks;
             }
         }
 
@@ -41,14 +33,9 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             }
         }
 
-        public static string IncludeFileName(OutputScriptBank script)
+        public static string IncludeFileName(OutputScriptBank scriptBank)
         {
-            return Path.ChangeExtension(script.FileName, ".inc");
-        }
-
-        public static string IncludeFileName(OutputDataBank dataBank)
-        {
-            return Path.ChangeExtension(dataBank.FileName, ".inc");
+            return Path.ChangeExtension(scriptBank.FileName, ".inc");
         }
     }
 }

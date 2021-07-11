@@ -259,15 +259,6 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data Extractor:.
-        /// </summary>
-        public static string labelDataExtractor {
-            get {
-                return ResourceManager.GetString("labelDataExtractor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Destination RAM Address:.
         /// </summary>
         public static string labelDestinationRamAddress {
@@ -484,6 +475,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Script Extractor:.
+        /// </summary>
+        public static string labelScriptExtractor {
+            get {
+                return ResourceManager.GetString("labelScriptExtractor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Source RAM Address:.
         /// </summary>
         public static string labelSourceRamAddress {
@@ -637,24 +637,6 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Data.
-        /// </summary>
-        public static string mnuData {
-            get {
-                return ResourceManager.GetString("mnuData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data Extract.
-        /// </summary>
-        public static string mnuDataExtract {
-            get {
-                return ResourceManager.GetString("mnuDataExtract", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string mnuEdit {
@@ -705,15 +687,6 @@ namespace WendigoJaeger.TranslationTool {
         public static string mnuProjectAddAssemblyFile {
             get {
                 return ResourceManager.GetString("mnuProjectAddAssemblyFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add Data....
-        /// </summary>
-        public static string mnuProjectAddData {
-            get {
-                return ResourceManager.GetString("mnuProjectAddData", resourceCulture);
             }
         }
         
@@ -835,15 +808,6 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Script Settings....
-        /// </summary>
-        public static string mnuScriptSettings {
-            get {
-                return ResourceManager.GetString("mnuScriptSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Output.
         /// </summary>
         public static string outputHeader {
@@ -858,15 +822,6 @@ namespace WendigoJaeger.TranslationTool {
         public static string projectHeaderCustomAssemblyFIle {
             get {
                 return ResourceManager.GetString("projectHeaderCustomAssemblyFIle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Data.
-        /// </summary>
-        public static string projectHeaderData {
-            get {
-                return ResourceManager.GetString("projectHeaderData", resourceCulture);
             }
         }
         
@@ -1011,15 +966,6 @@ namespace WendigoJaeger.TranslationTool {
         public static string windowCreateAssemblyFile {
             get {
                 return ResourceManager.GetString("windowCreateAssemblyFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create Data Settings.
-        /// </summary>
-        public static string windowCreateDataSettings {
-            get {
-                return ResourceManager.GetString("windowCreateDataSettings", resourceCulture);
             }
         }
         

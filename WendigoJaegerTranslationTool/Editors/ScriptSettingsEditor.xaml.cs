@@ -18,7 +18,7 @@ namespace WendigoJaeger.TranslationTool.Editors
     [EditorFor(typeof(ScriptSettings))]
     public partial class ScriptSettingsEditor : BaseScriptSettingsEditor
     {
-        static Type[] _cachedTextExtractorTypes = null;
+        private static Type[] _cachedScriptExtractorTypes;
 
         public override string WindowTitle => Instance.Name;
 
@@ -31,7 +31,7 @@ namespace WendigoJaeger.TranslationTool.Editors
         {
             DataContext = Instance;
 
-            Binding tableFileBinding = new Binding
+            Binding tableFileBinding = new()
             {
                 Source = Instance,
                 Path = new PropertyPath(nameof(Instance.TableFile)),
@@ -39,7 +39,7 @@ namespace WendigoJaeger.TranslationTool.Editors
             };
             tableFilePicker.SetBinding(RefObjectPtrControl.RefObjectPtrProperty, tableFileBinding);
 
-            Binding textPreviewBinding = new Binding
+            Binding textPreviewBinding = new()
             {
                 Source = Instance,
                 Path = new PropertyPath(nameof(Instance.TextPreview)),
@@ -79,35 +79,35 @@ namespace WendigoJaeger.TranslationTool.Editors
             };
             upDownEntries.SetBinding(UIntegerUpDown.ValueProperty, entriesBinding);
 
-            if (_cachedTextExtractorTypes == null)
+            if (_cachedScriptExtractorTypes == null)
             {
                 var query = from a in AppDomain.CurrentDomain.GetAssemblies()
                             from t in a.GetTypes()
                             where t.GetInterfaces().Contains(typeof(IScriptExtractor))
                             select t;
 
-                _cachedTextExtractorTypes = query.ToArray();
+                _cachedScriptExtractorTypes = query.ToArray();
             }
 
-            List<IScriptExtractor> textExtractors = new ();
+            List<IScriptExtractor> scriptExtractors = new();
 
-            foreach (var type in _cachedTextExtractorTypes)
+            foreach (var type in _cachedScriptExtractorTypes)
             {
-                textExtractors.Add((IScriptExtractor)Activator.CreateInstance(type));
+                scriptExtractors.Add((IScriptExtractor)Activator.CreateInstance(type));
             }
-            textExtractors.Sort((x, y) => x.Name.CompareTo(y.Name));
+            scriptExtractors.Sort((x, y) => x.Name.CompareTo(y.Name));
 
-            comboTextExtractors.ItemsSource = textExtractors;
+            comboScriptExtractors.ItemsSource = scriptExtractors;
 
             Binding textExtractorBinding = new()
             {
                 Source = Instance,
-                Path = new PropertyPath(nameof(Instance.TextExtractor)),
+                Path = new PropertyPath(nameof(Instance.ScriptExtractor)),
                 Mode = BindingMode.TwoWay,
             };
 
-            comboTextExtractors.SetBinding(ComboBox.SelectedItemProperty, textExtractorBinding);
-            comboTextExtractors.SelectedIndex = textExtractors.FindIndex(x => x.GetType().IsAssignableFrom(Instance.TextExtractor.GetType()));
+            comboScriptExtractors.SetBinding(ComboBox.SelectedItemProperty, textExtractorBinding);
+            comboScriptExtractors.SelectedIndex = scriptExtractors.FindIndex(x => x.GetType().IsAssignableFrom(Instance.ScriptExtractor.GetType()));
 
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;

@@ -17,12 +17,8 @@ macro seek(variable offset) {
 }
 <# } #>
 
-<# foreach(var script in Scripts) { #>
+<# foreach(var script in ScriptBanks) { #>
 include "<#=IncludeFileName(script)#>"
-<# } #>
-
-<# foreach(var data in DataBanks) { #>
-include "<#=IncludeFileName(data)#>"
 <# } #>
 
 <# foreach(var gfx in Graphics) { #>

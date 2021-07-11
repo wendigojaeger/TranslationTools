@@ -3,10 +3,10 @@ using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
 {
-    public class ScriptSettings : UndoObject
+    public class ScriptSettings  : UndoObject
     {
         private string _name = string.Empty;
-        private ExternalFile<ScriptFile> _script;
+        private ExternalFile<ScriptFile> _scriptFile;
         private RefObjectPtr<TableFile> _tableFile;
         private RefObjectPtr<TextPreviewInfo> _textPreview;
 
@@ -24,30 +24,30 @@ namespace WendigoJaeger.TranslationTool.Data
             }
         }
 
-        public ExternalFile<ScriptFile> Script
+        public ExternalFile<ScriptFile> ScriptFile
         {
             get
             {
-                if (_script == null)
+                if (_scriptFile == null)
                 {
-                    _script = new ExternalFile<ScriptFile>();
-                    _script.UndoArrayChanged += arrayProxy;
-                    _script.UndoPropertyChanged += undoProxy;
+                    _scriptFile = new ExternalFile<ScriptFile>();
+                    _scriptFile.UndoArrayChanged += arrayProxy;
+                    _scriptFile.UndoPropertyChanged += undoProxy;
                 }
 
-                return _script;
+                return _scriptFile;
             }
             set
             {
-                _script = value;
+                _scriptFile = value;
 
-                if (_script != null)
+                if (_scriptFile != null)
                 {
-                    _script.UndoArrayChanged -= arrayProxy;
-                    _script.UndoArrayChanged += arrayProxy;
+                    _scriptFile.UndoArrayChanged -= arrayProxy;
+                    _scriptFile.UndoArrayChanged += arrayProxy;
 
-                    _script.UndoPropertyChanged -= undoProxy;
-                    _script.UndoPropertyChanged += undoProxy;
+                    _scriptFile.UndoPropertyChanged -= undoProxy;
+                    _scriptFile.UndoPropertyChanged += undoProxy;
                 }
             }
         }
@@ -60,7 +60,7 @@ namespace WendigoJaeger.TranslationTool.Data
 
         public uint Entries { get; set; }
 
-        public IScriptExtractor TextExtractor { get; set; }
+        public IScriptExtractor ScriptExtractor { get; set; }
 
         public RefObjectPtr<TableFile> TableFile
         {
