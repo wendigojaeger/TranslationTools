@@ -35,7 +35,11 @@ namespace WendigoJaeger.TranslationTool.Creators
 
             newScriptSettings.ScriptExtractor = (IScriptExtractor)comboScriptExtractors.SelectedItem;
             newScriptSettings.TableFile.RefID = tableRefObjectPicker.SelectedRefObject.ID;
-            newScriptSettings.TextPreview.RefID = textPreviewRefObjectPicker.SelectedRefObject.ID;
+
+            if (textPreviewRefObjectPicker.SelectedRefObject != null)
+            {
+                newScriptSettings.TextPreview.RefID = textPreviewRefObjectPicker.SelectedRefObject.ID;
+            }
 
             newScriptSettings.ScriptFile.Path = ProjectSettings.GetAbsolutePath($"{textName.Text}.wtd");
 
