@@ -361,7 +361,7 @@
     <value>Nombre d'entrées:</value>
   </data>
   <data name="labelSourceRamAddress" xml:space="preserve">
-    <value>Source addresse RAM:</value>
+    <value>Source adresse RAM:</value>
   </data>
   <data name="labelDestinationRamAddress" xml:space="preserve">
     <value>Adresse RAM destination:</value>
@@ -434,5 +434,17 @@
   </data>
   <data name="buttonRemoveAdditonalFile" xml:space="preserve">
     <value>Enelever un fichier supplémentaire</value>
+  </data>
+  <data name="projectHeaderScriptDictionary" xml:space="preserve">
+    <value>Dictionaires de scripts</value>
+  </data>
+  <data name="mnuProjectAddScriptDictionary" xml:space="preserve">
+    <value>Ajouter un dictionaire de script...</value>
+  </data>
+  <data name="contextMenuScriptDictionaryExtract" xml:space="preserve">
+    <value>Extraire</value>
+  </data>
+  <data name="labelRamAddress" xml:space="preserve">
+    <value>Adresse RAM:</value>
   </data>
 </root>

@@ -22,6 +22,7 @@ namespace WendigoJaeger.TranslationTool
         public static RoutedUICommand AddFont = new RoutedUICommand(Resource.mnuProjectAddFont, "mnuProjectAddFont", typeof(CustomCommands));
         public static RoutedUICommand AddGraphics = new RoutedUICommand(Resource.mnuProjectAddGraphics, "mnuProjectAddGraphics", typeof(CustomCommands));
         public static RoutedUICommand AddPalette = new RoutedUICommand(Resource.mnuProjectAddPalette, "mnuProjectAddPalette", typeof(CustomCommands));
+        public static RoutedUICommand AddScriptDictionary = new RoutedUICommand(Resource.mnuProjectAddScriptDictionary, "mnuProjectAddScriptDictionary", typeof(CustomCommands));
         public static RoutedUICommand AddScript = new RoutedUICommand(Resource.mnuProjectAddScript, "mnuProjectAddScript", typeof(CustomCommands));
         public static RoutedUICommand AddTableFile = new RoutedUICommand(Resource.mnuProjectAddTableFile, "mnuProjectAddTableFile", typeof(CustomCommands));
         public static RoutedUICommand AddTextPreview = new RoutedUICommand(Resource.mnuProjectAddTextPreview, "mnuProjectAddTextPreview", typeof(CustomCommands));
@@ -30,6 +31,7 @@ namespace WendigoJaeger.TranslationTool
         public static RoutedUICommand Distribute = new RoutedUICommand(Resource.mnuBuildDistribute, "mnuBuildDistribute", typeof(CustomCommands));
         public static RoutedUICommand Exit = new RoutedUICommand(Resource.mnuFileExit, "mnuFileExit", typeof(CustomCommands), ShortcutCreator.Create(Key.F4, ModifierKeys.Alt));
         public static RoutedUICommand Run = new RoutedUICommand(Resource.mnuRun, "mnuRun", typeof(CustomCommands), ShortcutCreator.Create(Key.F6));
+        public static RoutedUICommand ScriptDictionaryExtract = new RoutedUICommand(Resource.contextMenuScriptDictionaryExtract, "contextMenuScriptDictionaryExtract", typeof(CustomCommands));
         public static RoutedUICommand ScriptExtract = new RoutedUICommand(Resource.mnuScriptExtract, "mnuScriptExtract", typeof(CustomCommands));
         public static RoutedUICommand ScriptNext = new RoutedUICommand(Resource.mnuScriptNext, "mnuScriptNext", typeof(CustomCommands), ShortcutCreator.Create(Key.NumPad2));
         public static RoutedUICommand ScriptPrevious = new RoutedUICommand(Resource.mnuScriptPrevious, "mnuScriptPrevious", typeof(CustomCommands), ShortcutCreator.Create(Key.NumPad8));

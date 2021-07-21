@@ -107,7 +107,10 @@ namespace WendigoJaeger.TranslationTool.Editors
             };
 
             comboScriptExtractors.SetBinding(ComboBox.SelectedItemProperty, textExtractorBinding);
-            comboScriptExtractors.SelectedIndex = scriptExtractors.FindIndex(x => x.GetType().IsAssignableFrom(Instance.ScriptExtractor.GetType()));
+            if (Instance.ScriptExtractor != null)
+            {
+                comboScriptExtractors.SelectedIndex = scriptExtractors.FindIndex(x => x.GetType().IsAssignableFrom(Instance.ScriptExtractor.GetType()));
+            }
 
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;

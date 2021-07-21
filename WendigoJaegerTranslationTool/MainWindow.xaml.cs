@@ -66,24 +66,34 @@ namespace WendigoJaeger.TranslationTool
 
             yield return new ProjectTreeSubEntry()
             {
+                Name = Resource.projectHeaderScriptDictionary,
+                Icon = new BitmapImage(new Uri("pack://application:,,,/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
+                List = projectSettings.ScriptDictionaries
+            };
+
+            yield return new ProjectTreeSubEntry()
+            {
                 Name = Resource.projectHeaderScripts,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Images/ScriptSettingsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.ScriptSettings
             };
 
-            yield return new ProjectTreeSubEntry() {
+            yield return new ProjectTreeSubEntry()
+            {
                 Name = Resource.projectHeaderGraphics,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Graphics
             };
 
-            yield return new ProjectTreeSubEntry() {
+            yield return new ProjectTreeSubEntry()
+            {
                 Name = Resource.projectHeaderFont,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Images/GraphicsIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Fonts
             };
 
-            yield return new ProjectTreeSubEntry() {
+            yield return new ProjectTreeSubEntry()
+            {
                 Name = Resource.projectHeaderPalettes,
                 Icon = new BitmapImage(new Uri("pack://application:,,,/Images/AssemblyFileIcon.png", UriKind.RelativeOrAbsolute)),
                 List = projectSettings.Palettes
@@ -523,6 +533,23 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+        private void AddScriptDictionary_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null;
+        }
+
+        private void AddScriptDictionary_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var newScriptDictionary = ObjectCreator.Create<ScriptDictionary>(ProjectSettings);
+
+            if (newScriptDictionary != null)
+            {
+                ProjectSettings.ScriptDictionaries.Add(newScriptDictionary);
+
+                showEditor(newScriptDictionary);
+            }
+        }
+
         private void AddScript_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null;
@@ -618,6 +645,25 @@ namespace WendigoJaeger.TranslationTool
                 showEditor(newTextPreviewInfo);
             }
         }
+
+        private void ScriptDictionaryExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptDictionary;
+        }
+
+        private void ScriptDictionaryExtract_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedScriptDictionary = treeViewProject.SelectedItem as ScriptDictionary;
+
+            if (selectedScriptDictionary != null)
+            {
+                if (selectedScriptDictionary.Extractor != null)
+                {
+                    selectedScriptDictionary.Extractor.Extract(ProjectSettings.Project, selectedScriptDictionary);
+                }
+            }
+        }
+
         private void ScriptExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptSettings;
@@ -629,7 +675,7 @@ namespace WendigoJaeger.TranslationTool
 
             if (selectedScriptSettings != null)
             {
-                if (selectedScriptSettings.ScriptFile != null)
+                if (selectedScriptSettings.ScriptFile != null && selectedScriptSettings.ScriptExtractor != null)
                 {
                     selectedScriptSettings.ScriptExtractor.Extract(ProjectSettings.Project, selectedScriptSettings);
                 }

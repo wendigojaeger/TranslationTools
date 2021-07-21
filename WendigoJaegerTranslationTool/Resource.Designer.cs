@@ -160,6 +160,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract.
+        /// </summary>
+        public static string contextMenuScriptDictionaryExtract {
+            get {
+                return ResourceManager.GetString("contextMenuScriptDictionaryExtract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string dataGridHeaderLanguage {
@@ -475,6 +484,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RAM Address:.
+        /// </summary>
+        public static string labelRamAddress {
+            get {
+                return ResourceManager.GetString("labelRamAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Script Extractor:.
         /// </summary>
         public static string labelScriptExtractor {
@@ -736,6 +754,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add Script Dictionary....
+        /// </summary>
+        public static string mnuProjectAddScriptDictionary {
+            get {
+                return ResourceManager.GetString("mnuProjectAddScriptDictionary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Table File....
         /// </summary>
         public static string mnuProjectAddTableFile {
@@ -849,6 +876,15 @@ namespace WendigoJaeger.TranslationTool {
         public static string projectHeaderPalettes {
             get {
                 return ResourceManager.GetString("projectHeaderPalettes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Dictionaries.
+        /// </summary>
+        public static string projectHeaderScriptDictionary {
+            get {
+                return ResourceManager.GetString("projectHeaderScriptDictionary", resourceCulture);
             }
         }
         

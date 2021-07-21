@@ -187,6 +187,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Script Dictionary 24-bit pointer Little Endian.
+        /// </summary>
+        public static string scriptDictionaryExtractor24BitLittleEndian {
+            get {
+                return ResourceManager.GetString("scriptDictionaryExtractor24BitLittleEndian", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Script Extractor 16-bit Pointer Little Endian.
         /// </summary>
         public static string scriptExtractorPointer16LittleEndian {

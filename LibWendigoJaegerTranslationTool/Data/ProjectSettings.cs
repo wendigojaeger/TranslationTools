@@ -160,6 +160,7 @@ namespace WendigoJaeger.TranslationTool.Data
         private UndoObservableCollection<TableFile> _tableFiles;
         private UndoObservableCollection<TextPreviewInfo> _textPreviewInfos;
         private UndoObservableCollection<ScriptSettings> _scriptSettings;
+        private UndoObservableCollection<ScriptDictionary> _scriptDictionaries;
 
         public Project Project
         {
@@ -385,6 +386,34 @@ namespace WendigoJaeger.TranslationTool.Data
 
                     _scriptSettings.UndoPropertyChanged -= undoProxy;
                     _scriptSettings.UndoPropertyChanged += undoProxy;
+                }
+            }
+        }
+
+        public UndoObservableCollection<ScriptDictionary> ScriptDictionaries
+        {
+            get
+            {
+                if (_scriptDictionaries == null)
+                {
+                    _scriptDictionaries = new();
+                    _scriptDictionaries.UndoArrayChanged += arrayProxy;
+                    _scriptDictionaries.UndoPropertyChanged += undoProxy;
+                }
+
+                return _scriptDictionaries;
+            }
+            set
+            {
+                _scriptDictionaries = value;
+
+                if (_scriptDictionaries != null)
+                {
+                    _scriptDictionaries.UndoArrayChanged -= arrayProxy;
+                    _scriptDictionaries.UndoArrayChanged += arrayProxy;
+
+                    _scriptDictionaries.UndoPropertyChanged -= undoProxy;
+                    _scriptDictionaries.UndoPropertyChanged += undoProxy;
                 }
             }
         }

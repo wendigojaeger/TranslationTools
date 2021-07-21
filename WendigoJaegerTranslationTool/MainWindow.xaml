@@ -23,6 +23,7 @@
         <CommandBinding Command="local:CustomCommands.AddGraphics" CanExecute="AddGraphics_CanExecute" Executed="AddGraphics_Executed" />
         <CommandBinding Command="local:CustomCommands.AddFont" CanExecute="AddFont_CanExecute" Executed="AddFont_Executed" />
         <CommandBinding Command="local:CustomCommands.AddPalette" CanExecute="AddPalette_CanExecute" Executed="AddPalette_Executed" />
+        <CommandBinding Command="local:CustomCommands.AddScriptDictionary" CanExecute="AddScriptDictionary_CanExecute" Executed="AddScriptDictionary_Executed" />
         <CommandBinding Command="local:CustomCommands.AddScript" CanExecute="AddScript_CanExecute" Executed="AddScript_Executed" />
         <CommandBinding Command="local:CustomCommands.AddTableFile" CanExecute="AddTableFile_CanExecute" Executed="AddTableFile_Executed" />
         <CommandBinding Command="local:CustomCommands.AddTextPreview" CanExecute="AddTextPreview_CanExecute" Executed="AddTextPreview_Executed" />
@@ -32,6 +33,7 @@
         <CommandBinding Command="local:CustomCommands.Distribute" CanExecute="Distribute_CanExecute" Executed="Distribute_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptExtract" CanExecute="ScriptExtract_CanExecute" Executed="ScriptExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
+        <CommandBinding Command="local:CustomCommands.ScriptDictionaryExtract" CanExecute="ScriptDictionaryExtract_CanExecute" Executed="ScriptDictionaryExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptNext" CanExecute="ScriptNext_CanExecute" Executed="ScriptNext_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptPrevious" CanExecute="ScriptPrevious_CanExecute" Executed="ScriptPrevious_Executed" />
         <CommandBinding Command="ApplicationCommands.New" Executed="New_Executed" />
@@ -67,6 +69,7 @@
             </MenuItem>
             <MenuItem Header="{x:Static i18n:Resource.mnuProject}">
                 <MenuItem Command="local:CustomCommands.AddTableFile" />
+                <MenuItem Command="local:CustomCommands.AddScriptDictionary" />
                 <MenuItem Command="local:CustomCommands.AddScript" />
                 <MenuItem Command="local:CustomCommands.AddAssemblyFile" />
                 <MenuItem Command="local:CustomCommands.AddGraphics" />
@@ -128,8 +131,24 @@
                                             <TextBlock Text="{Binding Name}" />
                                         </StackPanel>
                                     </HierarchicalDataTemplate>
+                                    <HierarchicalDataTemplate DataType="{x:Type data:ScriptDictionary}" ItemsSource="{Binding Scripts}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}">
+                                                <controls:EditableTextBlock.ContextMenu>
+                                                    <ContextMenu>
+                                                        <MenuItem Command="local:CustomCommands.ScriptDictionaryExtract" />
+                                                    </ContextMenu>
+                                                </controls:EditableTextBlock.ContextMenu>
+                                            </controls:EditableTextBlock>
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
                                     <HierarchicalDataTemplate DataType="{x:Type data:ScriptSettings}" ItemsSource="{Binding ScriptFile.Instance.Entries}">
                                         <StackPanel Orientation="Horizontal">
+                                            <StackPanel.ContextMenu>
+                                                <ContextMenu>
+                                                    <MenuItem Command="local:CustomCommands.ScriptExtract" />
+                                                </ContextMenu>
+                                            </StackPanel.ContextMenu>
                                             <controls:CountryStatusListControl Margin="4,0,0,0" ItemsSource="{Binding ScriptFile.Instance, Converter={StaticResource scriptFileProgressAggregator}, UpdateSourceTrigger=Explicit}" />
                                             <controls:EditableTextBlock Text="{Binding Path=Name, Mode=TwoWay}" />
                                         </StackPanel>

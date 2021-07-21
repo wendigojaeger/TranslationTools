@@ -3,7 +3,7 @@ using WendigoJaeger.TranslationTool.Undo;
 
 namespace WendigoJaeger.TranslationTool.Data
 {
-    public class ScriptSettings  : UndoObject
+    public class ScriptSettings : UndoObject
     {
         private string _name = string.Empty;
         private ExternalFile<ScriptFile> _scriptFile;

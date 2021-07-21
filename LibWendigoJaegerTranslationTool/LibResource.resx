@@ -142,4 +142,7 @@
   <data name="scriptExtractorPointer16LittleEndian" xml:space="preserve">
     <value>Script Extractor 16-bit Pointer Little Endian</value>
   </data>
+  <data name="scriptDictionaryExtractor24BitLittleEndian" xml:space="preserve">
+    <value>Script Dictionary 24-bit pointer Little Endian</value>
+  </data>
 </root>

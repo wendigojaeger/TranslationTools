@@ -435,4 +435,16 @@
   <data name="buttonRemoveAdditonalFile" xml:space="preserve">
     <value>Remove additional file</value>
   </data>
+  <data name="projectHeaderScriptDictionary" xml:space="preserve">
+    <value>Script Dictionaries</value>
+  </data>
+  <data name="mnuProjectAddScriptDictionary" xml:space="preserve">
+    <value>Add Script Dictionary...</value>
+  </data>
+  <data name="contextMenuScriptDictionaryExtract" xml:space="preserve">
+    <value>Extract</value>
+  </data>
+  <data name="labelRamAddress" xml:space="preserve">
+    <value>RAM Address:</value>
+  </data>
 </root>

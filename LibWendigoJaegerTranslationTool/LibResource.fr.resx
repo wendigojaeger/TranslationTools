@@ -162,4 +162,7 @@
   <data name="scriptExtractorPointer16LittleEndian" xml:space="preserve">
     <value>Extracteur de script pointées 16-bit</value>
   </data>
+  <data name="scriptDictionaryExtractor24BitLittleEndian" xml:space="preserve">
+    <value>Extracteur de dictionaire de scripts pointées 24-bit</value>
+  </data>
 </root>

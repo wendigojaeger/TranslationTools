@@ -83,7 +83,7 @@ namespace WendigoJaeger.TranslationTool
             }
             set
             {
-                RefID = value.ID;
+                RefID = (value != null) ? value.ID : Guid.Empty;
             }
         }
     }
