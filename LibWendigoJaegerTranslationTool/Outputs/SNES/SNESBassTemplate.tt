@@ -17,6 +17,14 @@ macro seek(variable offset) {
 }
 <# } #>
 
+<# foreach(var scriptDictionary in ScriptDictionaries) { #>
+seek($<#=scriptDictionary.RAMAddress.ToString("x")#>)
+<#=FormatEntryName(scriptDictionary.Name)#>:
+<# foreach(var script in scriptDictionary.Scripts) { #>
+dl <#=FormatScriptBankPointer(script)#>
+<# } #>
+<# } #>
+
 <# foreach(var script in ScriptBanks) { #>
 include "<#=IncludeFileName(script)#>"
 <# } #>

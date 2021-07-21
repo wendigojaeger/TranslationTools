@@ -16,6 +16,8 @@ namespace WendigoJaeger.TranslationTool.Outputs
 
         public List<OutputScriptBank> ScriptBanks { get; } = new List<OutputScriptBank>();
 
+        public List<OutputScriptDictionary> ScriptDictionaries { get; } = new List<OutputScriptDictionary>();
+
         public ISystem System { get; set; }
     }
 }

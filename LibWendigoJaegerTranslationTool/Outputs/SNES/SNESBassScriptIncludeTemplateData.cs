@@ -34,9 +34,9 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             return $"__{ScriptBank.RAMAddress:x}_{index}_{pointer}";
         }
 
-        public string FormatEntryName(string entryName)
+        public static string FormatEntryName(string entryName)
         {
-            return entryName.Replace(' ', '_');
+            return SNESBassTemplate.FormatEntryName(entryName);
         }
     }
 }

@@ -15,9 +15,12 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
 
         public override void Generate(Reporter reporter, OutputInfo outputInfo)
         {
-            foreach (var scriptBank in outputInfo.ScriptBanks)
+            foreach (OutputScriptBank scriptBank in outputInfo.ScriptBanks)
             {
-                generateScriptFile(outputInfo.BuildDirectory, scriptBank);
+                if (scriptBank.IsValid)
+                {
+                    generateScriptFile(outputInfo.BuildDirectory, scriptBank);
+                }
             }
 
             bool isLorom = !(outputInfo.System is SNESHiROM);

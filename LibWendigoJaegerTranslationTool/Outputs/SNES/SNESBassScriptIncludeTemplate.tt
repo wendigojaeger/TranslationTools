@@ -19,6 +19,13 @@ for(int entryIndex = 0; entryIndex < Entries.Count; ++entryIndex)
 
     OutputState state = OutputState.OutputDB;
 
+    if (entry.Data.Length == 0)
+    {
+#>
+<#= GenerateEntryName(entryIndex, pointerCount) #>:
+<#
+    }
+
     int dataIndex = 0;
     while(dataIndex < entry.Data.Length)
     {

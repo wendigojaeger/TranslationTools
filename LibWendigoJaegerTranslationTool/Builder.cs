@@ -12,7 +12,7 @@ namespace WendigoJaeger.TranslationTool
         {
             Reporter.Info("Build ROM for language '{0}'", targetLanguage);
 
-            OutputInfo outputInfo = new OutputInfo
+            OutputInfo outputInfo = new()
             {
                 BuildDirectory = Path.GetDirectoryName(settings.Path),
                 System = settings.Project.System,
@@ -20,27 +20,37 @@ namespace WendigoJaeger.TranslationTool
                 OutputFile = settings.Project.Lang[targetLanguage].OutputFile,
             };
 
-            foreach (var script in settings.ScriptSettings)
+            foreach (ScriptDictionary scriptDictionary in settings.ScriptDictionaries)
             {
-                OutputScriptBank outputScriptBank = new()
-                {
-                    Name = script.Name,
-                    FileName = script.ScriptFile.Path,
-                    RAMAddress = script.DestinationRAMAddress,
-                    EndRAMAddress = script.DestinationEndRAMAddress,
-                };
+                OutputScriptDictionary outputScriptDictionary = new();
+                outputScriptDictionary.Name = scriptDictionary.Name;
+                outputScriptDictionary.RAMAddress = scriptDictionary.RAMAddress;
 
-                OutputConveter.ConverScript(Reporter, targetLanguage, outputInfo.System.Endianess, script, outputScriptBank);
-
-                if (Reporter.HasErrors)
+                foreach (ScriptSettings script in scriptDictionary.Scripts)
                 {
-                    return;
+                    OutputScriptBank outputScriptBank = convertScriptSettingsToScriptBank(script, targetLanguage, outputInfo);
+                    if (outputScriptBank != null)
+                    {
+                        outputScriptDictionary.Scripts.Add(outputScriptBank);
+
+                        outputInfo.ScriptBanks.Add(outputScriptBank);
+                    }
                 }
 
-                outputInfo.ScriptBanks.Add(outputScriptBank);
+                outputInfo.ScriptDictionaries.Add(outputScriptDictionary);
             }
 
-            foreach (var graphics in settings.Graphics)
+            foreach (ScriptSettings script in settings.ScriptSettings)
+            {
+                OutputScriptBank outputScriptBank = convertScriptSettingsToScriptBank(script, targetLanguage, outputInfo);
+
+                if (outputScriptBank != null)
+                {
+                    outputInfo.ScriptBanks.Add(outputScriptBank);
+                }
+            }
+
+            foreach (GraphicsSettings graphics in settings.Graphics)
             {
                 var outputGraphics = new OutputGraphics
                 {
@@ -51,12 +61,32 @@ namespace WendigoJaeger.TranslationTool
                 outputInfo.Graphics.Add(outputGraphics);
             }
 
-            foreach (var assemblyFile in settings.AssemblyFileSettings)
+            foreach (AssemblyFileSettings assemblyFile in settings.AssemblyFileSettings)
             {
                 outputInfo.AssemblyFiles.Add(new OutputAssemblyFile() { Path = assemblyFile.FilePath });
             }
 
             settings.Project.OutputGenerator.Generate(Reporter, outputInfo);
+        }
+
+        private OutputScriptBank convertScriptSettingsToScriptBank(ScriptSettings script, string targetLanguage, OutputInfo outputInfo)
+        {
+            OutputScriptBank outputScriptBank = new()
+            {
+                Name = script.Name,
+                FileName = script.ScriptFile.Path,
+                RAMAddress = script.DestinationRAMAddress,
+                EndRAMAddress = script.DestinationEndRAMAddress,
+            };
+
+            OutputConveter.ConvertScript(Reporter, targetLanguage, outputInfo.System.Endianess, script, outputScriptBank);
+
+            if (Reporter.HasErrors)
+            {
+                return null;
+            }
+
+            return outputScriptBank;
         }
     }
 }

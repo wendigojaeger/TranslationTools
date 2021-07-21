@@ -9,11 +9,15 @@ namespace WendigoJaeger.TranslationTool.Outputs
     {
         private static readonly byte[] PointerArray = new byte[] { 0xDE, 0xAD, 0xBE, 0xEF };
 
-        public static void ConverScript(Reporter reporter, string targetLanguage, Endian endian, ScriptSettings scriptSettings, OutputScriptBank output)
+        public static void ConvertScript(Reporter reporter, string targetLanguage, Endian endian, ScriptSettings scriptSettings, OutputScriptBank output)
         {
             CorrespondenceTable table = new();
 
             var tableFile = scriptSettings.TableFile.Instance;
+            if (tableFile == null)
+            {
+                return;
+            }
 
             string tblFileName = tableFile.GetTargetTable(targetLanguage).Path;
             string tblPath = Path.Combine(ConfigSerializer.RootDirectory, tblFileName);

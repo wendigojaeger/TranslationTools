@@ -29,5 +29,7 @@ namespace WendigoJaeger.TranslationTool.Outputs
         public List<OutputScriptEntry> Entries { get; } = new List<OutputScriptEntry>();
 
         public List<OutputScriptPointer> Pointers { get; } = new List<OutputScriptPointer>();
+
+        public bool IsValid => RAMAddress > 0 && Entries.Count > 0;
     }
 }
