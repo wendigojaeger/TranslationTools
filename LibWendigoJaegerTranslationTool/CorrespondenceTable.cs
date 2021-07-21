@@ -12,6 +12,8 @@ namespace WendigoJaeger.TranslationTool
         public TValue Value { get; set; }
         public List<TrieNode<TKey, TValue>> Children { get; } = new List<TrieNode<TKey, TValue>>();
 
+        public bool IsTerminator { get; set; }
+
         public bool IsLeaf
         {
             get
@@ -70,6 +72,28 @@ namespace WendigoJaeger.TranslationTool
 
             currentNode.Value = value;
         }
+
+        public void InsertTerminator(byte terminator)
+        {
+            TrieNode<byte, string> currentNode = Root;
+
+            var nextNode = currentNode.Find(terminator);
+            if (nextNode != null)
+            {
+                currentNode = nextNode;
+            }
+            else
+            {
+                var newNode = new TrieNode<byte, string>();
+                newNode.Key = terminator;
+
+                currentNode.Children.Add(newNode);
+
+                currentNode = newNode;
+            }
+
+            currentNode.IsTerminator = true;
+        }
     }
 
     public class StringToByteTrie
@@ -125,10 +149,21 @@ namespace WendigoJaeger.TranslationTool
                         string rawKey = line.Substring(0, equalPosition);
                         string rawValue = line.Substring(equalPosition + 1);
 
-                        byte[] key = BitConverter.GetBytes(uint.Parse(rawKey, System.Globalization.NumberStyles.HexNumber));
-                        key = key.Where(x => x > 0).ToArray();
+                        uint intKey = uint.Parse(rawKey, System.Globalization.NumberStyles.HexNumber);
 
-                        if (endianess == Endian.Big)
+                        uint tempKey = intKey;
+                        int numberOfBytes = 0;
+                        do
+                        {
+                            tempKey >>= 8;
+                            ++numberOfBytes;
+                        }
+                        while (tempKey != 0);
+
+                        byte[] key = BitConverter.GetBytes(intKey);
+                        key = key[0..numberOfBytes];
+
+                        if (key.Length > 1)
                         {
                             key = key.Reverse().ToArray();
                         }

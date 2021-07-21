@@ -50,6 +50,8 @@ namespace WendigoJaeger.TranslationTool.Extractors
             string tblPath = Path.Combine(ConfigSerializer.RootDirectory, tableFile.SourceTableFile);
             table.Parse(project.System.Endianess, tblPath);
 
+            table.BytesToString.InsertTerminator(tableFile.Terminator);
+
             List<RawExtractedData> extractedData = new();
             List<PointerToExtractedData> pointerToExtracterData = new();
 
@@ -95,13 +97,26 @@ namespace WendigoJaeger.TranslationTool.Extractors
                         newExtracterData.StartAddress = currentRamPointer;
                         newExtracterData.Pointers.Add(currentRamPointer);
 
-                        byte readByte = reader.ReadByte();
+                        TrieNode<byte, string> byteToStringNode = table.BytesToString.Root;
 
-                        while (readByte != tableFile.Terminator)
+                        byte readByte = reader.ReadByte();
+                        byteToStringNode = byteToStringNode.Find(readByte);
+
+                        while (byteToStringNode == null || !byteToStringNode.IsTerminator)
                         {
                             newExtracterData.RawData.Add(readByte);
 
+                            if (byteToStringNode != null && byteToStringNode.IsValid)
+                            {
+                                byteToStringNode = table.BytesToString.Root;
+                            }
+                            else if (byteToStringNode == null || byteToStringNode.IsLeaf)
+                            {
+                                byteToStringNode = table.BytesToString.Root;
+                            }
+
                             readByte = reader.ReadByte();
+                            byteToStringNode = byteToStringNode.Find(readByte);
                         }
 
                         extractedData.Add(newExtracterData);
