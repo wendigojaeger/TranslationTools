@@ -112,6 +112,8 @@ namespace WendigoJaeger.TranslationTool.Editors
                 comboScriptExtractors.SelectedIndex = scriptExtractors.FindIndex(x => x.GetType().IsAssignableFrom(Instance.ScriptExtractor.GetType()));
             }
 
+            listBoxPointerList.ItemsSource = Instance.ScriptFile.Instance.Pointers;
+
             Instance.PropertyChanged -= updateWindowTitle;
             Instance.PropertyChanged += updateWindowTitle;
         }
@@ -122,6 +124,11 @@ namespace WendigoJaeger.TranslationTool.Editors
             {
                 refreshWindowTitle();
             }
+        }
+
+        private void listBoxPointerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listBoxPointerList.ToolTip = $"{listBoxPointerList.SelectedItems.Count} selected item(s)";
         }
     }
 }

@@ -23,6 +23,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
         <Label Grid.Row="0" Grid.Column="0" Content="{x:Static i18n:Resource.labelTableFile}" HorizontalAlignment="Right"/>
@@ -51,5 +52,20 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+
+        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2">
+            <ListBox x:Name="listBoxPointerList" Margin="0,3,0,0" SelectionMode="Extended" SelectionChanged="listBoxPointerList_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Pointer.Instance.EntryName}" />
+                        <TextBlock Text=" (Pointer #"/>
+                        <TextBlock Text="{Binding PointerIndex, StringFormat=D3}" />
+                        <TextBlock Text=")" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
     </Grid>
 </local:BaseScriptSettingsEditor>
