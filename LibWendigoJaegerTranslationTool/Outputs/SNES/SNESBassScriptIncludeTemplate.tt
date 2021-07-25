@@ -21,9 +21,13 @@ for(int entryIndex = 0; entryIndex < Entries.Count; ++entryIndex)
 
     if (entry.Data.Length == 0)
     {
+        pointerCount = GetPointerCount(entry);
+        for(int pointerIndex = 0; pointerIndex < pointerCount; ++pointerIndex)
+        {
 #>
-<#= GenerateEntryName(entryIndex, pointerCount) #>:
+<#= GenerateEntryName(entryIndex, pointerIndex) #>:
 <#
+        }
     }
 
     int dataIndex = 0;

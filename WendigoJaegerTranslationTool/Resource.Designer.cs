@@ -169,6 +169,15 @@ namespace WendigoJaeger.TranslationTool {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extract All.
+        /// </summary>
+        public static string contextMenuScriptDictionaryExtractAll {
+            get {
+                return ResourceManager.GetString("contextMenuScriptDictionaryExtractAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string dataGridHeaderLanguage {

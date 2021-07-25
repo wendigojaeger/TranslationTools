@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Linq;
-using WendigoJaeger.TranslationTool.Data;
+﻿using Newtonsoft.Json;
 using System;
-using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using WendigoJaeger.TranslationTool.Data;
 
 namespace WendigoJaeger.TranslationTool.Extractors
 {
-    public class ScriptExtractorPointer16LittleEndian : IScriptExtractor
+    class ScreenDataExtractor : IScriptExtractor
     {
         class RawExtractedData
         {
@@ -35,7 +35,7 @@ namespace WendigoJaeger.TranslationTool.Extractors
         }
 
         [JsonIgnore]
-        public virtual string Name => LibResource.scriptExtractorPointer16LittleEndian;
+        public string Name => "Screen Data Extractor";
 
         public void Extract(Project project, ScriptSettings settings)
         {
@@ -83,9 +83,7 @@ namespace WendigoJaeger.TranslationTool.Extractors
 
                     long currentRamPointer = (highPointer << 8) | lowPointer;
 
-                    long physicalDataAddress = project.System.RAMToPhysical(project.System.AbsoluteRAMAddress(currentRamPointer));
-
-                    RawExtractedData foundExtractedData = extractedData.Where(x => x.Inside(currentRamPointer)).FirstOrDefault();
+                    RawExtractedData foundExtractedData = extractedData.FirstOrDefault(x => x.Inside(currentRamPointer));
                     if (foundExtractedData != null)
                     {
                         pointerToExtracterData.Add(new PointerToExtractedData()
@@ -101,33 +99,9 @@ namespace WendigoJaeger.TranslationTool.Extractors
                     }
                     else
                     {
-                        reader.BaseStream.Seek(physicalDataAddress, SeekOrigin.Begin);
-
                         RawExtractedData newExtracterData = new();
                         newExtracterData.StartAddress = currentRamPointer;
                         newExtracterData.Pointers.Add(currentRamPointer);
-
-                        TrieNode<byte, string> byteToStringNode = table.BytesToString.Root;
-
-                        byte readByte = reader.ReadByte();
-                        byteToStringNode = byteToStringNode.Find(readByte);
-
-                        while (byteToStringNode == null || !byteToStringNode.IsTerminator)
-                        {
-                            newExtracterData.RawData.Add(readByte);
-
-                            if (byteToStringNode != null && byteToStringNode.IsValid)
-                            {
-                                byteToStringNode = table.BytesToString.Root;
-                            }
-                            else if (byteToStringNode == null || byteToStringNode.IsLeaf)
-                            {
-                                byteToStringNode = table.BytesToString.Root;
-                            }
-
-                            readByte = reader.ReadByte();
-                            byteToStringNode = byteToStringNode.Find(readByte);
-                        }
 
                         extractedData.Add(newExtracterData);
                         pointerToExtracterData.Add(new PointerToExtractedData()
@@ -135,14 +109,103 @@ namespace WendigoJaeger.TranslationTool.Extractors
                             Pointer = currentRamPointer,
                             ExtractedData = newExtracterData
                         });
-
-                        sourcePhysicalEndAddress = Math.Max(reader.BaseStream.Position, sourcePhysicalEndAddress);
                     }
 
                     physicalPointerAddress += 2;
                 }
 
                 extractedData.Sort((x, y) => x.StartAddress.CompareTo(y.StartAddress));
+
+                int extractIndex = 0;
+                for(; extractIndex < (extractedData.Count - 1); ++extractIndex)
+                {
+                    long startAddress = extractedData[extractIndex].StartAddress;
+                    long endAddress = extractedData[extractIndex + 1].StartAddress;
+
+                    int size = (int)(endAddress - startAddress - 1);
+
+                    long physicalDataAddress = project.System.RAMToPhysical(project.System.AbsoluteRAMAddress(startAddress));
+
+                    reader.BaseStream.Seek(physicalDataAddress, SeekOrigin.Begin);
+
+                    extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(size));
+
+                    sourcePhysicalEndAddress = Math.Max(reader.BaseStream.Position, sourcePhysicalEndAddress);
+                }
+
+                if (extractIndex < extractedData.Count)
+                {
+                    long startAddress = extractedData[extractIndex].StartAddress;
+                    long physicalDataAddress = project.System.RAMToPhysical(project.System.AbsoluteRAMAddress(startAddress));
+
+                    reader.BaseStream.Seek(physicalDataAddress, SeekOrigin.Begin);
+
+                    byte readByte = reader.ReadByte();
+
+                    bool readingText = true;
+
+                    while (readingText)
+                    {
+                        extractedData[extractIndex].RawData.Add(readByte);
+
+                        switch (readByte)
+                        {
+                            case 0xF0:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(3));
+                                break;
+                            case 0xF1:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(2));
+                                break;
+                            case 0xF2:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(3));
+                                break;
+                            case 0xF3:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(3));
+                                break;
+                            case 0xF4:
+                                break;
+                            case 0xF5:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(1));
+                                break;
+                            case 0xF6:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(1));
+                                break;
+                            case 0xF7:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(2));
+                                break;
+                            case 0xF8:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(1));
+                                break;
+                            case 0xF9:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(4));
+                                break;
+                            case 0xFA:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(1));
+                                break;
+                            case 0xFB:
+                                break;
+                            case 0xFC:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(2));
+                                break;
+                            case 0xFD:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(2));
+                                break;
+                            case 0xFE:
+                                extractedData[extractIndex].RawData.AddRange(reader.ReadBytes(1));
+                                break;
+                            case 0xFF:
+                                extractedData[extractIndex].RawData.RemoveAt(extractedData[extractIndex].RawData.Count - 1);
+                                readingText = false;
+                                break;
+                            default:
+                                break;
+                        }
+
+                        readByte = reader.ReadByte();
+                    }
+
+                    sourcePhysicalEndAddress = Math.Max(reader.BaseStream.Position, sourcePhysicalEndAddress);
+                }
 
                 foreach (var data in extractedData)
                 {
@@ -166,13 +229,13 @@ namespace WendigoJaeger.TranslationTool.Extractors
                     Queue<TrieNode<byte, string>> recognizeQueue = new();
 
                     int pointerCount = 0;
-                    for (int i = 0; i < data.RawData.Count; ++i)
+                    for(int dataIndex = 0; dataIndex < data.RawData.Count; ++dataIndex)
                     {
-                        byte value = data.RawData[i];
+                        byte value = data.RawData[dataIndex];
 
                         if (relativePointers.Count > 0)
                         {
-                            if (relativePointers.Peek() == i)
+                            if (relativePointers.Peek() == dataIndex)
                             {
                                 lineBuilder.Append($"<PTR{pointerCount:d3}>");
 

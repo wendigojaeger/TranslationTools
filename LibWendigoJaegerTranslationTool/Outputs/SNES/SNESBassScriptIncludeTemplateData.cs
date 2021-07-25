@@ -29,6 +29,21 @@ namespace WendigoJaeger.TranslationTool.Outputs.SNES
             }
         }
 
+        public int GetPointerCount(OutputScriptEntry entry)
+        {
+            int pointerCount = 0;
+
+            foreach(var pointer in ScriptBank.Pointers)
+            {
+                if (pointer.Entry == entry)
+                {
+                    ++pointerCount;
+                }
+            }
+
+            return pointerCount;
+        }
+
         public string GenerateEntryName(int index, int pointer = 0)
         {
             return $"__{ScriptBank.RAMAddress:x}_{index}_{pointer}";

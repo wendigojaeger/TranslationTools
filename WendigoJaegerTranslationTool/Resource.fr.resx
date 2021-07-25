@@ -447,4 +447,7 @@
   <data name="labelRamAddress" xml:space="preserve">
     <value>Adresse RAM:</value>
   </data>
+  <data name="contextMenuScriptDictionaryExtractAll" xml:space="preserve">
+    <value>Extraire Tout</value>
+  </data>
 </root>

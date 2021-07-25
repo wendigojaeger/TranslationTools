@@ -32,6 +32,7 @@
         <CommandBinding Command="local:CustomCommands.BuildAll" CanExecute="BuildAll_CanExecute" Executed="BuildAll_Executed" />
         <CommandBinding Command="local:CustomCommands.Distribute" CanExecute="Distribute_CanExecute" Executed="Distribute_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptExtract" CanExecute="ScriptExtract_CanExecute" Executed="ScriptExtract_Executed" />
+        <CommandBinding Command="local:CustomCommands.ExtractAll" CanExecute="ScriptDictionaryExtractAll_CanExecute" Executed="ScriptDictionaryExtractAll_Executed" />
         <CommandBinding Command="local:CustomCommands.Exit" Executed="Exit_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptDictionaryExtract" CanExecute="ScriptDictionaryExtract_CanExecute" Executed="ScriptDictionaryExtract_Executed" />
         <CommandBinding Command="local:CustomCommands.ScriptNext" CanExecute="ScriptNext_CanExecute" Executed="ScriptNext_Executed" />
@@ -137,6 +138,7 @@
                                                 <controls:EditableTextBlock.ContextMenu>
                                                     <ContextMenu>
                                                         <MenuItem Command="local:CustomCommands.ScriptDictionaryExtract" />
+                                                        <MenuItem Command="local:CustomCommands.ExtractAll" />
                                                     </ContextMenu>
                                                 </controls:EditableTextBlock.ContextMenu>
                                             </controls:EditableTextBlock>

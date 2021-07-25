@@ -646,6 +646,27 @@ namespace WendigoJaeger.TranslationTool
             }
         }
 
+        private void ScriptDictionaryExtractAll_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptDictionary;
+        }
+
+        private void ScriptDictionaryExtractAll_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var selectedScriptDictionary = treeViewProject.SelectedItem as ScriptDictionary;
+
+            if (selectedScriptDictionary != null)
+            {
+                foreach(ScriptSettings scriptSettings in selectedScriptDictionary.Scripts)
+                {
+                    if (scriptSettings.ScriptFile != null && scriptSettings.ScriptExtractor != null)
+                    {
+                        scriptSettings.ScriptExtractor.Extract(ProjectSettings.Project, scriptSettings);
+                    }
+                }
+            }
+        }
+
         private void ScriptDictionaryExtract_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = ProjectSettings != null && treeViewProject.SelectedItem is ScriptDictionary;
